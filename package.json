@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8000",
+    "dev": "next dev -p 5000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,10 +16,13 @@
     "@mui/system": "^5.15.15",
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.2.5",
+    "axios": "^1.7.2",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "next": "14.2.3",
-    "qrcode.react": "^3.1.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-qrcode-logo": "^3.0.0",
     "react-redux": "^9.1.2"
   },
   "devDependencies": {

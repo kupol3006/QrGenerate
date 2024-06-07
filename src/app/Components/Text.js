@@ -6,7 +6,7 @@ import QrCode2SharpIcon from '@mui/icons-material/QrCode2Sharp';
 import { useDispatch, useSelector } from 'react-redux';
 import { setText } from '../redux/slices/qrCodeSlice';
 
-const LinkQRGenerator = () => {
+const TextForm = () => {
     const dispatch = useDispatch();
     const [text1, setText1] = useState('');
     const [qrValue, setQrValue] = useState('');
@@ -27,26 +27,17 @@ const LinkQRGenerator = () => {
             m={2}
         >
             <Typography variant="h4" gutterBottom lineHeight={'10px'} fontWeight={'bold'}>
-                Nhập địa chỉ website
+                QR Code Văn bản
             </Typography>
             <TextField
-                // label="Nhập địa chỉ website"
-                placeholder='Nhập địa chỉ website'
-                variant="outlined"
+                placeholder='Nhập văn bản thay thế'
+                multiline
+                rows={10}
                 value={text1}
                 onChange={(e) => setText1(e.target.value)}
+                variant="outlined"
                 fullWidth
-                size='small'
                 margin="normal"
-                sx={{
-                    '& .MuiOutlinedInput-root': {
-                        borderRadius: '20px', // Điều chỉnh độ cong góc
-                    },
-                    '& .MuiInputBase-input': {
-                        // padding: '10px 10px', // Điều chỉnh padding
-                        fontSize: '16px', // Điều chỉnh font chữ
-                    },
-                }}
             />
             <Grid container justifyContent="flex-end">
                 <Button
@@ -64,6 +55,7 @@ const LinkQRGenerator = () => {
                             backgroundColor: '#00ACC1', // Màu xanh đậm hơn khi hover
                         },
                         borderRadius: '20px', // Điều chỉnh độ cong góc
+                        marginTop: '10px',
                     }}
                     onClick={handleGenerate}
                 >
@@ -71,15 +63,8 @@ const LinkQRGenerator = () => {
                     Tạo QR Code
                 </Button>
             </Grid>
-            {/* {
-                qrValue && (
-                    <Box mt={4}>
-                        <QRCode value={qrValue} />
-                    </Box>
-                )
-            } */}
         </Box >
     );
 };
 
-export default LinkQRGenerator;
+export default TextForm;
