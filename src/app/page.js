@@ -17,7 +17,7 @@ export default function Home() {
   const link = useSelector((state) => state.qrCode.link);
   return (
     <div className="w-full min-h-screen max-h-[8000px] bg-gradient-to-r from-purple-500 to-pink-500 pb-[50px]">
-      <div className="max-w-[1237px] m-auto flex flex-row justify-center gap-[10px] pt-[70px]">
+      <div className="max-w-[1237px] m-auto flex flex-row justify-center gap-[10px] pt-[90px]">
         <div className="max-w-[876px] min-h-[676px] bg-[#fff] rounded-[8px] p-[4px]">
           <CustomizedTabs />
           {link === 0 && <LinkQRGenerator />}
