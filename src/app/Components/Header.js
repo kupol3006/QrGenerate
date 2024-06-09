@@ -14,14 +14,17 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 const Header = () => {
     return (
         <StyledAppBar position="fixed" className='w-full flex justify-between items-center'>
-            <Toolbar className='max-w-[1280px] min-w-[1280px] ma'>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    <Image src="/logo.jpg" alt="logo" width={150} height={150} />
-                </Typography>
-                <Link href="/" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }}>
+            <Toolbar className='2xl:w-[1280px] w-[100%] '>
+                <Link href="/" underline="hover" style={{ marginRight: 20, display: 'flex', alignItems: 'center', color: '#000000', fontWeight: 'bold', flexGrow: 1 }}>
+                    <Image src="/LOGO.png" alt="logo" width={50} height={50} />
+                    <Typography variant="h6" style={{ display: 'inline-block', marginLeft: 10, fontWeight: 'bold', color: '#692873', fontSize: '16px' }}>
+                        QR Code Generator
+                    </Typography>
+                </Link>
+                <Link href="/" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold', }}>
                     Tạo QR Code
                 </Link>
-                <Link href="" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }}>
+                <Link href="/Scan" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }}>
                     Quét QR Code
                 </Link>
             </Toolbar>

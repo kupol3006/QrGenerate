@@ -17,15 +17,16 @@ const FacebookForm = () => {
     };
 
     return (
-        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 4 }}>
-            <Typography variant="h5" fontWeight={'bold'} lineHeight={''}>Chia sẻ lên tường</Typography>
-            <div className='flex items-center justify-between gap-4'>
-                <Typography variant="h6" sx={{ fontSize: '16px' }}>Link bài viết cần đăng lên tường</Typography>
+        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 0, padding: "10px" }}>
+            <Typography variant="h5" fontWeight={'bold'} lineHeight={''} sx={{ '@media (max-width: 600px)': { marginTop: '20px', textAlign: 'center' } }}>Chia sẻ lên tường</Typography>
+            <div className='flex flex-col items-start justify-between gap-1 mt-[20px] sm:flex-row sm:gap-4 sm:items-center'>
+                <Typography variant="h6" sx={{ fontSize: '15px' }}>Link bài viết cần đăng lên tường</Typography>
                 <TextField
                     placeholder="Link bài viết cần đăng lên tường"
                     variant="outlined"
                     fullWidth
                     margin="normal"
+                    size='small'
                     value={link}
                     onChange={(e) => setLink(e.target.value)}
                 />

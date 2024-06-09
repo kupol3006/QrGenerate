@@ -21,52 +21,57 @@ const BitcoinForm = () => {
     };
 
     return (
-        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 4 }}>
-            <Typography variant="h5" fontWeight={'bold'} lineHeight={''}>Tạo QR Code Bitcoin</Typography>
-            <FormControl component="fieldset" sx={{ mt: 2, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <Typography variant="h6" sx={{ fontSize: '18px' }}>Tiền điện tử</Typography>
+        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 0, padding: '10px' }}>
+            <Typography variant="h5" fontWeight={'bold'} lineHeight={''} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>Tạo QR Code Bitcoin</Typography>
+            <FormControl component="fieldset" sx={{ mt: 2, display: 'flex', flexDirection: 'row', alignItems: 'center', '@media (max-width: 600px)': { display: 'flex', flexDirection: 'column', alignItems: 'flex-start' } }}>
+                <Typography variant="h6" sx={{ fontSize: '15px', width: '170px' }}>Tiền điện tử</Typography>
                 <RadioGroup
                     row
                     value={cryptoType}
                     onChange={(e) => setCryptoType(e.target.value)}
                     sx={{ ml: 10 }}
                 >
-                    <FormControlLabel value="bitcoin" control={<Radio />} label="Bitcoin" />
-                    <FormControlLabel value="bitcoincash" control={<Radio />} label="Bitcoin Cash" />
-                    <FormControlLabel value="ether" control={<Radio />} label="Ether" />
-                    <FormControlLabel value="litecoin" control={<Radio />} label="Litecoin" />
-                    <FormControlLabel value="dash" control={<Radio />} label="Dash" />
+                    <FormControlLabel value="bitcoin" control={<Radio />} label="Bitcoin" sx={{ '.MuiFormControlLabel-label': { fontSize: '13px' } }} />
+                    <FormControlLabel value="bitcoincash" control={<Radio />} label="Bitcoin Cash" sx={{ '.MuiFormControlLabel-label': { fontSize: '13px' } }} />
+                    <FormControlLabel value="ether" control={<Radio />} label="Ether" sx={{ '.MuiFormControlLabel-label': { fontSize: '13px' } }} />
+                    <FormControlLabel value="litecoin" control={<Radio />} label="Litecoin" sx={{ '.MuiFormControlLabel-label': { fontSize: '13px' } }} />
+                    <FormControlLabel value="dash" control={<Radio />} label="Dash" sx={{ '.MuiFormControlLabel-label': { fontSize: '13px' } }} />
                 </RadioGroup>
             </FormControl>
-            <div className='flex gap-6 items-center justify-between'>
-                <Typography variant="h6" sx={{ fontSize: '18px' }}>Số lượng</Typography>
+            <div className='flex flex-col gap-1 items-start justify-start sm:flex-row sm:justify-between sm:gap-6 sm:items-center'>
+                <Typography variant="h6" sx={{ fontSize: '15px', width: '170px' }}>Số lượng</Typography>
                 <TextField
                     placeholder='Số lượng'
                     variant="outlined"
-                    sx={{ width: 630 }}
+                    fullWidth
                     margin="normal"
+                    size='small'
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                 />
             </div>
-            <div className='flex gap-6 items-center justify-between'>
-                <Typography variant="h6" sx={{ fontSize: '18px' }}>Địa chỉ ví nhận</Typography>
+            <div className='flex flex-col gap-1 items-start justify-start sm:flex-row sm:justify-between sm:gap-6 sm:items-center'>
+                <Typography variant="h6" sx={{ fontSize: '15px', width: '170px' }}>Địa chỉ ví nhận</Typography>
                 <TextField
                     placeholder='Địa chỉ ví nhận'
                     variant="outlined"
-                    sx={{ width: 630 }}
+                    // sx={{ width: 630 }}
+                    fullWidth
                     margin="normal"
+                    size='small'
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                 />
             </div>
-            <div className='flex gap-6 items-center justify-between'>
-                <Typography variant="h6" sx={{ fontSize: '18px' }}>Nôi dung</Typography>
+            <div className='flex flex-col gap-1 items-start justify-start sm:flex-row sm:justify-between sm:gap-6 sm:items-center'>
+                <Typography variant="h6" sx={{ fontSize: '15px', width: '170px' }}>Nôi dung</Typography>
                 <TextField
                     placeholder="Nội dung"
                     variant="outlined"
-                    sx={{ width: 630 }}
+                    // sx={{ width: 630 }}
+                    fullWidth
                     margin="normal"
+                    size='small'
                     value={label}
                     onChange={(e) => setLabel(e.target.value)}
                 />

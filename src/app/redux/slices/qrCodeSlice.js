@@ -26,7 +26,7 @@ const initialState = {
     color: 'black',
     isLoading: false,
     data: [],
-
+    userBank: {},
 }
 
 export const qrCodeSlice = createSlice({
@@ -57,6 +57,9 @@ export const qrCodeSlice = createSlice({
         setColor: (state, action) => {
             state.color = action.payload
         },
+        setUserBank: (state, action) => {
+            state.userBank = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -74,6 +77,6 @@ export const qrCodeSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setText, setLink, updateImageObject, setTextImage, setX, setY, setShape, setColor } = qrCodeSlice.actions
+export const { setText, setLink, updateImageObject, setTextImage, setX, setY, setShape, setColor, setUserBank } = qrCodeSlice.actions
 
 export default qrCodeSlice.reducer

@@ -5,6 +5,7 @@ import { QRCode } from 'react-qrcode-logo';
 import { useDispatch, useSelector } from 'react-redux';
 import { setText } from '../redux/slices/qrCodeSlice';
 import QrCode2SharpIcon from '@mui/icons-material/QrCode2Sharp';
+import { display } from '@mui/system';
 
 
 const WifiForm = () => {
@@ -22,52 +23,59 @@ const WifiForm = () => {
     };
 
     return (
-        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 2 }}>
-            <Typography variant="h5" fontWeight={'bold'} lineHeight={''}>Tạo QR Code Wifi</Typography>
-            <div className='flex gap-6 items-center justify-between'>
-                <Typography variant="h6">Tên wifi</Typography>
-                <TextField
-                    // label="Tên wifi"
-                    placeholder='Nhập tên wifi của bạn'
-                    variant="outlined"
-                    sx={{ width: 550 }}
-                    margin="normal"
-                    value={ssid}
-                    onChange={(e) => setSsid(e.target.value)}
-                />
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={hidden}
-                            onChange={(e) => setHidden(e.target.checked)}
-                        />
-                    }
-                    label="Wifi ẩn"
-                />
+        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 0, padding: '15px' }}>
+            <Typography variant="h5" fontWeight={'bold'} lineHeight={''} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>Tạo QR Code Wifi</Typography>
+            <div className='flex flex-col gap-0 items-start justify-between mt-[20px] sm:flex-row sm:items-center sm:gap-6'>
+                <Typography variant="h6" className='w-[150px] text-[15px]' >Tên wifi</Typography>
+                <Box sx={{ width: '100%', display: 'flex', gap: '10px' }}>
+                    <TextField
+                        // label="Tên wifi"
+                        placeholder='Nhập tên wifi của bạn'
+                        variant="outlined"
+                        // sx={{ width: 550 }}
+                        fullWidth
+                        margin="normal"
+                        size='small'
+                        value={ssid}
+                        onChange={(e) => setSsid(e.target.value)}
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={hidden}
+                                onChange={(e) => setHidden(e.target.checked)}
+                            />
+                        }
+                        label="Wifi ẩn"
+                        sx={{ '.MuiFormControlLabel-label': { fontSize: '13px', width: '50px' } }}
+                    />
+                </Box>
             </div>
-            <div className='flex gap-6 items-center justify-between'>
-                <Typography variant="h6">Mật khẩu</Typography>
+            <div className='flex flex-col gap-0 items-start justify-between sm:flex-row sm:items-center sm:gap-6'>
+                <Typography variant="h6" className='w-[150px] text-[15px]'>Mật khẩu</Typography>
                 <TextField
                     placeholder='Nhập mật khẩu wifi của bạn'
                     variant="outlined"
-                    sx={{ width: 690 }}
+                    // sx={{ width: 690 }}
+                    fullWidth
                     margin="normal"
+                    size='small'
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            <FormControl component="fieldset" sx={{ mt: 2, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <Typography variant="h6">Mã hoá</Typography>
+            <FormControl component="fieldset" sx={{ mt: 2, display: 'flex', flexDirection: 'row', alignItems: 'center', '@media (max-width: 600px)': { display: 'flex', flexDirection: 'column', alignItems: 'flex-start' } }} >
+                <Typography variant="h6" className='w-[110px] text-[15px]'>Mã hoá</Typography>
                 <RadioGroup
                     row
                     value={encryption}
                     onChange={(e) => setEncryption(e.target.value)}
-                    sx={{ ml: 5 }}
+                    sx={{ ml: 5, '@media (max-width: 600px)': { display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: 0 } }}
                 >
-                    <FormControlLabel value="nopass" control={<Radio />} label="Không mã hoá" />
-                    <FormControlLabel value="WPA" control={<Radio />} label="WPA/WPA2" />
-                    <FormControlLabel value="WEP" control={<Radio />} label="WEP" />
+                    <FormControlLabel value="nopass" control={<Radio />} label="Không mã hoá" sx={{ '.MuiFormControlLabel-label': { fontSize: '13px' } }} />
+                    <FormControlLabel value="WPA" control={<Radio />} label="WPA/WPA2" sx={{ '.MuiFormControlLabel-label': { fontSize: '13px' } }} />
+                    <FormControlLabel value="WEP" control={<Radio />} label="WEP" sx={{ '.MuiFormControlLabel-label': { fontSize: '13px' } }} />
                 </RadioGroup>
             </FormControl>
             <Grid container justifyContent="flex-end">

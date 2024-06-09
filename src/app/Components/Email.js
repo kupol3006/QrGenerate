@@ -40,13 +40,13 @@ const EmailForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{ marginTop: '10px' }}>
             <Grid container spacing={0} display={'flex'} alignItems={'end'} paddingLeft={'40px'} paddingRight={'40px'}>
                 <GridItems item xs={12} sm={12}>
-                    <Typography variant="h5" fontWeight={'bold'} lineHeight={''}>QR Code Liên Hệ (vCard QR Code)</Typography>
+                    <Typography variant="h5" fontWeight={'bold'} lineHeight={''} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>QR Code Liên Hệ (vCard QR Code)</Typography>
                 </GridItems>
                 <GridItems item xs={12} sm={2}>
-                    <Typography variant="h6">Email</Typography>
+                    <Typography variant="h6" sx={{ fontSize: '15px' }}>Email</Typography>
                 </GridItems>
                 <GridItems item xs={12} sm={10}>
                     <TextField
@@ -60,7 +60,7 @@ const EmailForm = () => {
                     />
                 </GridItems>
                 <GridItems item xs={12} sm={2}>
-                    <Typography variant="h6">Tiêu đề email</Typography>
+                    <Typography variant="h6" sx={{ fontSize: '15px' }}>Tiêu đề email</Typography>
                 </GridItems>
                 <GridItems item xs={12} sm={10}>
                     <TextField
@@ -74,7 +74,7 @@ const EmailForm = () => {
                     />
                 </GridItems>
                 <GridItems item xs={12} sm={2}>
-                    <Typography variant="h6">Nội dung</Typography>
+                    <Typography variant="h6" sx={{ fontSize: '15px' }}>Nội dung</Typography>
                 </GridItems>
                 <GridItems item xs={12} sm={10}>
                     <TextField

@@ -17,13 +17,16 @@ import Frame5 from '../ComponentsSvg/Frame5';
 import Frame3 from '../ComponentsSvg/Frame3';
 import Frame4 from '../ComponentsSvg/Frame4';
 import Frame2 from '../ComponentsSvg/Frame2';
+import Frame100 from '../ComponentsSvg/Frame100';
+import Frame101 from '../ComponentsSvg/Frame101';
 import { updateImageObject, setTextImage, setX, setY, setShape, setColor } from '../redux/slices/qrCodeSlice';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import CloseIcon from '@mui/icons-material/Close';
-import { height, width } from '@mui/system';
+import { VietQR } from 'vietqr';
+import { display } from '@mui/system';
 
 const StyledButton = styled(Button)(({ theme }) => ({
     borderRadius: 0,
@@ -49,8 +52,10 @@ function QrCode() {
     const y = useSelector((state) => state.qrCode.y);
     const shape = useSelector((state) => state.qrCode.shape);
     const color = useSelector((state) => state.qrCode.color);
+    const userBank = useSelector((state) => state.qrCode.userBank);
+    const link = useSelector((state) => state.qrCode.link);
 
-    const imageArray = [{ id: 0, src: '/frame0.svg', alt: 'QR Code' }, { id: 1, src: '/frame1.svg', alt: 'QR Code' }, { id: 2, src: '/frame2.svg', alt: 'QR Code' }, { id: 3, src: '/frame3.svg', alt: 'QR Code' }, { id: 4, src: '/frame4.svg', alt: 'QR Code' }, { id: 5, src: '/frame5.svg', alt: 'QR Code' }, { id: 6, src: '/frame6.svg', alt: 'QR Code' }];
+    const imageArray = [{ id: 0, src: '/frame0.svg', alt: 'QR Code' }, { id: 1, src: '/frame1.svg', alt: 'QR Code' }, { id: 2, src: '/frame2.svg', alt: 'QR Code' }, { id: 3, src: '/frame3.svg', alt: 'QR Code' }, { id: 4, src: '/frame4.svg', alt: 'QR Code' }, { id: 5, src: '/frame5.svg', alt: 'QR Code' }, { id: 6, src: '/frame6.svg', alt: 'QR Code' }, { id: 7, src: '/frame100.svg', alt: 'QR Code' }, { id: 8, src: '/frame101.svg', alt: 'QR Code' }];
     const qrStyleArray = [{ id: 0, style: 'squares', src: '/frame0.svg' }, { id: 1, style: 'squares', src: '/square.svg' }, { id: 1, style: 'dots', src: '/dots.svg' }, { id: 3, style: 'fluid', src: '/fluid.svg' }]
     const colorArray = [{ id: 0, color: '#000000' }, { id: 1, color: '#F47373' }, { id: 2, color: '#697689' }, { id: 3, color: '#37D67A' }, { id: 4, color: '#2CCCE4' }, { id: 5, color: '#555555' }, { id: 6, color: '#DCE775' }, { id: 7, color: '#FF8A65' }, { id: 8, color: '#BA68C8' }]
     const sizeCanvasArray = [
@@ -65,8 +70,8 @@ function QrCode() {
             const element = inputRef.current;
             const elementWidth = element.offsetWidth;
             const elementHeight = element.offsetHeight;
-            const canvasWidth = 400;  // Chiều rộng mong muốn của canvas
-            const canvasHeight = 300; // Chiều cao mong muốn của canvas
+            const canvasWidth = 600;  // Chiều rộng mong muốn của canvas
+            const canvasHeight = 500; // Chiều cao mong muốn của canvas
             const canvas = await html2canvas(inputRef.current, {
                 width: canvasWidth,
                 height: canvasHeight,
@@ -175,54 +180,60 @@ function QrCode() {
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
     };
+
     return (
         <div className='flex flex-col items-center justify-center'>
-            <Typography variant="h5" align="center" fontWeight={'bold'} margin={'10px 10px 2px 10px'}>
+            <Typography variant="h5" align="center" fontWeight={'bold'} margin={'10px 10px 2px 10px'} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>
                 Mã QR code của bạn!
             </Typography>
-            <div ref={inputRef} className='w-[300px] h-[310px] overflow-hidden'>
-                <Box sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <div className=" w-[100%] h-[100%] relative mx-auto text-center">
-                        {/* <div className="w-[190px] h-[240px] relative bg-[#fff] rounded-md border border-black">
-                            <div className="w-full h-9 bg-black absolute bottom-0"></div>
+            {imageObject.id <= 6 ?
+                <div ref={inputRef} className='w-[300px] min-h-[200px] max-h-screen overflow-hidden'>
+                    <Box sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <div className=" w-[100%] h-[100%] relative mx-auto text-center">
+                            {imageObject.id === 0 && <div></div>}
+                            {imageObject.id === 1 && <Frame1 />}
+                            {imageObject.id === 2 && <Frame2 />}
+                            {imageObject.id === 3 && <Frame3 />}
+                            {imageObject.id === 4 && <Frame4 />}
+                            {imageObject.id === 5 && <Frame5 />}
+                            {imageObject.id === 6 && <Frame6 />}
+                            <QRCode value={text} style={{ position: 'absolute', top: 6, left: 53, zIndex: 1 }} bgColor="#ffffff" fgColor={color}
+                                qrStyle={shape.style}
+                                logoImage={file && URL.createObjectURL(file)}
+                                logoHeight={50}
+                                logoWidth={50}
+                                size={162}
+                            />
                         </div>
-                        <div className="relative">
-                            <Box className='w-[190px] h-[190px]'></Box>
-                            <div className="absolute top-0 left-0 border-t-[4px] border-l-[4px] border-black w-16 h-16"></div>
-                            <div className="absolute bottom-0 right-0 border-b-[4px] border-r-[4px] border-black w-16 h-16"></div>
+                    </Box>
+                </div>
+                :
+                <div ref={inputRef} className='w-[300px] min-h-[200px] max-h-[800px] overflow-hidden'>
+                    <Box sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <div className=" w-[100%] h-[100%] relative mx-auto text-center">
+                            {imageObject.id === 7 && <Frame100 />}
+                            {imageObject.id === 8 && <Frame101 />}
+                            <Box sx={{ width: '220px', height: '63px', position: 'absolute', top: 15, left: 40, zIndex: 5, backgroundColor: '#D1D5DB', }}>
+                                <Image src={userBank?.bankLogo} alt="QR code" layout="fill" objectFit="cover" style={{ backgroundColor: userBank.bankLogo ? '#fff' : '#D1D5DB', display: userBank.bankLogo ? 'block' : 'none' }} />
+                            </Box>
+                            <QRCode value={text} style={{ position: 'absolute', top: 80, left: 49, zIndex: 1 }} bgColor="#ffffff" fgColor={color}
+                                qrStyle={shape.style}
+                                logoImage={file && URL.createObjectURL(file)}
+                                logoHeight={50}
+                                logoWidth={50}
+                                size={180}
+                            />
+                            <Box className='w-full absolute bottom-[25px] left-0'>
+                                <Typography variant="h6" align="center" fontWeight={'bold'} sx={{ fontSize: '14.5px', textAlign: 'center' }}>{userBank?.bankName}</Typography>
+                                <Typography variant="h6" align="center" fontWeight={'bold'} sx={{ fontSize: '14.5px', textAlign: 'center' }}>Chủ TK: {userBank?.accountName}</Typography>
+                                <Typography variant="h6" align="center" fontWeight={'bold'} sx={{ fontSize: '14.5px', textAlign: 'center' }}>Số TK: {userBank?.accountNumber}</Typography>
+                                <Typography variant="h6" align="center" sx={{ fontSize: '14.5px', textAlign: 'center' }}>Số tiền: {userBank?.amount?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
+                                <Typography variant="h6" align="center" sx={{ fontSize: '14.5px', textAlign: 'center' }}>Nội dung: {userBank?.description}</Typography>
+                            </Box>
                         </div>
-                        <div className="relative">
-                            <div className="absolute top-0 left-0 border-[4px] border-black w-[190px] h-[193px]"></div>
-                        </div>
-                        <div className="w-[190px] h-[240px] relative bg-[#fff] border-t border-l border-r border-black overflow-hidden">
-                            <div className="w-full h-[50px] bg-black absolute bottom-0"></div>
-                            <div className='w-full h-[20px] rounded-tr-[1000%] rounded-tl-[1000%] absolute bottom-[-5%] bg-[#fff] '></div>
-                        </div>
-
-                        <div className="w-full h-[240px] relative bg-[#fff] border border-black">
-                            <div className="absolute top-0 left-1 border-[4px] border-black w-[195px] h-32"></div>
-                            <DraftsIcon fontSize='large' sx={{ width: '295px', height: '280px', position: 'absolute', bottom: -50, right: -10 }} />
-                        </div> */}
-                        {imageObject.id === 0 && <div></div>}
-                        {imageObject.id === 1 && <Frame1 />}
-                        {imageObject.id === 2 && <Frame2 />}
-                        {imageObject.id === 3 && <Frame3 />}
-                        {imageObject.id === 4 && <Frame4 />}
-                        {imageObject.id === 5 && <Frame5 />}
-                        {imageObject.id === 6 && <Frame6 />}
-                        <QRCode value={text} style={{ position: 'absolute', top: 6, left: 53, zIndex: 1 }} bgColor="#ffffff" fgColor={color}
-                            qrStyle={shape.style}
-                            logoImage={file && URL.createObjectURL(file)}
-                            logoHeight={50}
-                            logoWidth={50}
-                            size={162}
-                        />
-                        {/* <Typography variant="h5" align="center" fontWeight={'bold'} position={'absolute'} zIndex={0} color={'#fff'} sx={{ bottom: 5, left: 45 }}>Scan me</Typography> */}
-                    </div>
-                </Box>
-
-
-            </div>
+                    </Box>
+                </div>
+            }
             <div style={{ display: 'flex', borderRadius: 4, overflow: 'hidden', marginTop: '7px' }}>
                 <StyledButton
                     variant="contained"
@@ -252,15 +263,23 @@ function QrCode() {
                     </div>
                     <div
                         ref={contentRef}
-                        className={`transition-all  overflow-hidden ${isOpen ? 'max-h-[254px] duration-[1000ms]' : 'max-h-0 duration-[1000ms]'}`}
+                        className={`transition-all  overflow-hidden ${isOpen ? 'max-h-screen duration-[1000ms]' : 'max-h-0 duration-[1000ms]'}`}
                         style={{ transitionProperty: 'max-height' }}
                     >
                         <div className="mt-4">
-                            <div className="flex space-x-2">
+                            <div className="flex gap-[2px] flex-wrap">
                                 {imageArray.map((item, index) => (
                                     <div key={index} className="w-[36px] h-[36px] flex items-center justify-center border-[2px] hover:border-[#0284C7] border-white cursor-pointer"
                                         onClick={() => handleSelectFrame(item)}
-                                        style={imageObject.id === item.id ? { border: '2px solid #0284C7' } : { border: '2px solid #fff' }}
+                                        style={{
+                                            border: imageObject.id === item.id ? '2px solid #0284C7' : '2px solid #fff',
+                                            display:
+                                                link === 8
+                                                    ? item.id <= 8
+                                                    : link !== 8 && item.id <= 6
+                                                        ? 'flex'
+                                                        : 'none',
+                                        }}
                                     >
                                         <Image src={item.src} alt="QR Code" width={24} height={24} className='w-6 h-6' />
                                     </div>
@@ -268,7 +287,7 @@ function QrCode() {
 
                             </div>
                         </div>
-                        <div className={`transition-all  overflow-hidden ${imageObject.id >= 3 ? 'max-h-screen duration-[1000ms]' : 'max-h-0 duration-[1000ms]'}`}>
+                        <div className={`transition-all  overflow-hidden ${imageObject.id >= 3 && imageObject.id < 7 ? 'max-h-screen duration-[1000ms]' : 'max-h-0 duration-[1000ms]'}`}>
                             <div className="mt-4">
                                 <div className="flex flex-col space-x-2">
                                     <h2 className="text-[15px] font-bold">Thay đổi chữ</h2>
@@ -548,7 +567,7 @@ function QrCode() {
             </div>
             {/* {imageUrl && <img src={imageUrl} alt="Captured Image" />} */}
 
-        </div>
+        </div >
     );
 }
 

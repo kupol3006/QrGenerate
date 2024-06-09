@@ -26,7 +26,7 @@ const TextForm = () => {
             p={2}
             m={2}
         >
-            <Typography variant="h4" gutterBottom lineHeight={'10px'} fontWeight={'bold'}>
+            <Typography variant="h4" gutterBottom lineHeight={'10px'} fontWeight={'bold'} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>
                 QR Code Văn bản
             </Typography>
             <TextField
