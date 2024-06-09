@@ -53,7 +53,7 @@ const Scan = () => {
     };
 
     return (
-        <div className='2xl:w-[1280px] w-[100%] h-screen flex flex-col items-start p-[30px] pt-[100px] mx-auto'>
+        <div className='2xl:w-[1280px] w-[100%] min-h-screen max-h-[4000px] flex flex-col items-start p-[30px] pt-[100px] mx-auto'>
             <Typography variant="h4" gutterBottom>
                 Quét mã QR Code Online
             </Typography>
