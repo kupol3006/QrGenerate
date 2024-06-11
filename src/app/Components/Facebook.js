@@ -17,7 +17,7 @@ const FacebookForm = () => {
     };
 
     return (
-        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 0, padding: "10px" }}>
+        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 4, paddingLeft: '1px', paddingRight: '1px', '@media (max-width: 1280px)': { paddingLeft: 5, paddingRight: 5 } }}>
             <Typography variant="h5" fontWeight={'bold'} lineHeight={''} sx={{ '@media (max-width: 600px)': { marginTop: '20px', textAlign: 'center' } }}>Chia sẻ lên tường</Typography>
             <div className='flex flex-col items-start justify-between gap-1 mt-[20px] sm:flex-row sm:gap-4 sm:items-center'>
                 <Typography variant="h6" sx={{ fontSize: '15px' }}>Link bài viết cần đăng lên tường</Typography>

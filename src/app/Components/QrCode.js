@@ -187,7 +187,7 @@ function QrCode() {
                 Mã QR code của bạn!
             </Typography>
             {imageObject.id <= 6 ?
-                <div ref={inputRef} className='w-[300px] min-h-[200px] max-h-screen overflow-hidden'>
+                <div ref={inputRef} className='w-[300px] min-h-[250px] max-h-screen overflow-hidden'>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
                         <div className=" w-[100%] h-[100%] relative mx-auto text-center">
                             {imageObject.id === 0 && <div></div>}

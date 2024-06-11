@@ -23,10 +23,11 @@ const TextForm = () => {
             // flexDirection="column"
             // alignItems="center"
             // justifyContent="center"
-            p={2}
-            m={2}
+            // p={2}
+            m={5}
+            mt={4}
         >
-            <Typography variant="h4" gutterBottom lineHeight={'10px'} fontWeight={'bold'} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>
+            <Typography variant="h5" fontWeight={'bold'} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>
                 QR Code Văn bản
             </Typography>
             <TextField

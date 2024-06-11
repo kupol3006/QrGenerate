@@ -18,10 +18,11 @@ import { updateImageObject } from '../redux/slices/qrCodeSlice';
 const TabsGrid = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'row',
-    // justifyContent: 'space-between',
+    // justifyContent: 'center',
     flexWrap: 'wrap',
     gap: '3px',
-    width: '100%',
+    maxWidth: '100%',
+    margin: '0 auto',
 }));
 
 const StyledButton = styled(Button)(({ theme, selected }) => ({
@@ -47,7 +48,12 @@ const CustomizedTabs = () => {
     const handleChange = (newValue) => {
         setValue(newValue);
         dispatch(setLink(newValue));
-        dispatch(updateImageObject({ id: 7, src: '/frame100.svg', alt: 'QR Code' }));
+        if (newValue === 8) {
+            dispatch(updateImageObject({ id: 7, src: '/frame100.svg', alt: 'QR Code' }));
+        }
+        else {
+            dispatch(updateImageObject({ id: 0, src: '/frame0.svg', alt: 'QR Code' }));
+        }
         // console.log(`newValue: ${newValue}, value: ${value}`);
     };
 
@@ -64,19 +70,22 @@ const CustomizedTabs = () => {
     ];
 
     return (
-        <TabsGrid>
-            {tabs.map((tab, index) => (
-                <StyledButton
-                    key={index}
-                    selected={value === index}
-                    onClick={() => handleChange(index)}
-                    startIcon={tab.icon}
-                    className='rounded-[0px]'
-                >
-                    {tab.label}
-                </StyledButton>
-            ))}
-        </TabsGrid>
+        <Box className='w-full flex justify-center'>
+            <TabsGrid>
+                {tabs.map((tab, index) => (
+                    <StyledButton
+                        key={index}
+                        selected={value === index}
+                        onClick={() => handleChange(index)}
+                        startIcon={tab.icon}
+                        className='rounded-[0px]'
+
+                    >
+                        {tab.label}
+                    </StyledButton>
+                ))}
+            </TabsGrid>
+        </Box>
     );
 };
 

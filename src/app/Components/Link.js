@@ -23,10 +23,11 @@ const LinkQRGenerator = () => {
             // flexDirection="column"
             // alignItems="center"
             // justifyContent="center"
-            p={2}
-            m={2}
+            // p={2}
+            m={5}
+            mt={4}
         >
-            <Typography variant="h5" gutterBottom lineHeight={'10px'} fontWeight={'bold'} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>
+            <Typography variant="h5" fontWeight={'bold'} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>
                 Nhập địa chỉ website
             </Typography>
             <TextField
@@ -64,6 +65,8 @@ const LinkQRGenerator = () => {
                             backgroundColor: '#00ACC1', // Màu xanh đậm hơn khi hover
                         },
                         borderRadius: '20px', // Điều chỉnh độ cong góc
+                        marginTop: '10px',
+                        marginBottom: '10px',
                     }}
                     onClick={handleGenerate}
                 >

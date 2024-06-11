@@ -40,8 +40,8 @@ const EmailForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ marginTop: '10px' }}>
-            <Grid container spacing={0} display={'flex'} alignItems={'end'} paddingLeft={'40px'} paddingRight={'40px'}>
+        <form onSubmit={handleSubmit}>
+            <Grid container spacing={0} display={'flex'} alignItems={'end'} marginTop={4} paddingLeft={5} paddingRight={5}>
                 <GridItems item xs={12} sm={12}>
                     <Typography variant="h5" fontWeight={'bold'} lineHeight={''} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>QR Code Liên Hệ (vCard QR Code)</Typography>
                 </GridItems>
@@ -103,6 +103,7 @@ const EmailForm = () => {
                             },
                             borderRadius: '20px', // Điều chỉnh độ cong góc
                             marginTop: '10px',
+                            marginBottom: '10px',
                         }}
                         type="submit"
                     >

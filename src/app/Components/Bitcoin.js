@@ -21,7 +21,7 @@ const BitcoinForm = () => {
     };
 
     return (
-        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 0, padding: '10px' }}>
+        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 4, paddingLeft: '1px', paddingRight: '1px', '@media (max-width: 1280px)': { paddingLeft: 5, paddingRight: 5 } }}>
             <Typography variant="h5" fontWeight={'bold'} lineHeight={''} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>Tạo QR Code Bitcoin</Typography>
             <FormControl component="fieldset" sx={{ mt: 2, display: 'flex', flexDirection: 'row', alignItems: 'center', '@media (max-width: 600px)': { display: 'flex', flexDirection: 'column', alignItems: 'flex-start' } }}>
                 <Typography variant="h6" sx={{ fontSize: '15px', width: '170px' }}>Tiền điện tử</Typography>

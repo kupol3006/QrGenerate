@@ -86,7 +86,7 @@ const BankForm = () => {
     };
 
     return (
-        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 1, padding: '10px' }}>
+        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 4, paddingLeft: '1px', paddingRight: '1px', '@media (max-width: 1280px)': { paddingLeft: 5, paddingRight: 5 } }}>
             <Typography variant="h5" fontWeight={'bold'} lineHeight={''} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>Tạo mã QR Code chuyển khoản ngân hàng</Typography>
 
             <div className='flex flex-col gap-1 items-start justify-between mt-[20px] sm:flex-row sm:gap-6'>
@@ -180,7 +180,7 @@ const BankForm = () => {
                         },
                         borderRadius: '20px', // Điều chỉnh độ cong góc
                         marginTop: '10px',
-                        marginBottom: '10px',
+                        marginBottom: '5px',
                     }}
                     onClick={handleGenerateQRCode}
                 >

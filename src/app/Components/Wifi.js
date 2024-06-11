@@ -23,9 +23,9 @@ const WifiForm = () => {
     };
 
     return (
-        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 0, padding: '15px' }}>
-            <Typography variant="h5" fontWeight={'bold'} lineHeight={''} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>Tạo QR Code Wifi</Typography>
-            <div className='flex flex-col gap-0 items-start justify-between mt-[20px] sm:flex-row sm:items-center sm:gap-6'>
+        <Box sx={{ width: '100%', maxWidth: '800px', margin: '0 auto', mt: 0, paddingLeft: '1px', paddingRight: '1px', '@media (max-width: 1280px)': { paddingLeft: 5, paddingRight: 5 } }}>
+            <Typography variant="h5" marginTop={3} fontWeight={'bold'} lineHeight={''} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>Tạo QR Code Wifi</Typography>
+            <div className='w-full flex flex-col gap-0 items-start justify-between  mt-[0px] sm:flex-row sm:items-center sm:gap-6'>
                 <Typography variant="h6" className='w-[150px] text-[15px]' >Tên wifi</Typography>
                 <Box sx={{ width: '100%', display: 'flex', gap: '10px' }}>
                     <TextField

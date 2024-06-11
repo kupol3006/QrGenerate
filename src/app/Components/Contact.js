@@ -49,8 +49,8 @@ const ContactForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Box display="flex" flexDirection="column" paddingRight={3} paddingLeft={3} sx={{ '@media (max-width: 600px)': { padding: 2, display: 'flex', flexDirection: 'column' } }}>
+        <form onSubmit={handleSubmit} >
+            <Box display="flex" flexDirection="column" marginTop={4} paddingRight={5} paddingLeft={5} sx={{ '@media (max-width: 600px)': { display: 'flex', flexDirection: 'column' } }}>
                 <FlexBox className='flex flex-row'>
                     <Typography variant="h5" fontWeight="bold" sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>
                         QR Code Liên Hệ (vCard QR Code)
@@ -276,7 +276,7 @@ const ContactForm = () => {
                             },
                             borderRadius: '20px', // Điều chỉnh độ cong góc
                             marginTop: '10px',
-                            marginBottom: '10px',
+                            // marginBottom: '10px',
                         }}
                         onClick={handleSubmit}
                     >
