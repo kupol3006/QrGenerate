@@ -1,8 +1,8 @@
 'use client';
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { store } from './redux/store'
-import { Provider } from 'react-redux'
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
 import * as React from 'react';
 import Header from "./Components/Header";
 // import { ToastContainer } from "react-toastify";
