@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
-import Sidebar from '../Components/FormBuidler/Sidebar';
-import FormArea from '../Components/FormBuidler/FormArea';
-import FormElementsList from '../Components/FormBuidler/FormElementsList';
+import FormElements from '../Components/FormBuidler/FormElement';
+import { Box } from '@mui/system';
+import { DndContext } from '@dnd-kit/core';
 
 const Home = () => {
     const [formElements, setFormElements] = useState([]);
@@ -12,11 +12,14 @@ const Home = () => {
     };
 
     return (
-        <div className="flex h-screen pt-[90px]">
-            <Sidebar onElementDrop={handleElementDrop} />
-            <FormArea formElements={formElements} />
-            <FormElementsList />
-        </div>
+        <DndContext>
+            <div className="flex h-screen pt-[50px]">
+                <Box className='w-[80%] h-screen'>
+
+                </Box>
+                <FormElements />
+            </div>
+        </DndContext>
     );
 };
 
