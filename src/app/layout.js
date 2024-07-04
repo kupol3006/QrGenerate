@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Provider store={store}>
         <body className={inter.className}>
-          <Header />
+          {/* <Header /> */}
           {children}
           {/* <ToastContainer toastStyle={{}} /> */}
         </body>

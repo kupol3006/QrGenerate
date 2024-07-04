@@ -12,11 +12,13 @@ import BitcoinForm from "./Components/Bitcoin";
 import FacebookForm from "./Components/Facebook";
 import BankForm from "./Components/Bank";
 import { useSelector } from "react-redux";
+import Header from "./Components/Header";
 
 export default function Home() {
   const link = useSelector((state) => state.qrCode.link);
   return (
     <div className="w-full min-h-screen max-h-[8000px] bg-gradient-to-r from-purple-500 to-pink-500 pb-[20px]">
+      <Header />
       <div className="2xl:max-w-[1237px] m-auto flex flex-col 2xl:flex-row justify-center gap-[10px] p-[10px] pt-[90px] xl:w-full xl:p-[20px] xl:pt-[90px] lg:flex-row lg:p-[10px] lg:pt-[90px] md:flex-col md:p-[10px] md:pt-[90px] sm:p-[10px] sm:pt-[90px]">
         <div className="2xl:min-w-[75%] xl:w-[70%] xl:max-w-[876px] min-h-[210px] bg-[#fff] rounded-[8px] p-[4px] lg:w-[57%] md:w-full  sm:w-[100%] lg:min-h-[581px]">
           <CustomizedTabs />
