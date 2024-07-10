@@ -2,18 +2,6 @@ import { useState } from 'react';
 import { DndContext, useDraggable } from '@dnd-kit/core';
 import { SortableContext, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 
-const DraggableElement = ({ id, children }) => {
-    const { attributes, listeners, setNodeRef, transform, transition } = useDraggable({
-        id: id,
-    });
-
-    return (
-        <div ref={setNodeRef} style={{ transform: `translate3d(${transform?.x}px, ${transform?.y}px, 0)`, transition }} {...listeners} {...attributes}>
-            {children}
-        </div>
-    );
-};
-
 const FormElements = ({ formElementData }) => {
     return (
         // <DndContext>
@@ -22,10 +10,13 @@ const FormElements = ({ formElementData }) => {
             <h5 className="text-[20px] font-bold mb-4">Form elements</h5>
             <div className="grid grid-cols-2 gap-4">
                 {formElementData.map((element, index) => (
-                    <div key={index} id={`item-${index}`}>
+                    <div key={index} id={`item-${index}`} className='relative overflow-hidden'>
                         <div className="bg-white rounded-md shadow-md w-[110px] h-[110px] gap-2 flex flex-col justify-center items-center">
                             {element.icon}
                             <h2 className="text-[12px] font-medium">{element.title}</h2>
+                        </div>
+                        <div className='w-[110px] h-[110px] absolute top-0 left-0 z-1 opacity-0 flex flex-col justify-center items-center bg-[#EAECEE] hover:opacity-100 transition-all duration-1000 cursor-pointer select-none'>
+                            Click here
                         </div>
                     </div>
                 ))}
