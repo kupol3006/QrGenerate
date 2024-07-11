@@ -11,7 +11,7 @@ const Form = ({ formElementData }) => {
         >
             <SortableContext items={formElementData} strategy={verticalListSortingStrategy} >
                 {formElementData.map((item) => (
-                    <FormItem key={item.id} form={item} />
+                    <FormItem key={item.uuid} form={item} />
                 ))}
             </SortableContext>
         </Box>

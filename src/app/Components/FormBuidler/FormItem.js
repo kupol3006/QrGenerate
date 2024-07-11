@@ -9,7 +9,7 @@ import SelectField from "../FormType/Select";
 import TextArea from "../FormType/TextArea";
 
 const FormItem = ({ form }) => {
-    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: form.id });
+    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ uuid: form.uuid });
     return (
         <div className="w-[100%] p-[10px] border border-gray-300 rounded-lg bg-gray-200"
             ref={setNodeRef}

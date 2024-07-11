@@ -21,6 +21,7 @@ export default function DateField() {
                     id="date-field"
                     value={selectedDate}
                     onChange={handleChange}
+                    disabled={true}
                     slots={{
                         textField: (params) => (
                             <TextField

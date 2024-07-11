@@ -23,6 +23,7 @@ export default function NumberField() {
                 className="mt-1"
                 helperText="Helper text"
                 size='small'
+                disabled={true}
             />
         </div>
     );

@@ -25,6 +25,7 @@ export default function TextArea() {
                 className="mt-1"
                 helperText="Helper text"
                 size='small'
+                disabled={true}
             />
         </div>
     );
