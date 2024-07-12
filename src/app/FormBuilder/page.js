@@ -18,12 +18,9 @@ const Home = () => {
     const formElements1 = useSelector((state) => state.formBuilder.formElement)
     const [formElements, setFormElements] = React.useState(formElements1);
     const formElementData1 = useSelector((state) => state.formBuilder.formElementData)
-    const [formElementData, setFormElementData] = React.useState(
-        formElementData1
-    );
+    const [formElementData, setFormElementData] = React.useState(formElementData1);
     useEffect(() => {
         setFormElements(formElements1);
-        // dispatch(updateFormElement(formElements));
     }, [formElements1]);
     function arrayMove(array, from, to) {
         const newArray = [...array];
@@ -36,13 +33,15 @@ const Home = () => {
 
         if (active && over && active.id !== over.id) {
             setFormElements((formElements) => {
-                const oldIndex = formElements.findIndex((formElements) => formElements.id === active.id);
-                const newIndex = formElements.findIndex((formElements) => formElements.id === over.id);
+                const oldIndex = formElements.findIndex((formElement) => formElement.id === active.id);
+                const newIndex = formElements.findIndex((formElement) => formElement.id === over.id);
 
-                return arrayMove(formElements, oldIndex, newIndex);
+                const newFormElements = arrayMove(formElements, oldIndex, newIndex);
+                // Cập nhật trạng thái trong Redux store
+                dispatch(updateFormElement(newFormElements));
 
+                return newFormElements;
             });
-
         }
 
         console.log('formElements', formElements);
@@ -77,8 +76,8 @@ const Home = () => {
                         <Form formElements={formElements} />
                     </DndContext>
                 </Box>
-                {/* <FormElements formElementData={formElementData} /> */}
-                <ElementProperties />
+                <FormElements formElementData={formElementData} />
+                {/* <ElementProperties /> */}
             </Box>
         </div>
     );

@@ -58,7 +58,8 @@ const initialState = {
             label: 'Select Field',
             name: 'select',
             type: 'select',
-            value: ''
+            value: '',
+            option: []
         },
         {
             // id: 6,

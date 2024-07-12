@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { TextField, Switch, Button } from '@mui/material';
+import { TextField, Switch, Button, Slider } from '@mui/material';
 
 const ElementProperties = () => {
     const [label, setLabel] = useState('Select field');
     const [placeholder, setPlaceholder] = useState('Value here...');
     const [helperText, setHelperText] = useState('Helper text');
     const [isRequired, setIsRequired] = useState(false);
+    const [rows, setRows] = useState(3);
+
+    const handleSliderChange = (event, newValue) => {
+        setRows(newValue);
+    };
 
     return (
         <div className="w-[20%] p-4 bg-white rounded-md shadow-md">
@@ -77,16 +82,52 @@ const ElementProperties = () => {
             </div>
 
             <div className="mb-4">
-                <h3 className="text-sm font-medium mb-2">Options</h3>
-                <div className="flex justify-end">
-                    <Button variant="outlined" size="small" startIcon={<span>+</span>}>
-                        Add
-                    </Button>
+                <div className='flex justify-between'>
+                    <h3 className="text-sm font-medium mb-2">Options</h3>
+                    <div className="flex justify-end">
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            startIcon={<span>+</span>}
+                            sx={{
+                                color: 'black',
+                                borderColor: 'black',
+                                '&:hover': {
+                                    borderColor: 'black',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                                },
+                            }}
+                        >
+                            Add
+                        </Button>
+                    </div>
                 </div>
                 <p className="text-xs text-gray-500 mt-1">
                     The helper text of the field. It will be displayed below the
                     field.
                 </p>
+            </div>
+
+            <div className="mb-4">
+                <label htmlFor="rows" className="block text-sm font-medium text-gray-700">
+                    Rows {rows}
+                </label>
+                <Slider
+                    id="rows"
+                    value={rows}
+                    min={1}
+                    max={10}
+                    onChange={handleSliderChange}
+                    className="mt-1"
+                    sx={{
+                        '& .MuiSlider-track': {
+                            backgroundColor: 'black',
+                        },
+                        '& .MuiSlider-thumb': {
+                            color: 'white', // đổi màu thumb nếu cần
+                        },
+                    }}
+                />
             </div>
 
             <div className="w-[100%] mb-4 border-[1px] border-[#E5E7EB] p-2 rounded-[5px]">
