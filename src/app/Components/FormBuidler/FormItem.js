@@ -9,7 +9,7 @@ import SelectField from "../FormType/Select";
 import TextArea from "../FormType/TextArea";
 
 const FormItem = ({ form }) => {
-    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ uuid: form.uuid });
+    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: form.id });
     return (
         <div className="w-[100%] p-[10px] border border-gray-300 rounded-lg bg-gray-200"
             ref={setNodeRef}
@@ -18,7 +18,7 @@ const FormItem = ({ form }) => {
             style={{
                 transform: CSS.Transform.toString(transform),
                 transition,
-                userSelect: 'none',
+                // userSelect: 'none',
             }}
         >
             {form.type === 'text' && (

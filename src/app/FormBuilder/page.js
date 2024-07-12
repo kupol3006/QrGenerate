@@ -11,6 +11,7 @@ import HeaderForm from '../Components/FormBuidler/HeaderForm';
 import PublishIcon from '@mui/icons-material/Publish';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFormElement } from '../redux/slices/formBuilderSlice';
+import ElementProperties from '../Components/FormBuidler/ElementProp';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Home = () => {
     );
     useEffect(() => {
         setFormElements(formElements1);
+        // dispatch(updateFormElement(formElements));
     }, [formElements1]);
     function arrayMove(array, from, to) {
         const newArray = [...array];
@@ -32,17 +34,17 @@ const Home = () => {
     const handleDragEnd = (event) => {
         const { active, over } = event;
 
-        if (active && over && active.uuid !== over.uuid) {
+        if (active && over && active.id !== over.id) {
             setFormElements((formElements) => {
-                const oldIndex = formElements.findIndex((formElements) => formElements.uuid === active.uuid);
-                const newIndex = formElements.findIndex((formElements) => formElements.uuid === over.uuid);
+                const oldIndex = formElements.findIndex((formElements) => formElements.id === active.id);
+                const newIndex = formElements.findIndex((formElements) => formElements.id === over.id);
 
                 return arrayMove(formElements, oldIndex, newIndex);
 
             });
 
         }
-        dispatch(updateFormElement(formElements));
+
         console.log('formElements', formElements);
         console.log('event', event);
     };
@@ -51,7 +53,7 @@ const Home = () => {
             <HeaderForm />
             <div className="flex justify-end items-center px-4 py-2">
                 <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded-md mr-2 flex items-center border-black border-[1px]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                         <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
                     </svg>
@@ -64,7 +66,7 @@ const Home = () => {
                     </svg>
                     Save
                 </button>
-                <button class="bg-gradient-to-r from-indigo-400 to-cyan-400 text-white font-bold py-2 px-4 rounded-md flex items-center">
+                <button className="bg-gradient-to-r from-indigo-400 to-cyan-400 text-white font-bold py-2 px-4 rounded-md flex items-center">
                     <PublishIcon className="h-5 w-5 mr-2" />
                     Publish
                 </button>
@@ -72,10 +74,11 @@ const Home = () => {
             <Box className='flex pt-[0px]'>
                 <Box className='w-[80%] h-screen bg-[url(https://upload.wikimedia.org/wikipedia/commons/9/9f/Graph-paper.svg)] flex justify-center p-4'>
                     <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
-                        <Form formElementData={formElements} />
+                        <Form formElements={formElements} />
                     </DndContext>
                 </Box>
-                <FormElements formElementData={formElementData} />
+                {/* <FormElements formElementData={formElementData} /> */}
+                <ElementProperties />
             </Box>
         </div>
     );
