@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Switch, Button, Slider } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsShowElementProperties } from '../../redux/slices/formBuilderSlice';
 
 const ElementProperties = () => {
     const [label, setLabel] = useState('Select field');
@@ -7,16 +9,18 @@ const ElementProperties = () => {
     const [helperText, setHelperText] = useState('Helper text');
     const [isRequired, setIsRequired] = useState(false);
     const [rows, setRows] = useState(3);
+    const dispatch = useDispatch();
+    const formElementChosen = useSelector((state) => state.formBuilder.formElementChosen);
 
     const handleSliderChange = (event, newValue) => {
         setRows(newValue);
     };
 
     return (
-        <div className="w-[20%] p-4 bg-white rounded-md shadow-md">
+        <div className="w-[20%] h-[100%] p-4 bg-white rounded-md shadow-md overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-medium">Element properties</h2>
-                <button className="text-gray-500 hover:text-gray-700">
+                <button className="text-gray-500 hover:text-gray-700" onClick={() => dispatch(setIsShowElementProperties(false))}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"

@@ -7,9 +7,20 @@ import NumberField from "../FormType/Number";
 import MyTextField from "../FormType/TextField";
 import SelectField from "../FormType/Select";
 import TextArea from "../FormType/TextArea";
+import { useDispatch } from "react-redux";
+import { setIsShowElementProperties, setFormElementChosen } from "../../redux/slices/formBuilderSlice";
+import { Box, Typography, IconButton, Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const FormItem = ({ form }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: form.id });
+    const dispatch = useDispatch();
+    const handleElementChange = (element, event) => {
+        event.stopPropagation();
+        dispatch(setFormElementChosen(element));
+        dispatch(setIsShowElementProperties(true));
+    };
+
     return (
         <div className="w-[100%] p-[10px] border border-gray-300 rounded-lg bg-gray-200"
             ref={setNodeRef}
@@ -18,26 +29,100 @@ const FormItem = ({ form }) => {
             style={{
                 transform: CSS.Transform.toString(transform),
                 transition,
-                // userSelect: 'none',
+                userSelect: 'none',
+                cursor: 'grab',
             }}
+        // onClick={onClick}
         >
             {form.type === 'text' && (
-                <MyTextField />
+                <div className='w-full relative '>
+                    <MyTextField className='cursor-grab' />
+                    <div className='w-full h-full absolute rounded-lg top-0 flex justify-center items-center bg-gray-100 opacity-0 hover:opacity-100 transition-all duration-500 select-none cursor-grab'>
+                        <Typography
+                            className='w-[90%] text-center cursor-grab text-gray-600'
+                        >
+                            Click for properties or drag to move
+                        </Typography>
+                        <Button className="w-[10%] h-full bg-red-500 text-white hover:bg-red-700">
+                            <DeleteIcon />
+                        </Button>
+                    </div>
+                </div>
             )}
             {form.type === 'number' && (
-                <NumberField />
+                <div className='w-full relative '>
+                    <NumberField className='cursor-grab' />
+                    <div className='w-full h-full absolute rounded-lg top-0 flex justify-center items-center bg-gray-100 opacity-0 hover:opacity-100 transition-all duration-500 select-none cursor-grab'>
+                        <Typography
+                            className='w-[90%] text-center cursor-grab text-gray-600'
+                        >
+                            Click for properties or drag to move
+                        </Typography>
+                        <Button className="w-[10%] h-full bg-red-500 text-white hover:bg-red-700">
+                            <DeleteIcon />
+                        </Button>
+                    </div>
+                </div>
             )}
             {form.type === 'textarea' && (
-                <TextArea />
+                <div className='w-full relative '>
+                    <TextArea className='cursor-grab' />
+                    <div className='w-full h-full absolute rounded-lg top-0 flex justify-center items-center bg-gray-100 opacity-0 hover:opacity-100 transition-all duration-500 select-none cursor-grab'>
+                        <Typography
+                            className='w-[90%] text-center cursor-grab text-gray-600'
+                        >
+                            Click for properties or drag to move
+                        </Typography>
+                        <Button className="w-[10%] h-full bg-red-500 text-white hover:bg-red-700">
+                            <DeleteIcon />
+                        </Button>
+                    </div>
+                </div>
             )}
             {form.type === 'date' && (
-                <DateField />
+                <div className='w-full relative '>
+                    <DateField className='cursor-grab' />
+                    <div className='w-full h-full absolute rounded-lg top-0 flex justify-center items-center bg-gray-100 opacity-0 hover:opacity-100 transition-all duration-500 select-none cursor-grab'>
+                        <Typography
+                            className='w-[90%] text-center cursor-grab text-gray-600'
+                        >
+                            Click for properties or drag to move
+                        </Typography>
+                        <Button className="w-[10%] h-full bg-red-500 text-white hover:bg-red-700">
+                            <DeleteIcon />
+                        </Button>
+                    </div>
+                </div>
             )}
             {form.type === 'select' && (
-                <SelectField />
+                <div className='w-full relative '>
+                    <SelectField className='cursor-grab' />
+                    <div className='w-full h-full absolute rounded-lg top-0 flex justify-center items-center bg-gray-100 opacity-0 hover:opacity-100 transition-all duration-500 select-none cursor-grab'>
+                        <Typography
+                            className='w-[90%] text-center cursor-grab text-gray-600'
+                        >
+                            Click for properties or drag to move
+                        </Typography>
+                        <Button className="w-[10%] h-full bg-red-500 text-white hover:bg-red-700">
+                            <DeleteIcon />
+                        </Button>
+                    </div>
+                </div>
             )}
             {form.type === 'checkbox' && (
-                <CheckBox />
+                <div className='w-full relative '>
+                    <CheckBox className='cursor-grab' />
+                    <div className='w-full h-full absolute rounded-lg top-0 flex justify-center items-center bg-gray-100 opacity-0 hover:opacity-100 transition-all duration-500 select-none cursor-grab'>
+                        <Typography
+                            className='w-[90%] text-center cursor-grab text-gray-600'
+                        >
+                            Click for properties or drag to move
+                        </Typography>
+                        <Button className="w-[10%] h-full bg-red-500 text-white hover:bg-red-700">
+                            <DeleteIcon />
+                        </Button>
+                    </div>
+                </div>
             )}
 
         </div>

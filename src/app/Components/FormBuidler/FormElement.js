@@ -57,7 +57,7 @@ const FormElements = ({ formElementData }) => {
     return (
         // <DndContext>
         // <SortableContext items={formElementData.map((element, index) => `item-${index}`)} strategy={sortableKeyboardCoordinates}>
-        <div className="bg-gray-100 p-2 pt-4 w-[20%] h-screen">
+        <div className="bg-gray-100 p-2 pt-4 w-[20%] h-[100%]">
             <h5 className="text-[20px] font-bold mb-4">Form elements</h5>
             <div className="grid grid-cols-2 gap-4">
                 {formElementData.map((element, index) => (

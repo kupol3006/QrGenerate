@@ -74,6 +74,8 @@ const initialState = {
         },
     ],
     formElement: [],
+    isShowElementProperties: false,
+    formElementChosen: {}
 }
 
 export const formBuilderSlice = createSlice({
@@ -88,12 +90,18 @@ export const formBuilderSlice = createSlice({
         updateFormElement: (state, action) => {
             state.formElement = action.payload;
         },
+        setIsShowElementProperties: (state, action) => {
+            state.isShowElementProperties = action.payload;
+        },
+        setFormElementChosen: (state, action) => {
+            state.formElementChosen = action.payload;
+        },
     },
     extraReducers: (builder) => {
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { pushFormElement, updateFormElement } = formBuilderSlice.actions
+export const { pushFormElement, updateFormElement, setIsShowElementProperties, setFormElementChosen } = formBuilderSlice.actions
 
 export default formBuilderSlice.reducer

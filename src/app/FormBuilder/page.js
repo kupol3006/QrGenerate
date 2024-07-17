@@ -19,9 +19,12 @@ const Home = () => {
     const [formElements, setFormElements] = React.useState(formElements1);
     const formElementData1 = useSelector((state) => state.formBuilder.formElementData)
     const [formElementData, setFormElementData] = React.useState(formElementData1);
+    const isShowElementProperties1 = useSelector((state) => state.formBuilder.isShowElementProperties)
+
     useEffect(() => {
         setFormElements(formElements1);
     }, [formElements1]);
+
     function arrayMove(array, from, to) {
         const newArray = [...array];
         const item = newArray.splice(from, 1)[0];
@@ -48,9 +51,9 @@ const Home = () => {
         console.log('event', event);
     };
     return (
-        <div className="min-h-screen">
-            <HeaderForm />
-            <div className="flex justify-end items-center px-4 py-2">
+        <div className="h-screen">
+            <HeaderForm className='h-[7%]' />
+            <div className="h-[7%] flex justify-end items-center px-4 py-2">
                 <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded-md mr-2 flex items-center border-black border-[1px]">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -70,13 +73,16 @@ const Home = () => {
                     Publish
                 </button>
             </div>
-            <Box className='flex pt-[0px]'>
-                <Box className='w-[80%] h-screen bg-[url(https://upload.wikimedia.org/wikipedia/commons/9/9f/Graph-paper.svg)] flex justify-center p-4'>
+            <Box className='flex pt-[0px] h-[84.9%]'>
+                <Box className='w-[80%] bg-[url(https://upload.wikimedia.org/wikipedia/commons/9/9f/Graph-paper.svg)] flex justify-center p-4'>
                     <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
                         <Form formElements={formElements} />
                     </DndContext>
                 </Box>
-                <FormElements formElementData={formElementData} />
+                {
+                    isShowElementProperties1 ? <ElementProperties /> : <FormElements formElementData={formElementData} />
+                }
+
                 {/* <ElementProperties /> */}
             </Box>
         </div>

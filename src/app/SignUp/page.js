@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 // import Head from 'next/head';
 import { TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Select, MenuItem } from '@mui/material';
 import { toast, Flip } from 'react-toastify';
+import Header from '../Components/Header';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -80,6 +81,7 @@ const Register = () => {
       {/* <Head>
         <title>Đăng ký sử dụng QR Builder</title>
       </Head> */}
+      <Header />
       <div className="container mx-auto p-8">
         <h1 className="text-3xl font-bold text-center mb-4">Đăng ký sử dụng QR Builder</h1>
         {/* <h2 className="text-xl text-center mb-8">Vui lòng điền thông tin dưới đây để chúng tôi có thể hỗ trợ bạn tốt hơn</h2> */}
