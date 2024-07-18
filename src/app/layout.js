@@ -5,8 +5,8 @@ import { store } from './redux/store';
 import { Provider } from 'react-redux';
 import * as React from 'react';
 import Header from "./Components/Header";
-// import { ToastContainer } from "react-toastify";
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
           <body className={inter.className}>
             {/* <Header /> */}
             {children}
-            {/* <ToastContainer toastStyle={{}} /> */}
+            <ToastContainer toastStyle={{}} />
           </body>
         </Provider>
       </GoogleOAuthProvider>

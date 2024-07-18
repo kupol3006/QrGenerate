@@ -25,12 +25,8 @@ const PageHeader = () => {
         const user = Cookies.get('google_user');
         if (token && user) {
             setIsLoggedIn(true);
-            // Ví dụ giả lập userData
             setUserData(JSON.parse(user));
-            console.log(userData);
-            console.log(user);
         }
-        console.log(userData);
     }, []);
 
     const handleLogout = () => {
@@ -61,7 +57,7 @@ const PageHeader = () => {
                 className="font-bold text-3xl bg-gradient-to-r from-indigo-400 to-cyan-400 text-transparent bg-clip-text hover:cursor-pointer"
                 onClick={() => router.push('/CreateForm')}
             >
-                FormBuidler
+                FormBuilder
             </h1>
 
             <div className="flex flex-col items-center">
@@ -75,20 +71,12 @@ const PageHeader = () => {
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                     onClose={handleMenuClose}
-                // PaperProps={{
-                //     style: {
-                //         borderRadius: '12px',
-                //         boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                //         padding: '10px',
-                //     },
-                // }}
                 >
                     <MenuItem>
                         <ListItemIcon>
                             <Avatar
                                 src={userData?.picture}
                                 alt={userData?.name}
-                                onClick={handleAvatarClick}
                                 style={{ cursor: 'pointer' }}
                             />
                         </ListItemIcon>

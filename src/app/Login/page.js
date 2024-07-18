@@ -7,6 +7,8 @@ import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import { toast, Flip } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +16,21 @@ const Login = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const router = useRouter();
+
+  const userData = [{ email: 'truongdieuphat@gmail.com', password: 'Hth@123456!!' }];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email === userData[0].email && password === userData[0].password) {
+      router.push('/CreateForm');
+    } else {
+      toast.error('Email hoặc mật khẩu không đúng.', {
+        position: 'top-right',
+        autoClose: 3000,
+        transition: Flip,
+      });
+    }
+  };
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -37,10 +54,10 @@ const Login = () => {
   //   onError: () => console.error('Login failed'),
   // });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission logic here, e.g., API call for login
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // Handle form submission logic here, e.g., API call for login
+  // };
 
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
@@ -66,6 +83,7 @@ const Login = () => {
               variant="outlined"
               fullWidth
               margin="normal"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -97,7 +115,7 @@ const Login = () => {
                 </Typography>
               }
             /> */}
-            <Button type="submit" variant="contained" color="primary" fullWidth className="mt-4">
+            <Button type="submit" variant="contained" color="primary" fullWidth className="mt-4" >
               Login
             </Button>
             <Button

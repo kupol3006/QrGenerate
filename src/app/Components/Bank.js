@@ -69,17 +69,17 @@ const BankForm = () => {
             })
             .catch((err) => {
                 console.error('Error generating QR code:', err);
-                // toast.error('Vui lòng kiểm tra lại thông tin chuyển khoản!', {
-                //     position: 'top-right',
-                //     autoClose: 2000,
-                //     hideProgressBar: false,
-                //     closeOnClick: true,
-                //     pauseOnHover: true,
-                //     draggable: true,
-                //     progress: undefined,
-                //     theme: 'colored',
-                //     transition: Flip,
-                // });
+                toast.error('Vui lòng kiểm tra lại thông tin chuyển khoản!', {
+                    position: 'top-right',
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'colored',
+                    transition: Flip,
+                });
             });
 
         // setQrCodeValue(vietQRString);
