@@ -27,9 +27,9 @@ const Header = () => {
                 <Link href="/Scan" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Quét QR Code
                 </Link>
-                {/* <Link href="/SignUp" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
+                <Link href="/SignUp" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Đăng ký
-                </Link> */}
+                </Link>
                 <Link href="/Login" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Đăng nhập
                 </Link>
