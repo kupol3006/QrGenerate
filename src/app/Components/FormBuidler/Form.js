@@ -22,8 +22,8 @@ const Form = ({ formElements }) => {
         >
             <SortableContext items={formElements} strategy={verticalListSortingStrategy}>
                 {formElements.map((item) => (
-                    <div className='w-full relative' onPointerDown={(e) => handleElementChange(item, e)}>
-                        <FormItem key={item.id} form={item} className=' cursor-pointer ' />
+                    <div key={item.id} className='w-full relative' onPointerDown={(e) => handleElementChange(item, e)}>
+                        <FormItem form={item} className=' cursor-pointer ' />
                     </div>
                 ))}
             </SortableContext>

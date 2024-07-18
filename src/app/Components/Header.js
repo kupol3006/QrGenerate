@@ -16,7 +16,7 @@ const Header = () => {
         <StyledAppBar position="fixed" className='w-full flex justify-between items-center'>
             <Toolbar className='2xl:w-[1280px] w-[100%] '>
                 <Link href="/" underline="hover" style={{ marginRight: 20, display: 'flex', alignItems: 'center', color: '#000000', fontWeight: 'bold', flexGrow: 1 }}>
-                    <Image src="/LOGO.png" alt="logo" width={50} height={50} className='w-[40px] sm:w-[50px]' />
+                    <Image src="/LOGO.png" alt="logo" width={50} height={50} className='w-auto sm:w-auto' />
                     <Typography variant="h6" style={{ display: 'inline-block', marginLeft: 10, fontWeight: 'bold', color: '#692873' }} className='text-[12px] sm:text-[15px]'>
                         QR Code Generator
                     </Typography>
@@ -27,9 +27,9 @@ const Header = () => {
                 <Link href="/Scan" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Quét QR Code
                 </Link>
-                <Link href="/SignUp" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
+                {/* <Link href="/SignUp" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Đăng ký
-                </Link>
+                </Link> */}
                 <Link href="/Login" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Đăng nhập
                 </Link>

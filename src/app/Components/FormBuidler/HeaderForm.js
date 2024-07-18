@@ -75,13 +75,13 @@ const PageHeader = () => {
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                     onClose={handleMenuClose}
-                    PaperProps={{
-                        style: {
-                            borderRadius: '12px',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                            padding: '10px',
-                        },
-                    }}
+                // PaperProps={{
+                //     style: {
+                //         borderRadius: '12px',
+                //         boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                //         padding: '10px',
+                //     },
+                // }}
                 >
                     <MenuItem>
                         <ListItemIcon>

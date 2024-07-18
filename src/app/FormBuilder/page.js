@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateFormElement } from '../redux/slices/formBuilderSlice';
 import ElementProperties from '../Components/FormBuidler/ElementProp';
 
-const Home = () => {
+const FormBuidler = () => {
     const dispatch = useDispatch();
     const formElements1 = useSelector((state) => state.formBuilder.formElement)
     const [formElements, setFormElements] = React.useState(formElements1);
@@ -23,7 +23,8 @@ const Home = () => {
 
     useEffect(() => {
         setFormElements(formElements1);
-    }, [formElements1]);
+        // setFormElementData(formElementData1);
+    }, [formElements1, formElementData1]);
 
     function arrayMove(array, from, to) {
         const newArray = [...array];
@@ -89,4 +90,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default FormBuidler;
