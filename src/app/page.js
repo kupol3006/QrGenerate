@@ -375,146 +375,151 @@ export default function Home() {
         <img src="https://qr.incard.biz/assets/images/qrcode-stats.jpg" alt="QR Code Stats" className="rounded-[1rem] shadow-[0_5px_7px_1px_rgba(0,0,0,0.3)]" />
 
       </Box>
-      <section
-        className="py-20 bg-cover bg-center 2xl:max-w-[1200px] m-auto p-[10px] pt-[90px] xl:w-full xl:p-[20px] xl:pt-[90px] lg:p-[10px] lg:pt-[90px] md:p-[10px] md:pt-[90px] sm:p-[10px] sm:pt-[90px]"
-        style={{
-          backgroundImage:
-            "url('https://qr.incard.biz/assets/images/qrcode-showcase-bg-1.png')",
-        }}
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-extrabold text-blue-600 sm:text-4xl">
-              No hidden fees
-            </h2>
-            <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
-              Straightforward Pricing
-            </h1>
-          </div>
+      <Box className='p-5 pt-[90px]'>
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl font-extrabold text-blue-600 sm:text-4xl">
+            No hidden fees
+          </h2>
+          <h1 className=" text-4xl font-extrabold text-gray-900 sm:text-5xl">
+            Straightforward Pricing
+          </h1>
+        </div>
 
-          <div className="flex items-center justify-center mt-8"
+        <div className="flex items-center justify-center mt-8 pb-[50px]"
 
+        >
+          <span
+            className={`px-4 py-2 rounded-l-lg cursor-pointer ${!isYearly
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-200 text-gray-700'
+              }`}
+            onClick={() => setIsYearly(false)}
           >
-            <span
-              className={`px-4 py-2 rounded-l-lg cursor-pointer ${!isYearly
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-700'
-                }`}
-              onClick={() => setIsYearly(false)}
-            >
-              Monthly Billing
-            </span>
-            <span
-              className={`px-4 py-2 rounded-r-lg cursor-pointer ${isYearly
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-700'
-                }`}
-              onClick={() => setIsYearly(true)}
-            >
-              Yearly Billing
-            </span>
-          </div>
-
-          <div className="flex flex-wrap justify-center mt-12 -mx-4"
-
+            Monthly Billing
+          </span>
+          <span
+            className={`px-4 py-2 rounded-r-lg cursor-pointer ${isYearly
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-200 text-gray-700'
+              }`}
+            onClick={() => setIsYearly(true)}
           >
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className="w-full sm:w-1/2 lg:w-1/3 px-4 mb-8"
-              >
-                <div className="bg-white rounded-lg shadow-lg p-8">
-                  <h3 className="text-xl font-bold text-blue-600">
-                    {plan.name}
-                  </h3>
-                  <div className="flex items-baseline mt-4">
-                    <span className="text-4xl font-bold text-gray-900">
-                      $
-                      {isYearly ? plan.priceYearly : plan.priceMonthly.toFixed(2)}
-                    </span>
-                    <span className="ml-2 text-lg text-gray-600">
-                      / {isYearly ? 'Year' : 'Month'}
-                    </span>
+            Yearly Billing
+          </span>
+        </div>
+        <div
+          className="py-20 bg-cover bg-center 2xl:max-w-[1200px] m-auto p-[10px] pt-[90px] xl:w-full xl:p-[20px] xl:pt-[90px] lg:p-[10px] lg:pt-[90px] md:p-[10px] md:pt-[90px] sm:p-[10px] sm:pt-[90px]"
+          style={{
+            backgroundImage:
+              "url('https://qr.incard.biz/assets/images/qrcode-showcase-bg-1.png')",
+            borderRadius: '1rem',
+            boxShadow: '0 5px 7px 1px #0000004d',
+          }}
+        >
+          <div className="container mx-auto px-4">
+
+
+            <div className="flex flex-wrap justify-center mt-12 -mx-4"
+
+            >
+              {plans.map((plan) => (
+                <div
+                  key={plan.name}
+                  className="w-full sm:w-1/2 lg:w-1/3 px-4 mb-8"
+                >
+                  <div className="bg-white rounded-lg shadow-lg p-8">
+                    <h3 className="text-xl font-bold text-blue-600">
+                      {plan.name}
+                    </h3>
+                    <div className="flex items-baseline mt-4">
+                      <span className="text-4xl font-bold text-gray-900">
+                        $
+                        {isYearly ? plan.priceYearly : plan.priceMonthly.toFixed(2)}
+                      </span>
+                      <span className="ml-2 text-lg text-gray-600">
+                        / {isYearly ? 'Year' : 'Month'}
+                      </span>
+                    </div>
+                    <ul className="mt-6 space-y-4 text-gray-600">
+                      {plan.features.map((feature) => (
+                        <li key={feature}>
+                          <svg
+                            className="w-5 h-5 inline-block mr-2 text-blue-500"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                    <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg mt-8 w-full transition duration-300 ease-in-out">
+                      Subscribe now
+                    </button>
                   </div>
-                  <ul className="mt-6 space-y-4 text-gray-600">
-                    {plan.features.map((feature) => (
-                      <li key={feature}>
-                        <svg
-                          className="w-5 h-5 inline-block mr-2 text-blue-500"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg mt-8 w-full transition duration-300 ease-in-out">
-                    Subscribe now
-                  </button>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="bg-white rounded-lg shadow-lg p-8 mt-12 mx-auto max-w-md">
-            <h3 className="text-xl font-bold text-blue-600">
-              {freePlan.name}
-            </h3>
-            <ul className="mt-6 space-y-4 text-gray-600">
-              {freePlan.features.map((feature) => (
-                <li key={feature}>
-                  <svg
-                    className="w-5 h-5 inline-block mr-2 text-blue-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  {feature}
-                </li>
               ))}
-            </ul>
-            <button className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg mt-8 w-full transition duration-300 ease-in-out">
-              Sign up
-            </button>
-          </div>
-          <div className="mt-8 text-center">
-            <p className="text-sm text-gray-600">
-              <svg
-                className="w-4 h-4 inline-block mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-              Get 15 days free trial after sign up, no credit card is required.
-            </p>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-lg p-8 mt-12 mx-auto max-w-md">
+              <h3 className="text-xl font-bold text-blue-600">
+                {freePlan.name}
+              </h3>
+              <ul className="mt-6 space-y-4 text-gray-600">
+                {freePlan.features.map((feature) => (
+                  <li key={feature}>
+                    <svg
+                      className="w-5 h-5 inline-block mr-2 text-blue-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <button className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg mt-8 w-full transition duration-300 ease-in-out">
+                Sign up
+              </button>
+            </div>
+            <div className="mt-8 text-center">
+              <p className="text-sm text-gray-600">
+                <svg
+                  className="w-4 h-4 inline-block mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                Get 15 days free trial after sign up, no credit card is required.
+              </p>
+            </div>
           </div>
         </div>
-      </section>
-    </Box>
+      </Box>
+    </Box >
   );
 }
