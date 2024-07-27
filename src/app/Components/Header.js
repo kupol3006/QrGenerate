@@ -10,6 +10,7 @@ import { color, width } from '@mui/system';
 import Image from 'next/image';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useState } from 'react';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
     backgroundColor: '#fff', // Thay đổi màu sắc ở đây
@@ -19,6 +20,8 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 }));
 
 const Header = () => {
+    const [anchorEl, setAnchorEl] = useState(null);
+
     const handleAvatarClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -42,15 +45,15 @@ const Header = () => {
                 <Link href="/Scan" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Quét QR Code
                 </Link>
-                <Link href="/SignUp" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
+                {/* <Link href="/SignUp" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Đăng ký
-                </Link>
-                <Link href="/Login" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
+                </Link> */}
+                {/* <Link href="/Login" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Đăng nhập
-                </Link>
+                </Link> */}
                 <Avatar
-                    src={userData?.picture}
-                    alt={userData?.name}
+                    // src={userData?.picture}
+                    // alt={userData?.name}
                     onClick={handleAvatarClick}
                     style={{ cursor: 'pointer' }}
                 />
@@ -60,34 +63,30 @@ const Header = () => {
                     onClose={handleMenuClose}
                 >
                     <MenuItem>
-                        <ListItemIcon>
-                            <Avatar
-                                // src={userData?.picture}
-                                src='dádadas'
-                                // alt={userData?.name}
-                                style={{ cursor: 'pointer' }}
-                            />
-                        </ListItemIcon>
                         <ListItemText>
-                            <Typography variant="h6" className="text-xl font-bold">
-                                {/* {userData?.name} */}
-                            </Typography>
-                            <Typography variant="body2">{userData?.email}</Typography>
+                            <Link href="/SignUp" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
+                                Đăng ký
+                            </Link>
+                            {/* <Typography variant="body2">{userData?.email}</Typography> */}
                         </ListItemText>
                     </MenuItem>
                     <Divider />
                     <MenuItem>
-                        <ListItemIcon>
+                        {/* <ListItemIcon>
                             <SettingsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Manage account" />
+                        </ListItemIcon> */}
+                        <ListItemText>
+                            <Link href="/Login" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
+                                Đăng nhập
+                            </Link>
+                        </ListItemText>
                     </MenuItem>
-                    <MenuItem onClick={handleLogout}>
+                    {/* <MenuItem onClick={handleLogout}>
                         <ListItemIcon>
                             <LogoutIcon />
                         </ListItemIcon>
                         <ListItemText primary="Sign out" />
-                    </MenuItem>
+                    </MenuItem> */}
                 </Menu>
             </Toolbar>
         </StyledAppBar>
