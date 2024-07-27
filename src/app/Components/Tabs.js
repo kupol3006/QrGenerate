@@ -26,13 +26,13 @@ const TabsGrid = styled(Box)(({ theme }) => ({
 }));
 
 const StyledButton = styled(Button)(({ theme, selected }) => ({
-    minWidth: '40px',
+    minWidth: '30px',
     maxWidth: '160px',
     minHeight: '30px',
     maxHeight: '90px',
     fontWeight: 'bold',
     color: selected ? '#0284c7' : '#0EA5E9',
-    fontSize: '15px',
+    fontSize: '13.5px',
     textTransform: 'none',
     borderBottom: selected ? '2px solid #0284c7' : '2px solid transparent',
     // backgroundColor: selected ? '#E0F2FE' : 'transparent',

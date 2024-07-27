@@ -1,8 +1,15 @@
 import React from 'react';
-import { AppBar, Toolbar, styled, Typography } from '@mui/material';
+import {
+    AppBar, Toolbar, styled, Typography, Avatar, Menu, MenuItem,
+    ListItemIcon,
+    ListItemText,
+    Divider
+} from '@mui/material';
 import Link from "next/link";
 import { color, width } from '@mui/system';
 import Image from 'next/image';
+import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
     backgroundColor: '#fff', // Thay đổi màu sắc ở đây
@@ -12,6 +19,14 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 }));
 
 const Header = () => {
+    const handleAvatarClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+
     return (
         <StyledAppBar position="fixed" className='w-full flex justify-between items-center'>
             <Toolbar className='2xl:w-[1280px] w-[100%] '>
@@ -21,9 +36,9 @@ const Header = () => {
                         QR Code Generator
                     </Typography>
                 </Link>
-                <Link href="/" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold', }} className='text-[12px] sm:text-[15px]'>
+                {/* <Link href="/" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold', }} className='text-[12px] sm:text-[15px]'>
                     Tạo QR Code
-                </Link>
+                </Link> */}
                 <Link href="/Scan" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Quét QR Code
                 </Link>
@@ -33,6 +48,47 @@ const Header = () => {
                 <Link href="/Login" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Đăng nhập
                 </Link>
+                <Avatar
+                    src={userData?.picture}
+                    alt={userData?.name}
+                    onClick={handleAvatarClick}
+                    style={{ cursor: 'pointer' }}
+                />
+                <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                >
+                    <MenuItem>
+                        <ListItemIcon>
+                            <Avatar
+                                // src={userData?.picture}
+                                src='dádadas'
+                                // alt={userData?.name}
+                                style={{ cursor: 'pointer' }}
+                            />
+                        </ListItemIcon>
+                        <ListItemText>
+                            <Typography variant="h6" className="text-xl font-bold">
+                                {/* {userData?.name} */}
+                            </Typography>
+                            <Typography variant="body2">{userData?.email}</Typography>
+                        </ListItemText>
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem>
+                        <ListItemIcon>
+                            <SettingsIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Manage account" />
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                        <ListItemIcon>
+                            <LogoutIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Sign out" />
+                    </MenuItem>
+                </Menu>
             </Toolbar>
         </StyledAppBar>
     );

@@ -133,7 +133,7 @@ export default function Home() {
   };
 
   const handleShowMore = () => {
-    setShowMore((prevShowMore) => !prevShowMore);
+    setShowMore(true);
   };
 
   return (
@@ -172,14 +172,15 @@ export default function Home() {
         }}
         className="2xl:max-w-[1237px] m-auto p-[10px] pt-[90px] xl:w-full xl:p-[20px] xl:pt-[90px] lg:p-[10px] lg:pt-[90px] md:p-[10px] md:pt-[90px] sm:p-[10px] sm:pt-[90px]"
       >
-        <Typography variant="h4" fontWeight="bold">
+        <Typography variant="h4" fontWeight="bold" color={'#2563EB'} className="text-[21px]">
           9 QR code types available
         </Typography>
         <Typography
           variant="h2"
           fontWeight="bold"
           sx={{
-            margin: '1rem 0',
+            margin: '30px 0',
+            fontSize: '48px',
           }}
         >
           QR code types to create engaging customer experience
@@ -188,6 +189,8 @@ export default function Home() {
           variant="body1"
           sx={{
             marginBottom: '2rem',
+            fontSize: '15px',
+            color: '#16184b'
           }}
         >
           Build an outstanding digital experience for users with QR Codes. Use QR codes on
@@ -338,7 +341,7 @@ export default function Home() {
           ))}
         </Grid>
         <Button variant="text" onClick={handleShowMore} sx={{ marginTop: '2rem' }}>
-          {showMore ? 'Show less' : 'Show more'}
+          {showMore ? '' : 'Show more'}
         </Button>
       </Box>
       <Box
@@ -352,14 +355,15 @@ export default function Home() {
         }}
         className="2xl:max-w-[1237px] m-auto p-[10px] pt-[90px] xl:w-full xl:p-[20px] xl:pt-[90px] lg:p-[10px] lg:pt-[90px] md:p-[10px] md:pt-[90px] sm:p-[10px] sm:pt-[90px]"
       >
-        <Typography variant="h4" fontWeight="bold">
+        <Typography variant="h4" fontWeight="bold" color={'#2563EB'} className="text-[21px]">
           Advanced QR Code Stats
         </Typography>
         <Typography
           variant="h2"
           fontWeight="bold"
           sx={{
-            margin: '1rem 0',
+            margin: '30px 0',
+            fontSize: '48px',
           }}
         >
           Insights to help you understand your audience.
@@ -377,21 +381,19 @@ export default function Home() {
       </Box>
       <Box className='p-5 pt-[90px]'>
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-extrabold text-blue-600 sm:text-4xl">
+          <h2 className="text-[21px] font-extrabold text-blue-600 sm:text-[20px]">
             No hidden fees
           </h2>
-          <h1 className=" text-4xl font-extrabold text-gray-900 sm:text-5xl">
+          <h1 className=" text-[48px] font-semibold text-gray-900 sm:text-[45px] mt-[30px]">
             Straightforward Pricing
           </h1>
         </div>
 
-        <div className="flex items-center justify-center mt-8 pb-[50px]"
-
-        >
+        <div className="w-fit flex items-center justify-center mx-auto p-[4px] rounded-[8px] my-[30px] border-[2px] border-gray-300">
           <span
-            className={`px-4 py-2 rounded-l-lg cursor-pointer ${!isYearly
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-200 text-gray-700'
+            className={`px-4 py-2 rounded-l-lg  cursor-pointer ${!isYearly
+              ? 'bg-gray-200 text-gray-700'
+              : 'white text-gray-700'
               }`}
             onClick={() => setIsYearly(false)}
           >
@@ -399,8 +401,8 @@ export default function Home() {
           </span>
           <span
             className={`px-4 py-2 rounded-r-lg cursor-pointer ${isYearly
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-200 text-gray-700'
+              ? 'bg-gray-200 text-gray-700'
+              : 'white text-gray-700'
               }`}
             onClick={() => setIsYearly(true)}
           >
@@ -408,7 +410,7 @@ export default function Home() {
           </span>
         </div>
         <div
-          className="py-20 bg-cover bg-center 2xl:max-w-[1200px] m-auto p-[10px] pt-[90px] xl:w-full xl:p-[20px] xl:pt-[90px] lg:p-[10px] lg:pt-[90px] md:p-[10px] md:pt-[90px] sm:p-[10px] sm:pt-[90px]"
+          className="bg-cover bg-center 2xl:max-w-[1200px] m-auto p-[10px] pt-[10px] xl:w-full xl:p-[20px] md:pt-[10px] sm:p-[10px] sm:pt-[10px]"
           style={{
             backgroundImage:
               "url('https://qr.incard.biz/assets/images/qrcode-showcase-bg-1.png')",
