@@ -57,16 +57,16 @@ const FormElements = ({ formElementData }) => {
     return (
         // <DndContext>
         // <SortableContext items={formElementData.map((element, index) => `item-${index}`)} strategy={sortableKeyboardCoordinates}>
-        <div className="bg-gray-100 p-2 pt-4 w-[20%] h-[100%]">
-            <h5 className="text-[20px] font-bold mb-4">Form elements</h5>
+        <div className="w-full h-full p-2 pt-4">
+            <h5 className="text-[17px] text-[#6b7280] font-bold mb-4">Form elements</h5>
             <div className="grid grid-cols-2 gap-4">
                 {formElementData.map((element, index) => (
-                    <div key={index} id={`item-${index}`} className='relative overflow-hidden' onClick={() => { handlePushForm(element) }}>
-                        <div className="bg-white rounded-md shadow-md w-[110px] h-[110px] gap-2 flex flex-col justify-center items-center">
+                    <div key={index} id={`item-${index}`} className='w-[120px] h-[120px] relative' onClick={() => { handlePushForm(element) }}>
+                        <div className="bg-white rounded-md border-[2px] h-[120px] gap-2 flex flex-col justify-center items-center">
                             {renderIcon(element.icon)}
                             <h2 className="text-[12px] font-medium">{element.title}</h2>
                         </div>
-                        <div className='w-[110px] h-[110px] absolute top-0 left-0 z-1 opacity-0 flex flex-col justify-center items-center bg-[#EAECEE] hover:opacity-100 transition-all duration-1000 cursor-pointer select-none'>
+                        <div className='w-full h-[120px] border-[1px] rounded-md absolute top-0 left-0 z-1 opacity-0 flex flex-col justify-center items-center bg-white hover:opacity-95 transition-all duration-1000 cursor-pointer select-none'>
                             Click here
                         </div>
                     </div>

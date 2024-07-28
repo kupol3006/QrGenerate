@@ -17,7 +17,7 @@ export default function TextArea() {
                 id="text-area"
                 placeholder="Value here..."
                 multiline
-                rows={4} // Chỉnh số dòng hiển thị ban đầu ở đây
+                rows={2} // Chỉnh số dòng hiển thị ban đầu ở đây
                 value={value}
                 onChange={handleChange}
                 fullWidth

@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Html5QrcodeScanner, Html5Qrcode } from 'html5-qrcode';
 import { Box, TextField, Tab, Tabs, Typography } from '@mui/material';
 import BackupIcon from '@mui/icons-material/Backup';
+import Header from '../Components/Header';
 
 const Scan = () => {
     const [scanResult, setScanResult] = useState(null);
@@ -54,6 +55,7 @@ const Scan = () => {
 
     return (
         <div className='2xl:w-[1280px] w-[100%] min-h-screen max-h-[4000px] flex flex-col items-start p-[30px] pt-[100px] mx-auto'>
+            <Header />
             <Typography variant="h4" gutterBottom>
                 Quét mã QR Code Online
             </Typography>

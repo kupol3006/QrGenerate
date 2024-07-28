@@ -54,7 +54,7 @@ const FormBuidler = () => {
     return (
         <div className="h-screen">
             <HeaderForm className='h-[7%]' />
-            <div className="h-[7%] flex justify-end items-center px-4 py-2">
+            <div className="h-[7%] flex justify-end items-center px-4 py-2 border-[1px]">
                 <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded-md mr-2 flex items-center border-black border-[1px]">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -74,15 +74,17 @@ const FormBuidler = () => {
                     Publish
                 </button>
             </div>
-            <Box className='flex pt-[0px] h-[84.9%]'>
-                <Box className='w-[80%] bg-[url(https://upload.wikimedia.org/wikipedia/commons/9/9f/Graph-paper.svg)] flex justify-center p-4'>
+            <Box className='w-full flex pt-[0px] h-[84.9%]'>
+                <Box className='w-[80%] 2xl:w-[88%] bg-fixed bg-[url(https://upload.wikimedia.org/wikipedia/commons/9/9f/Graph-paper.svg)] flex justify-center p-4'>
                     <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
                         <Form formElements={formElements} />
                     </DndContext>
                 </Box>
-                {
-                    isShowElementProperties1 ? <ElementProperties /> : <FormElements formElementData={formElementData} />
-                }
+                <Box className='w-[280px]'>
+                    {
+                        isShowElementProperties1 ? <ElementProperties /> : <FormElements formElementData={formElementData} />
+                    }
+                </Box>
 
                 {/* <ElementProperties /> */}
             </Box>

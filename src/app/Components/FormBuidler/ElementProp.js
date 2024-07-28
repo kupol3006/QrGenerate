@@ -17,7 +17,7 @@ const ElementProperties = () => {
     };
 
     return (
-        <div className="w-[20%] h-[100%] p-4 bg-white rounded-md shadow-md overflow-y-auto">
+        <div className="w-full h-[100%] p-4 bg-white shadow-md overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-medium">Element properties</h2>
                 <button className="text-gray-500 hover:text-gray-700" onClick={() => dispatch(setIsShowElementProperties(false))}>
@@ -46,6 +46,7 @@ const ElementProperties = () => {
                     fullWidth
                     value={label}
                     onChange={(e) => setLabel(e.target.value)}
+                    size='small'
                 />
                 <p className="text-xs text-gray-500 mt-1">
                     The label of the field. It will be displayed above the field.
@@ -62,6 +63,7 @@ const ElementProperties = () => {
                     fullWidth
                     value={placeholder}
                     onChange={(e) => setPlaceholder(e.target.value)}
+                    size='small'
                 />
                 <p className="text-xs text-gray-500 mt-1">
                     The placeholder of the field.
@@ -78,6 +80,7 @@ const ElementProperties = () => {
                     fullWidth
                     value={helperText}
                     onChange={(e) => setHelperText(e.target.value)}
+                    size='small'
                 />
                 <p className="text-xs text-gray-500 mt-1">
                     The helper text of the field. It will be displayed below the
@@ -85,54 +88,58 @@ const ElementProperties = () => {
                 </p>
             </div>
 
-            <div className="mb-4">
-                <div className='flex justify-between'>
-                    <h3 className="text-sm font-medium mb-2">Options</h3>
-                    <div className="flex justify-end">
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            startIcon={<span>+</span>}
-                            sx={{
-                                color: 'black',
-                                borderColor: 'black',
-                                '&:hover': {
+            {formElementChosen.type === 'select' && (
+                <div className="mb-4">
+                    <div className='flex justify-between'>
+                        <h3 className="text-sm font-medium mb-2">Options</h3>
+                        <div className="flex justify-end">
+                            <Button
+                                variant="outlined"
+                                size="small"
+                                startIcon={<span>+</span>}
+                                sx={{
+                                    color: 'black',
                                     borderColor: 'black',
-                                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                                },
-                            }}
-                        >
-                            Add
-                        </Button>
+                                    '&:hover': {
+                                        borderColor: 'black',
+                                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                                    },
+                                }}
+                            >
+                                Add
+                            </Button>
+                        </div>
                     </div>
+                    <p className="text-xs text-gray-500 mt-1">
+                        The helper text of the field. It will be displayed below the
+                        field.
+                    </p>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
-                    The helper text of the field. It will be displayed below the
-                    field.
-                </p>
-            </div>
+            )}
 
-            <div className="mb-4">
-                <label htmlFor="rows" className="block text-sm font-medium text-gray-700">
-                    Rows {rows}
-                </label>
-                <Slider
-                    id="rows"
-                    value={rows}
-                    min={1}
-                    max={10}
-                    onChange={handleSliderChange}
-                    className="mt-1"
-                    sx={{
-                        '& .MuiSlider-track': {
-                            backgroundColor: 'black',
-                        },
-                        '& .MuiSlider-thumb': {
-                            color: 'white', // đổi màu thumb nếu cần
-                        },
-                    }}
-                />
-            </div>
+            {formElementChosen.type === 'textArea' && (
+                <div className="mb-4">
+                    <label htmlFor="rows" className="block text-sm font-medium text-gray-700">
+                        Rows {rows}
+                    </label>
+                    <Slider
+                        id="rows"
+                        value={rows}
+                        min={1}
+                        max={10}
+                        onChange={handleSliderChange}
+                        className="mt-1"
+                        sx={{
+                            '& .MuiSlider-track': {
+                                backgroundColor: 'black',
+                            },
+                            '& .MuiSlider-thumb': {
+                                color: 'white', // đổi màu thumb nếu cần
+                            },
+                        }}
+                    />
+                </div>
+            )}
 
             <div className="w-[100%] mb-4 border-[1px] border-[#E5E7EB] p-2 rounded-[5px]">
                 <div className="flex items-center justify-between">

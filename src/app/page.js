@@ -17,6 +17,7 @@ import { Box, Grid, Typography, Button, Card, CardContent } from "@mui/material"
 import { useState, useEffect } from "react";
 import Image from 'next/image';
 import BackgroundAnimation from "./Components/BackgroundAnimation";
+import Footer from "./Components/Footer";
 
 export default function Home() {
   const link = useSelector((state) => state.qrCode.link);
@@ -531,6 +532,7 @@ export default function Home() {
           </div>
         </div>
       </Box>
+      <Footer />
     </Box >
   );
 }
