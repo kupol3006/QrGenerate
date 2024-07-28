@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Switch, Button, Slider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsShowElementProperties } from '../../redux/slices/formBuilderSlice';
 
 const ElementProperties = () => {
-    const [label, setLabel] = useState('Select field');
-    const [placeholder, setPlaceholder] = useState('Value here...');
-    const [helperText, setHelperText] = useState('Helper text');
-    const [isRequired, setIsRequired] = useState(false);
-    const [rows, setRows] = useState(3);
     const dispatch = useDispatch();
     const formElementChosen = useSelector((state) => state.formBuilder.formElementChosen);
+
+    // State initialization based on the chosen form element
+    const [label, setLabel] = useState(formElementChosen.label || 'Select field');
+    const [placeholder, setPlaceholder] = useState(formElementChosen.placeholder || 'Value here...');
+    const [helperText, setHelperText] = useState(formElementChosen.helperText || 'Helper text');
+    const [isRequired, setIsRequired] = useState(formElementChosen.required || false);
+    const [rows, setRows] = useState(3); // Default value for textArea
+
+    useEffect(() => {
+        setLabel(formElementChosen.label || 'Select field');
+        setPlaceholder(formElementChosen.placeholder || 'Value here...');
+        setHelperText(formElementChosen.helperText || 'Helper text');
+        setIsRequired(formElementChosen.required || false);
+        if (formElementChosen.type === 'textarea') {
+            setRows(formElementChosen.rows || 3);
+        }
+    }, [formElementChosen]);
 
     const handleSliderChange = (event, newValue) => {
         setRows(newValue);
@@ -53,22 +65,24 @@ const ElementProperties = () => {
                 </p>
             </div>
 
-            <div className="mb-4">
-                <label htmlFor="placeholder" className="block text-sm font-medium mb-1">
-                    Placeholder
-                </label>
-                <TextField
-                    id="placeholder"
-                    variant="outlined"
-                    fullWidth
-                    value={placeholder}
-                    onChange={(e) => setPlaceholder(e.target.value)}
-                    size='small'
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                    The placeholder of the field.
-                </p>
-            </div>
+            {formElementChosen.type !== 'date' || 'checkbox' && (
+                <div className="mb-4">
+                    <label htmlFor="placeholder" className="block text-sm font-medium mb-1">
+                        Placeholder
+                    </label>
+                    <TextField
+                        id="placeholder"
+                        variant="outlined"
+                        fullWidth
+                        value={placeholder}
+                        onChange={(e) => setPlaceholder(e.target.value)}
+                        size='small'
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                        The placeholder of the field.
+                    </p>
+                </div>
+            )}
 
             <div className="mb-4">
                 <label htmlFor="helperText" className="block text-sm font-medium mb-1">
@@ -83,8 +97,7 @@ const ElementProperties = () => {
                     size='small'
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                    The helper text of the field. It will be displayed below the
-                    field.
+                    The helper text of the field. It will be displayed below the field.
                 </p>
             </div>
 
@@ -111,13 +124,12 @@ const ElementProperties = () => {
                         </div>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
-                        The helper text of the field. It will be displayed below the
-                        field.
+                        The options for the select field.
                     </p>
                 </div>
             )}
 
-            {formElementChosen.type === 'textArea' && (
+            {formElementChosen.type === 'textarea' && (
                 <div className="mb-4">
                     <label htmlFor="rows" className="block text-sm font-medium text-gray-700">
                         Rows {rows}
@@ -134,7 +146,7 @@ const ElementProperties = () => {
                                 backgroundColor: 'black',
                             },
                             '& .MuiSlider-thumb': {
-                                color: 'white', // đổi màu thumb nếu cần
+                                color: 'white',
                             },
                         }}
                     />
@@ -157,8 +169,7 @@ const ElementProperties = () => {
                     />
                 </div>
                 <p className="text-xs text-gray-500 mt-1">
-                    The helper text of the field. It will be displayed below the
-                    field.
+                    The field is required.
                 </p>
             </div>
 

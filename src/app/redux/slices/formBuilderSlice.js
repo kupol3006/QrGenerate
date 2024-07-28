@@ -21,7 +21,7 @@ const initialState = {
             icon: 'NumberField',
             title: 'Number Field',
             required: false,
-            placeholder: 'Enter your number here',
+            placeholder: '0',
             label: 'Number Field',
             name: 'number',
             type: 'number',

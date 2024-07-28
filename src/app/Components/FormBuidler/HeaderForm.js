@@ -52,7 +52,7 @@ const PageHeader = () => {
     };
 
     return (
-        <header className="w-full flex justify-between items-center py-4 px-6 bg-white border-[#E5E7EB] border-b-[1px]">
+        <header className="w-full flex justify-between items-center py-1 px-6 bg-white border-[#E5E7EB] border-b-[1px]">
             <h1
                 className="font-bold text-3xl bg-gradient-to-r from-indigo-400 to-cyan-400 text-transparent bg-clip-text hover:cursor-pointer"
                 onClick={() => router.push('/CreateForm')}
@@ -66,6 +66,7 @@ const PageHeader = () => {
                     alt={userData?.name}
                     onClick={handleAvatarClick}
                     style={{ cursor: 'pointer' }}
+                    sx={{ width: 32, height: 32 }}
                 />
                 <Menu
                     anchorEl={anchorEl}
@@ -78,6 +79,7 @@ const PageHeader = () => {
                                 src={userData?.picture}
                                 alt={userData?.name}
                                 style={{ cursor: 'pointer' }}
+                                sx={{ width: 32, height: 32, marginRight: 2 }}
                             />
                         </ListItemIcon>
                         <ListItemText>
