@@ -12,6 +12,7 @@ import PublishIcon from '@mui/icons-material/Publish';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFormElement } from '../redux/slices/formBuilderSlice';
 import ElementProperties from '../Components/FormBuidler/ElementProp';
+import FormPreview from '../Components/FormBuidler/Preview';
 
 const FormBuidler = () => {
     const dispatch = useDispatch();
@@ -20,6 +21,11 @@ const FormBuidler = () => {
     const formElementData1 = useSelector((state) => state.formBuilder.formElementData)
     const [formElementData, setFormElementData] = React.useState(formElementData1);
     const isShowElementProperties1 = useSelector((state) => state.formBuilder.isShowElementProperties)
+
+    const [closePreview, setClosePreview] = useState(false);
+    const handleOpenPreview = () => {
+        setClosePreview(!closePreview);
+    };
 
     useEffect(() => {
         setFormElements(formElements1);
@@ -52,10 +58,12 @@ const FormBuidler = () => {
         console.log('event', event);
     };
     return (
-        <div className="h-screen">
+        <div className="w-full relative h-screen">
             <HeaderForm className='h-[7%]' />
             <div className="h-[7%] flex justify-end items-center px-4 py-1 border-[1px]">
-                <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 rounded-md mr-2 flex items-center border-black border-[1px]">
+                <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 rounded-md mr-2 flex items-center border-black border-[1px]"
+                    onClick={handleOpenPreview}
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                         <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
@@ -88,6 +96,7 @@ const FormBuidler = () => {
 
                 {/* <ElementProperties /> */}
             </Box>
+            <FormPreview open={closePreview} handleClose={handleOpenPreview} />
         </div>
     );
 };

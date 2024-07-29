@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Switch, Button, Slider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsShowElementProperties } from '../../redux/slices/formBuilderSlice';
+import { setIsShowElementProperties, updateFormChosenElement } from '../../redux/slices/formBuilderSlice';
 
 const ElementProperties = () => {
     const dispatch = useDispatch();
@@ -13,6 +13,23 @@ const ElementProperties = () => {
     const [helperText, setHelperText] = useState(formElementChosen.helperText || 'Helper text');
     const [isRequired, setIsRequired] = useState(formElementChosen.required || false);
     const [rows, setRows] = useState(3); // Default value for textArea
+    const [options, setOptions] = useState([]);
+
+    const handleAddOption = () => {
+        setOptions([...options, '']);
+    };
+
+    const handleOptionChange = (index, value) => {
+        const newOptions = [...options];
+        newOptions[index] = value;
+        setOptions(newOptions);
+    };
+
+    const handleRemoveOption = (index) => {
+        const newOptions = [...options];
+        newOptions.splice(index, 1);
+        setOptions(newOptions);
+    };
 
     useEffect(() => {
         setLabel(formElementChosen.label || 'Select field');
@@ -27,6 +44,18 @@ const ElementProperties = () => {
     const handleSliderChange = (event, newValue) => {
         setRows(newValue);
     };
+
+    const handleSave = () => {
+        dispatch(updateFormChosenElement({
+            ...formElementChosen,
+            label,
+            placeholder,
+            helperText,
+            required: isRequired,
+            rows,
+            options,
+        }));
+    }
 
     return (
         <div className="w-full h-[100%] p-4 bg-white shadow-md overflow-y-auto">
@@ -103,13 +132,14 @@ const ElementProperties = () => {
 
             {formElementChosen.type === 'select' && (
                 <div className="mb-4">
-                    <div className='flex justify-between'>
+                    <div className="flex justify-between">
                         <h3 className="text-sm font-medium mb-2">Options</h3>
                         <div className="flex justify-end">
                             <Button
                                 variant="outlined"
                                 size="small"
                                 startIcon={<span>+</span>}
+                                onClick={handleAddOption}
                                 sx={{
                                     color: 'black',
                                     borderColor: 'black',
@@ -122,6 +152,39 @@ const ElementProperties = () => {
                                 Add
                             </Button>
                         </div>
+                    </div>
+                    <div>
+                        {options.map((option, index) => (
+                            <div key={index} className="flex items-center mb-2">
+                                <TextField
+                                    value={option}
+                                    onChange={(e) => handleOptionChange(index, e.target.value)}
+                                    fullWidth
+                                    size="small"
+                                    sx={{
+                                        width: 'calc(100% - 10px)',
+                                        marginRight: 0,
+                                    }}
+                                />
+                                <Button
+                                    variant="text"
+                                    size="small"
+                                    onClick={() => handleRemoveOption(index)}
+                                    sx={{
+                                        width: '0px',
+                                        // height: 24,
+                                        color: 'red',
+                                        borderColor: 'red',
+                                        '&:hover': {
+                                            borderColor: 'red',
+                                            backgroundColor: 'rgba(255, 0, 0, 0.04)',
+                                        },
+                                    }}
+                                >
+                                    X
+                                </Button>
+                            </div>
+                        ))}
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
                         The options for the select field.
@@ -182,6 +245,7 @@ const ElementProperties = () => {
                         backgroundColor: '#282F3C'
                     }
                 }}
+                onClick={handleSave}
             >
                 Save
             </Button>
