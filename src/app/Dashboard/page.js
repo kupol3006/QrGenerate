@@ -236,9 +236,10 @@ export default function PersistentDrawerLeft() {
                             aria-expanded={open ? 'true' : undefined}
                             variant="contained"
                             onClick={handleClick}
-                            className="bg-[#90C52D] text-white w-[170px] rounded-none text-[12px]"
+                            className="bg-[#90C52D] text-white rounded-none"
                             color='success'
                             startIcon={<AddIcon className='mr-0' />}
+                            sx={{ fontSize: '12px', width: '170px' }}
                         >
                             create qr code
                         </Button>

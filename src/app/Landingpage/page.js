@@ -21,142 +21,142 @@ import CreateFormModal from '../Components/LandingPage/PopupAI';
 import AutoRotatingCircularProgress from '../Components/LandingPage/GradientProgress';
 
 const StyledModal = styled('div')({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 });
 
 function LandingPageEditor() {
-    const router = useRouter();
-    const [editor, setEditor] = useState(null);
-    const [templates, setTemplates] = useState([
-        {
-            id: 'template-1',
-            label: 'Template 1',
-            content: `<div class="template">
+  const router = useRouter();
+  const [editor, setEditor] = useState(null);
+  const [templates, setTemplates] = useState([
+    {
+      id: 'template-1',
+      label: 'Template 1',
+      content: `<div class="template">
         <h1>Template 1</h1>
         <p>This is a simple template.</p>
       </div>`,
-        },
-        {
-            id: 'template-2',
-            label: 'Template 2',
-            content: `<div class="template">
+    },
+    {
+      id: 'template-2',
+      label: 'Template 2',
+      content: `<div class="template">
         <h1>Template 2</h1>
         <p>This is another simple template.</p>
       </div>`,
-            style: ``
+      style: ``
+    },
+  ]);
+  const [templateContentAI, setTemplateContentAI] = useState('');
+  const [templateStyleAI, setTemplateStyleAI] = useState('');
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const editor = grapesjs.init({
+        container: "#editor",
+        plugins: [
+          gjsPresetWebpage,
+          grapesjsBlocksBasic,
+          grapesjsPluginForms,
+          grapesjsPluginNavbar,
+          grapesjsPluginCountdown,
+          grapesjsPluginTemplate,
+        ],
+        pluginsOpts: {
+          gjsPresetWebpage: {
+            // options
+          },
+          grapesjsBlocksBasic: {
+            // options
+          },
+          grapesjsPluginForms: {
+            // options
+          },
+          grapesjsPluginNavbar: {
+            // options
+          },
+          grapesjsPluginCountdown: {
+            // options
+          },
+          grapesjsPluginTemplate: {
+            // options
+
+          },
         },
-    ]);
-    const [templateContentAI, setTemplateContentAI] = useState('');
-    const [templateStyleAI, setTemplateStyleAI] = useState('');
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
+      });
+      const styleManager = editor.StyleManager;
+      styleManager.addSector('custom', {
+        name: 'Custom',
+        open: false,
+        buildProps: ['background-color', 'color', 'font-size', 'font-family', 'text-align', 'border-radius', 'padding'],
+      });
+      styleManager.render();
+      setEditor(editor);
+    }
+  }, []);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const editor = grapesjs.init({
-                container: "#editor",
-                plugins: [
-                    gjsPresetWebpage,
-                    grapesjsBlocksBasic,
-                    grapesjsPluginForms,
-                    grapesjsPluginNavbar,
-                    grapesjsPluginCountdown,
-                    grapesjsPluginTemplate,
-                ],
-                pluginsOpts: {
-                    gjsPresetWebpage: {
-                        // options
-                    },
-                    grapesjsBlocksBasic: {
-                        // options
-                    },
-                    grapesjsPluginForms: {
-                        // options
-                    },
-                    grapesjsPluginNavbar: {
-                        // options
-                    },
-                    grapesjsPluginCountdown: {
-                        // options
-                    },
-                    grapesjsPluginTemplate: {
-                        // options
+  const saveLandingPage = async () => {
+    if (editor) {
+      const html = editor.getHtml();
+      const css = editor.getCss();
+      // Gửi dữ liệu tới backend
+      try {
+        console.log('HTML:', html);
+        console.log('CSS:', css);
+      } catch (error) {
+        console.error('Error saving landing page:', error);
+      }
+    }
+  };
 
-                    },
-                },
-            });
-            const styleManager = editor.StyleManager;
-            styleManager.addSector('custom', {
-                name: 'Custom',
-                open: false,
-                buildProps: ['background-color', 'color', 'font-size', 'font-family', 'text-align', 'border-radius', 'padding'],
-            });
-            styleManager.render();
-            setEditor(editor);
-        }
-    }, []);
+  const handleTemplateClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const saveLandingPage = async () => {
-        if (editor) {
-            const html = editor.getHtml();
-            const css = editor.getCss();
-            // Gửi dữ liệu tới backend
-            try {
-                console.log('HTML:', html);
-                console.log('CSS:', css);
-            } catch (error) {
-                console.error('Error saving landing page:', error);
-            }
-        }
-    };
+  const handleTemplateClose = (template) => {
+    if (template && editor) {
+      editor.setComponents(template.content);
+      editor.setStyle(template.style);
+    }
+    setAnchorEl(null);
+  };
 
-    const handleTemplateClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+  const handleNavigate = (url) => {
+    router.push(url);
+  };
+  const {
+    GoogleGenerativeAI,
+    HarmCategory,
+    HarmBlockThreshold,
+  } = require("@google/generative-ai");
 
-    const handleTemplateClose = (template) => {
-        if (template && editor) {
-            editor.setComponents(template.content);
-            editor.setStyle(template.style);
-        }
-        setAnchorEl(null);
-    };
+  const apiKey = 'AIzaSyAdikvUHhHVdi-WP9-uvn3tRvZKkc_f_xg';
+  const genAI = new GoogleGenerativeAI(apiKey);
 
-    const handleNavigate = (url) => {
-        router.push(url);
-    };
-    const {
-        GoogleGenerativeAI,
-        HarmCategory,
-        HarmBlockThreshold,
-    } = require("@google/generative-ai");
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-pro",
+  });
 
-    const apiKey = 'AIzaSyAdikvUHhHVdi-WP9-uvn3tRvZKkc_f_xg';
-    const genAI = new GoogleGenerativeAI(apiKey);
+  const generationConfig = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 64,
+    maxOutputTokens: 8192,
+    responseMimeType: "text/plain",
+  };
+  async function run(message) {
+    try {
+      const chatSession = model.startChat({
+        generationConfig,
+        history: [],
+      });
 
-    const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-pro",
-    });
-
-    const generationConfig = {
-        temperature: 1,
-        topP: 0.95,
-        topK: 64,
-        maxOutputTokens: 8192,
-        responseMimeType: "text/plain",
-    };
-    async function run(message) {
-        try {
-            const chatSession = model.startChat({
-                generationConfig,
-                history: [],
-            });
-
-            const result = await chatSession.sendMessage(
-                `<body>
+      const result = await chatSession.sendMessage(
+        `<body>
   <header class="header-banner" id="i2z9">
     <div class="container-width" id="ifd5">
       <div class="logo-container" id="i0ph">
@@ -470,14 +470,14 @@ function LandingPageEditor() {
 </body>
 Code cho tôi đoạn code tương tự chỉ cần thẻ <body> không cần thẻ <html> hay <head>. Chỉ trả kết quả là đoạn code trong thẻ <body>, theo format <body>”nội dung”</body> không cần giải thích gì thêm.
 `+ message
-            );
-            const responseText = result.response.text();
-            console.log(responseText);
-            if (responseText) {
-                setTemplateContentAI(responseText);
-                console.log(templateContentAI);
-                editor.setComponents(responseText);
-                editor.setStyle(`* {
+      );
+      const responseText = result.response.text();
+      console.log(responseText);
+      if (responseText) {
+        setTemplateContentAI(responseText);
+        console.log(templateContentAI);
+        editor.setComponents(responseText);
+        editor.setStyle(`* {
   box-sizing: border-box;
 }
 body {
@@ -989,53 +989,55 @@ body {
   }
 }
 `);
-                console.log(chatSession.history);
+        console.log(chatSession.history);
 
-                setLoading(false);
-            }
-        } catch (error) {
-            if (error.message.includes('Resource has been exhausted')) {
-                console.error('API quota exceeded. Please try again later.');
-                // Optional: Implement retry logic here
-            } else {
-                console.error('Error:', error);
-            }
-        }
+        setTimeout(() => {
+          setLoading(false);
+        }, 9000);
+      }
+    } catch (error) {
+      if (error.message.includes('Resource has been exhausted')) {
+        console.error('API quota exceeded. Please try again later.');
+        // Optional: Implement retry logic here
+      } else {
+        console.error('Error:', error);
+      }
     }
+  }
 
-    const handleGenerate = (message) => {
-        setOpen(!open);
-        setLoading(true);
-        run(message);
-    };
+  const handleGenerate = (message) => {
+    setOpen(!open);
+    setLoading(true);
+    run(message);
+  };
 
 
-    // useEffect(() => {
-    //     async function run() {
-    //         try {
-    //             const chatSession = model.startChat({
-    //                 generationConfig,
-    //                 history: [],
-    //             });
+  // useEffect(() => {
+  //     async function run() {
+  //         try {
+  //             const chatSession = model.startChat({
+  //                 generationConfig,
+  //                 history: [],
+  //             });
 
-    //             const result = await chatSession.sendMessage("Messy là ai");
-    //             console.log(result.response.text());
-    //         } catch (error) {
-    //             if (error.message.includes('Resource has been exhausted')) {
-    //                 console.error('API quota exceeded. Please try again later.');
-    //                 // Optional: Implement retry logic here
-    //             } else {
-    //                 console.error('Error:', error);
-    //             }
-    //         }
-    //     }
-    //     run();
-    // }, []);
+  //             const result = await chatSession.sendMessage("Messy là ai");
+  //             console.log(result.response.text());
+  //         } catch (error) {
+  //             if (error.message.includes('Resource has been exhausted')) {
+  //                 console.error('API quota exceeded. Please try again later.');
+  //                 // Optional: Implement retry logic here
+  //             } else {
+  //                 console.error('Error:', error);
+  //             }
+  //         }
+  //     }
+  //     run();
+  // }, []);
 
-    return (
-        <Box className=' relative'>
-            <CssBaseline />
-            <style jsx global>{`
+  return (
+    <Box className=' relative'>
+      <CssBaseline />
+      <style jsx global>{`
                 html {
   overflow: scroll;
   overflow-x: hidden;
@@ -1046,71 +1048,71 @@ body {
   display: none;
 }
             `}</style>
-            <AppBar position="static" sx={{ backgroundColor: '#373D49', height: '70px', display: 'flex', justifyContent: 'center' }} >
-                <Toolbar className='flex justify-between h-full'>
-                    <IconButton
-                        // color="default"
-                        aria-label="open drawer"
-                        onClick={() => handleNavigate('/Dashboard')}
-                        edge="start"
-                        sx={{
-                            mr: 2, color: '#DAE5E6',
-                            '&:hover': {
-                                backgroundColor: '#2F343E',
-                            },
-                        }}
-                    >
-                        <ArrowBackIosNewIcon />
-                    </IconButton>
-                    <Box>
-                        <Button aria-controls="template-menu" aria-haspopup="true" onClick={handleTemplateClick} sx={{
-                            color: '#DAE5E6', '&:hover': {
-                                backgroundColor: '#2F343E',
-                            },
-                        }}>
-                            Select Template
-                        </Button>
-                        <Menu
-                            id="template-menu"
-                            anchorEl={anchorEl}
-                            keepMounted
-                            open={Boolean(anchorEl)}
-                            onClose={() => handleTemplateClose(null)}
+      <AppBar position="static" sx={{ backgroundColor: '#373D49', height: '70px', display: 'flex', justifyContent: 'center' }} >
+        <Toolbar className='flex justify-between h-full'>
+          <IconButton
+            // color="default"
+            aria-label="open drawer"
+            onClick={() => handleNavigate('/Dashboard')}
+            edge="start"
+            sx={{
+              mr: 2, color: '#DAE5E6',
+              '&:hover': {
+                backgroundColor: '#2F343E',
+              },
+            }}
+          >
+            <ArrowBackIosNewIcon />
+          </IconButton>
+          <Box>
+            <Button aria-controls="template-menu" aria-haspopup="true" onClick={handleTemplateClick} sx={{
+              color: '#DAE5E6', '&:hover': {
+                backgroundColor: '#2F343E',
+              },
+            }}>
+              Select Template
+            </Button>
+            <Menu
+              id="template-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={() => handleTemplateClose(null)}
 
-                        >
-                            {templates.map((template) => (
-                                <MenuItem key={template.id} onClick={() => handleTemplateClose(template)}>
-                                    {template.label}
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                        <Button onClick={saveLandingPage} sx={{
-                            color: '#DAE5E6', '&:hover': {
-                                backgroundColor: '#2F343E',
-                            },
-                        }}>Save</Button>
-                    </Box>
-                    <Button
-                        sx={{
-                            color: '#DAE5E6', '&:hover': {
-                                backgroundColor: '#2F343E',
-                            },
-                        }}
-                        onClick={handleGenerate}
-                    >
-                        Publish
-                    </Button>
-                </Toolbar>
-            </AppBar>
-            <Box>
-                <Box id="editor" className='bg-slate-300 w-full h-full'></Box>
-                <CreateFormModal open={open} handleGenerate={handleGenerate} />
-                {loading && <Box className='w-full h-[calc(100vh-0px)] absolute top-[70px] left-0 flex justify-center items-center z-10 bg-transparent opacity-100'>
-                    <AutoRotatingCircularProgress />
-                </Box>}
-            </Box>
-        </Box>
-    );
+            >
+              {templates.map((template) => (
+                <MenuItem key={template.id} onClick={() => handleTemplateClose(template)}>
+                  {template.label}
+                </MenuItem>
+              ))}
+            </Menu>
+            <Button onClick={saveLandingPage} sx={{
+              color: '#DAE5E6', '&:hover': {
+                backgroundColor: '#2F343E',
+              },
+            }}>Save</Button>
+          </Box>
+          <Button
+            sx={{
+              color: '#DAE5E6', '&:hover': {
+                backgroundColor: '#2F343E',
+              },
+            }}
+            onClick={handleGenerate}
+          >
+            Publish
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Box>
+        <Box id="editor" className='bg-slate-300 w-full h-full'></Box>
+        <CreateFormModal open={open} handleGenerate={handleGenerate} />
+        {loading && <Box className='w-full h-[calc(100vh-0px)] absolute top-[70px] left-0 flex justify-center items-center z-10 bg-transparent opacity-100'>
+          <AutoRotatingCircularProgress />
+        </Box>}
+      </Box>
+    </Box>
+  );
 }
 
 export default LandingPageEditor;
