@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Html5QrcodeScanner, Html5Qrcode } from 'html5-qrcode';
 import { Box, TextField, Tab, Tabs, Typography } from '@mui/material';
 import BackupIcon from '@mui/icons-material/Backup';
-import Header from '../Components/Header';
+import Header from '../Components/Home/Header';
 
 const Scan = () => {
     const [scanResult, setScanResult] = useState(null);

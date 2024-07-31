@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // import Head from 'next/head';
 import { TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Select, MenuItem } from '@mui/material';
 import { toast, Flip } from 'react-toastify';
-import Header from '../Components/Header';
+import Header from '../Components/Home/Header';
 
 const Register = () => {
   const [formData, setFormData] = useState({

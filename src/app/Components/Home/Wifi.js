@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Typography, Box, Grid, FormControl, FormControlLabel, RadioGroup, Radio, Checkbox } from '@mui/material';
 import { QRCode } from 'react-qrcode-logo';
 import { useDispatch, useSelector } from 'react-redux';
-import { setText } from '../redux/slices/qrCodeSlice';
+import { setText } from '../../redux/slices/qrCodeSlice';
 import QrCode2SharpIcon from '@mui/icons-material/QrCode2Sharp';
 import { display } from '@mui/system';
 

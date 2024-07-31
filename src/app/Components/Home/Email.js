@@ -5,7 +5,7 @@ import Grid from '@mui/system/Unstable_Grid/Grid';
 import { styled } from '@mui/material/styles';
 import QrCode2SharpIcon from '@mui/icons-material/QrCode2Sharp';
 import { useDispatch } from 'react-redux';
-import { setText } from '../redux/slices/qrCodeSlice';
+import { setText } from '../../redux/slices/qrCodeSlice';
 
 const GridItems = styled(Grid)(({ theme }) => ({
     display: 'flex',

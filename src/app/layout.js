@@ -4,10 +4,11 @@ import "./globals.css";
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
 import * as React from 'react';
-import Header from "./Components/Header";
+import Header from "./Components/Home/Header";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import 'grapesjs/dist/css/grapes.min.css';
 
 const inter = Inter({ subsets: ["latin"] });
 

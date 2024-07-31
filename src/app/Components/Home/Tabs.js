@@ -11,9 +11,9 @@ import FacebookSharpIcon from '@mui/icons-material/FacebookSharp';
 import WifiIcon from '@mui/icons-material/Wifi';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import LocalAtmSharpIcon from '@mui/icons-material/LocalAtmSharp';
-import { setLink } from '../redux/slices/qrCodeSlice';
+import { setLink } from '../../redux/slices/qrCodeSlice';
 import { useDispatch } from 'react-redux';
-import { updateImageObject } from '../redux/slices/qrCodeSlice';
+import { updateImageObject } from '../../redux/slices/qrCodeSlice';
 
 const TabsGrid = styled(Box)(({ theme }) => ({
     display: 'flex',

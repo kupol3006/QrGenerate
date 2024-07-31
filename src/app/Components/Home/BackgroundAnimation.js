@@ -24,7 +24,7 @@ const BackgroundAnimation = () => {
         <motion.div
             initial="hidden"
             animate="visible"
-            className="absolute inset-0 overflow-hidden"
+            className="absolute inset-0 overflow-hidden z-[0]"
         >
             {[...Array(70)].map((_, index) => (
                 <motion.div

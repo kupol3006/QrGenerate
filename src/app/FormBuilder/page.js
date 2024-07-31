@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateFormElement } from '../redux/slices/formBuilderSlice';
 import ElementProperties from '../Components/FormBuidler/ElementProp';
 import FormPreview from '../Components/FormBuidler/Preview';
+import PopUpPublish from '../Components/FormBuidler/PopUpPublish';
 
 const FormBuidler = () => {
     const dispatch = useDispatch();
@@ -23,8 +24,13 @@ const FormBuidler = () => {
     const isShowElementProperties1 = useSelector((state) => state.formBuilder.isShowElementProperties)
 
     const [closePreview, setClosePreview] = useState(false);
+    const [closePublish, setClosePublish] = useState(false);
+
     const handleOpenPreview = () => {
         setClosePreview(!closePreview);
+    };
+    const handleOpenPublish = () => {
+        setClosePublish(!closePublish);
     };
 
     useEffect(() => {
@@ -60,7 +66,7 @@ const FormBuidler = () => {
     return (
         <div className="w-full relative h-screen">
             <HeaderForm className='h-[7%]' />
-            <div className="h-[7%] flex justify-end items-center px-4 py-1 border-[1px]">
+            <div className="h-[6%] flex justify-end items-center px-4 py-0 border-[1px]">
                 <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 rounded-md mr-2 flex items-center border-black border-[1px]"
                     onClick={handleOpenPreview}
                 >
@@ -70,20 +76,29 @@ const FormBuidler = () => {
                     </svg>
                     Preview
                 </button>
-                <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 rounded-md mr-2 flex items-center border-black border-[1px]">
+                <button
+                    className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 rounded-md mr-2 flex items-center border-black border-[1px]"
+
+                >
                     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" aria-hidden="true" className="h-4 w-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.707 7.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L13 8.586V5h3a2 2 0 012 2v5a2 2 0 01-2 2H8a2 2 0 01-2-2V7a2 2 0 012-2h3v3.586L9.707 7.293zM11 3a1 1 0 112 0v2h-2V3z"></path>
                         <path d="M4 9a2 2 0 00-2 2v5a2 2 0 002 2h8a2 2 0 002-2h-8v-5z"></path>
                     </svg>
                     Save
                 </button>
-                <button className="bg-gradient-to-r from-indigo-400 to-cyan-400 text-white font-bold py-1 px-2 rounded-md shadow-xl flex items-center">
+                <button
+                    className="bg-gradient-to-r from-indigo-400 to-cyan-400 text-white font-bold py-1 px-2 rounded-md shadow-xl flex items-center"
+                    onClick={handleOpenPublish}
+                >
                     <PublishIcon className="h-5 w-5 mr-2" />
                     Publish
                 </button>
             </div>
-            <Box className='w-full flex pt-[0px] h-[84.9%]'>
-                <Box className='w-[80%] 2xl:w-[88%] bg-fixed bg-[url(https://upload.wikimedia.org/wikipedia/commons/9/9f/Graph-paper.svg)] flex justify-center p-4'>
+            <Box className='w-full flex pt-[0px] h-[88%]'>
+                <Box
+                    className='w-[80%] 2xl:w-[88%] bg-fixed bg-[url(https://upload.wikimedia.org/wikipedia/commons/9/9f/Graph-paper.svg)] flex justify-center p-4'
+                    sx={{ backgroundSize: '10px 10px' }}
+                >
                     <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
                         <Form formElements={formElements} />
                     </DndContext>
@@ -97,6 +112,7 @@ const FormBuidler = () => {
                 {/* <ElementProperties /> */}
             </Box>
             <FormPreview open={closePreview} handleClose={handleOpenPreview} />
+            <PopUpPublish open={closePublish} handleClose={handleOpenPublish} />
         </div>
     );
 };

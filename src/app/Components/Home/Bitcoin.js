@@ -4,7 +4,7 @@ import { TextField, Button, Typography, Box, Grid, FormControl, RadioGroup, Radi
 import QRCode from 'react-qrcode-logo';
 import QrCode2SharpIcon from '@mui/icons-material/QrCode2Sharp';
 import { useDispatch, useSelector } from 'react-redux';
-import { setText } from '../redux/slices/qrCodeSlice';
+import { setText } from '../../redux/slices/qrCodeSlice';
 
 const BitcoinForm = () => {
     const dispatch = useDispatch();

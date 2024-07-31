@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { TextField } from '@mui/material';
 
-export default function TextArea() {
+export default function TextArea({ form }) {
     const [value, setValue] = useState('');
 
     const handleChange = (event) => {
@@ -9,9 +9,9 @@ export default function TextArea() {
     };
 
     return (
-        <div className="p-1">
+        <div className="p-4">
             <label htmlFor="text-area" className="block text-sm font-medium text-gray-700">
-                Text area
+                {form?.label || 'Text Area'}
             </label>
             <TextField
                 id="text-area"
@@ -23,7 +23,7 @@ export default function TextArea() {
                 fullWidth
                 variant="outlined"
                 className="mt-1"
-                helperText="Helper text"
+                helperText={form?.helperText || 'Helper text'}
                 size='small'
                 disabled={true}
             />

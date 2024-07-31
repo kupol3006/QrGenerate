@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Typography, Checkbox, FormControlLabel, Container } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
-import Header from '../Components/Header';
+import Header from '../Components/Home/Header';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -22,7 +22,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email === userData[0].email && password === userData[0].password) {
-      router.push('/CreateForm');
+      router.push('/Dashboard');
     } else {
       toast.error('Email hoặc mật khẩu không đúng.', {
         position: 'top-right',
@@ -43,7 +43,7 @@ const Login = () => {
         Cookies.set('google_token', tokenResponse.access_token, { expires: 7 });
         Cookies.set('google_user', JSON.stringify(res.data), { expires: 7 });
         console.log(res); // or do something with the response
-        router.push('/CreateForm');
+        router.push('/Dashboard');
       } catch (error) {
         console.error('Error:', error);
       }

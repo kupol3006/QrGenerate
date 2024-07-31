@@ -11,15 +11,15 @@ import styled from '@mui/material/styles/styled';
 import ImageIcon from '@mui/icons-material/Image';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import DraftsIcon from '@mui/icons-material/Drafts';
-import Frame6 from '../ComponentsSvg/Frame6';
-import Frame1 from '../ComponentsSvg/Frame1';
-import Frame5 from '../ComponentsSvg/Frame5';
-import Frame3 from '../ComponentsSvg/Frame3';
-import Frame4 from '../ComponentsSvg/Frame4';
-import Frame2 from '../ComponentsSvg/Frame2';
-import Frame100 from '../ComponentsSvg/Frame100';
-import Frame101 from '../ComponentsSvg/Frame101';
-import { updateImageObject, setTextImage, setX, setY, setShape, setColor } from '../redux/slices/qrCodeSlice';
+import Frame6 from '../../ComponentsSvg/Frame6';
+import Frame1 from '../../ComponentsSvg/Frame1';
+import Frame5 from '../../ComponentsSvg/Frame5';
+import Frame3 from '../../ComponentsSvg/Frame3';
+import Frame4 from '../../ComponentsSvg/Frame4';
+import Frame2 from '../../ComponentsSvg/Frame2';
+import Frame100 from '../../ComponentsSvg/Frame100';
+import Frame101 from '../../ComponentsSvg/Frame101';
+import { updateImageObject, setTextImage, setX, setY, setShape, setColor } from '../../redux/slices/qrCodeSlice';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
@@ -182,7 +182,7 @@ function QrCode() {
     };
 
     return (
-        <div className='flex flex-col items-center justify-center'>
+        <div className='flex flex-col items-center justify-center z-1'>
             <Typography variant="h5" align="center" fontWeight={'bold'} margin={'10px 10px 2px 10px'} sx={{ '@media (max-width: 600px)': { textAlign: 'center' } }}>
                 Mã QR code của bạn!
             </Typography>
@@ -208,7 +208,7 @@ function QrCode() {
                     </Box>
                 </div>
                 :
-                <div ref={inputRef} className='w-[300px] min-h-[200px] max-h-[800px] overflow-hidden'>
+                <div ref={inputRef} className='w-[300px] min-h-[200px] max-h-[800px] overflow-hidden z-1'>
                     <Box sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center' }}>
                         <div className=" w-[100%] h-[100%] relative mx-auto text-center">
                             {imageObject.id === 7 && <Frame100 />}
@@ -234,7 +234,7 @@ function QrCode() {
                     </Box>
                 </div>
             }
-            <div style={{ display: 'flex', borderRadius: 4, overflow: 'hidden', marginTop: '7px' }}>
+            <div style={{ display: 'flex', borderRadius: 4, overflow: 'hidden', marginTop: '7px', zIndex: 2 }}>
                 <StyledButton
                     variant="contained"
                     color="success"
@@ -254,7 +254,7 @@ function QrCode() {
                     PDF
                 </StyledButton>
             </div>
-            <div className='w-[90%] rounded-[7px] overflow-hidden mt-[10px] mb-[8px]'>
+            <div className='w-[90%] rounded-[7px] overflow-hidden mt-[10px] mb-[8px] z-10'>
                 <div className="w-full bg-[#7DD3FC] p-[10px] cursor-pointer">
                     <div className="flex items-center justify-between" onClick={() => toggleDropdown('frame')}>
                         <h2 className="text-[15px] font-bold">Khung</h2>

@@ -4,7 +4,7 @@ import { TextField, Button, Typography, Box, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import QrCode2SharpIcon from '@mui/icons-material/QrCode2Sharp';
 import { useDispatch } from 'react-redux';
-import { setText } from '../redux/slices/qrCodeSlice';
+import { setText } from '../../redux/slices/qrCodeSlice';
 import { margin } from '@mui/system';
 
 const FlexBox = styled(Box)(({ theme }) => ({

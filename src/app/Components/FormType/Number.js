@@ -1,29 +1,32 @@
 import { TextField } from '@mui/material';
+import { stringify } from 'postcss';
 import { useState } from 'react';
 
-export default function NumberField() {
-    const [value, setValue] = useState(0);
+export default function NumberField({ form }) {
+    const [value, setValue] = useState(null);
 
     const handleChange = (event) => {
         setValue(event.target.value);
     };
 
     return (
-        <div className="p-1">
+        <div className="p-4">
             <label htmlFor="number-field" className="block text-sm font-medium text-gray-700">
-                Number field
+                {form?.label || 'Number field'} {form?.required === true && <span className='text-black'>*</span>}
             </label>
             <TextField
                 id="number-field"
                 type="number"
                 value={value}
                 onChange={handleChange}
+                placeholder={`${form?.placeholder}` || ''}
                 fullWidth
                 variant="outlined"
                 className="mt-1"
-                helperText="Helper text"
+                helperText={form?.helperText || 'Helper text'}
                 size='small'
-                disabled={true}
+                disabled={false}
+                required={form?.required || false}
             />
         </div>
     );

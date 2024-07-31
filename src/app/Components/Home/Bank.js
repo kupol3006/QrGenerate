@@ -9,7 +9,7 @@ import {
     Grid,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchApiBank, setText, setUserBank } from '../redux/slices/qrCodeSlice';
+import { fetchApiBank, setText, setUserBank } from '../../redux/slices/qrCodeSlice';
 import { VietQR } from 'vietqr';
 import QrCode2SharpIcon from '@mui/icons-material/QrCode2Sharp';
 import { remove as removeDiacritics } from 'diacritics';

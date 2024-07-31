@@ -52,7 +52,7 @@ const PageHeader = () => {
     };
 
     return (
-        <header className="w-full flex justify-between items-center py-1 px-6 bg-white border-[#E5E7EB] border-b-[1px]">
+        <header className="w-full flex justify-between items-center py-2 px-6 bg-white border-[#E5E7EB] border-b-[1px]">
             <h1
                 className="font-bold text-3xl bg-gradient-to-r from-indigo-400 to-cyan-400 text-transparent bg-clip-text hover:cursor-pointer"
                 onClick={() => router.push('/CreateForm')}

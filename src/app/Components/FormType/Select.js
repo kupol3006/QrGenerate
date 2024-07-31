@@ -1,10 +1,7 @@
 import { useState } from 'react';
-import {
-    TextField,
-    MenuItem,
-} from '@mui/material';
+import { TextField, MenuItem } from '@mui/material';
 
-export default function SelectField() {
+export default function SelectField({ form }) {
     const [value, setValue] = useState('');
 
     const handleChange = (event) => {
@@ -12,9 +9,9 @@ export default function SelectField() {
     };
 
     return (
-        <div className="p-1">
+        <div className="p-4">
             <label htmlFor="select-field" className="block text-sm font-medium text-gray-700">
-                Select field
+                {form?.label || 'Select field'} {form?.required === true && <span className='text-black'>*</span>}
             </label>
             <TextField
                 id="select-field"
@@ -24,13 +21,19 @@ export default function SelectField() {
                 fullWidth
                 variant="outlined"
                 className="mt-1"
-                helperText="Helper text"
+                helperText={form?.helperText || 'Helper text'}
                 size='small'
-                disabled={true}
+                disabled={false}
             >
-                <MenuItem value="option1">Option 1</MenuItem>
-                <MenuItem value="option2">Option 2</MenuItem>
-                <MenuItem value="option3">Option 3</MenuItem>
+                {form?.options?.length > 0 ? (
+                    form.options.map((option, index) => (
+                        <MenuItem key={index} value={option}>
+                            {option}
+                        </MenuItem>
+                    ))
+                ) : (
+                    <MenuItem value=''>None</MenuItem>
+                )}
             </TextField>
         </div>
     );

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Grid } from '@mui/material';
 import QrCode2SharpIcon from '@mui/icons-material/QrCode2Sharp';
 import { useDispatch, useSelector } from 'react-redux';
-import { setText } from '../redux/slices/qrCodeSlice';
+import { setText } from '../../redux/slices/qrCodeSlice';
 
 const TextForm = () => {
     const dispatch = useDispatch();

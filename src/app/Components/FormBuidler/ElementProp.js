@@ -94,7 +94,7 @@ const ElementProperties = () => {
                 </p>
             </div>
 
-            {formElementChosen.type !== 'date' || 'checkbox' && (
+            {formElementChosen.type !== 'date' && formElementChosen.type !== 'checkbox' && (
                 <div className="mb-4">
                     <label htmlFor="placeholder" className="block text-sm font-medium mb-1">
                         Placeholder

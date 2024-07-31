@@ -1,23 +1,23 @@
 'use client';
 // import Image from "next/image";
-import LinkQRGenerator from "./Components/Link";
-import CustomizedTabs from "./Components/Tabs";
-import QrCode from "./Components/QrCode";
-import ContactForm from "./Components/Contact";
-import TextForm from "./Components/Text";
-import EmailForm from "./Components/Email";
-import SmsForm from "./Components/Sms";
-import WifiForm from "./Components/Wifi";
-import BitcoinForm from "./Components/Bitcoin";
-import FacebookForm from "./Components/Facebook";
-import BankForm from "./Components/Bank";
+import LinkQRGenerator from "./Components/Home/Link";
+import CustomizedTabs from "./Components/Home/Tabs";
+import QrCode from "./Components/Home/QrCode";
+import ContactForm from "./Components/Home/Contact";
+import TextForm from "./Components/Home/Text";
+import EmailForm from "./Components/Home/Email";
+import SmsForm from "./Components/Home/Sms";
+import WifiForm from "./Components/Home/Wifi";
+import BitcoinForm from "./Components/Home/Bitcoin";
+import FacebookForm from "./Components/Home/Facebook";
+import BankForm from "./Components/Home/Bank";
 import { useSelector } from "react-redux";
-import Header from "./Components/Header";
+import Header from "./Components/Home/Header";
 import { Box, Grid, Typography, Button, Card, CardContent } from "@mui/material";
 import { useState, useEffect } from "react";
 import Image from 'next/image';
-import BackgroundAnimation from "./Components/BackgroundAnimation";
-import Footer from "./Components/Footer";
+import BackgroundAnimation from "./Components/Home/BackgroundAnimation";
+import Footer from "./Components/Home/Footer";
 
 export default function Home() {
   const link = useSelector((state) => state.qrCode.link);
@@ -163,7 +163,7 @@ export default function Home() {
               {link === 8 && <BankForm />}
               {/* <Image src="/qr-code.png" alt="QR Code" width={200} height={200} /> */}
             </div>
-            <div className="xl:w-[30%] min-h-[581px] max-h-[1110px] bg-[#fff] rounded-[8px] lg:w-[37%] md:w-full sm:w-[100%]">
+            <div className="xl:w-[30%] min-h-[581px] max-h-[1110px] bg-[#fff] rounded-[8px] lg:w-[37%] md:w-full sm:w-[100%] z-1">
               <QrCode />
             </div>
           </div>

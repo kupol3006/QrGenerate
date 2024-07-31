@@ -6,7 +6,7 @@ import { customAlphabet } from 'nanoid';
 const initialState = {
     formElementData: [
         {
-            id: 1787879878,
+            // id: 1787879878,
             icon: 'TextField',
             title: 'Text Field',
             required: false,
@@ -14,10 +14,11 @@ const initialState = {
             label: 'Text Field',
             name: 'text',
             type: 'text',
-            value: ''
+            value: '',
+            helpertext: 'Helper text'
         },
         {
-            id: 22312313,
+            // id: 22312313,
             icon: 'NumberField',
             title: 'Number Field',
             required: false,
@@ -25,7 +26,8 @@ const initialState = {
             label: 'Number Field',
             name: 'number',
             type: 'number',
-            value: ''
+            value: '',
+            helpertext: 'Helper text'
         },
         {
             // id: 3123123,
@@ -36,30 +38,32 @@ const initialState = {
             label: 'TextArea Field',
             name: 'textarea',
             type: 'textarea',
-            value: ''
+            value: '',
+            helpertext: 'Helper text'
         },
         {
             // id: 4,
             icon: 'DateField',
             title: 'Date Field',
             required: false,
-            placeholder: 'Enter your date here',
             label: 'Date Field',
             name: 'date',
             type: 'date',
-            value: ''
+            value: '',
+            helpertext: 'Pick a date'
         },
         {
             // id: 5,
             icon: 'SelectField',
             title: 'Select Field',
             required: false,
-            placeholder: 'Select your option',
+            placeholder: 'Value here...',
             label: 'Select Field',
             name: 'select',
             type: 'select',
             value: '',
-            option: []
+            option: [],
+            helpertext: 'Helper text'
         },
         {
             // id: 6,
@@ -70,7 +74,8 @@ const initialState = {
             label: 'CheckBox Field',
             name: 'checkbox',
             type: 'checkbox',
-            value: ''
+            checked: false,
+            helpertext: 'Helper text'
         },
     ],
     formElement: [],
