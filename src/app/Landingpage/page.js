@@ -17,14 +17,8 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useRouter } from 'next/navigation';
-import CreateFormModal from '../Components/LandingPage/PopupAI';
-import AutoRotatingCircularProgress from '../Components/LandingPage/GradientProgress';
-
-const StyledModal = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
+import CreateFormModal from '../Components/Landingpage/PopupAI';
+import AutoRotatingCircularProgress from '../Components/Landingpage/GradientProgress';
 
 function LandingPageEditor() {
   const router = useRouter();
@@ -88,13 +82,13 @@ function LandingPageEditor() {
           },
         },
       });
-      const styleManager = editor.StyleManager;
-      styleManager.addSector('custom', {
-        name: 'Custom',
-        open: false,
-        buildProps: ['background-color', 'color', 'font-size', 'font-family', 'text-align', 'border-radius', 'padding'],
-      });
-      styleManager.render();
+      // const styleManager = editor.StyleManager;
+      // styleManager.addSector('custom', {
+      //   name: 'Custom',
+      //   open: false,
+      //   buildProps: ['background-color', 'color', 'font-size', 'font-family', 'text-align', 'border-radius', 'padding'],
+      // });
+      // styleManager.render();
       setEditor(editor);
     }
   }, []);
@@ -1114,28 +1108,6 @@ body{
     run(message);
   };
 
-
-  // useEffect(() => {
-  //     async function run() {
-  //         try {
-  //             const chatSession = model.startChat({
-  //                 generationConfig,
-  //                 history: [],
-  //             });
-
-  //             const result = await chatSession.sendMessage("Messy là ai");
-  //             console.log(result.response.text());
-  //         } catch (error) {
-  //             if (error.message.includes('Resource has been exhausted')) {
-  //                 console.error('API quota exceeded. Please try again later.');
-  //                 // Optional: Implement retry logic here
-  //             } else {
-  //                 console.error('Error:', error);
-  //             }
-  //         }
-  //     }
-  //     run();
-  // }, []);
 
   return (
     <Box className=' relative'>
