@@ -1,10 +1,9 @@
 // components/Footer.js
-
-import Image from 'next/image';
 import Link from 'next/link';
 import XIcon from '@mui/icons-material/X';
-import X from '@mui/icons-material/X';
+// import X from '@mui/icons-material/X';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import Image from 'next/image';
 
 const Footer = () => {
     return (
@@ -12,9 +11,9 @@ const Footer = () => {
             <div className="2xl:w-[63%] container mx-auto px-4 flex flex-col md:flex-row justify-between items-start md:items-center sm:w-[100%]">
                 <div className="flex flex-col items-start mb-4 md:mb-0">
                     <Link href="/">
-                        <img src="https://qr.incard.biz/api/files/fanat9qwyp/resource" alt="InCard Logo" width={140} height={60} /> {/* Thay thế đường dẫn logo của bạn */}
+                        <Image src="/logo-teca-icon.png" alt="logo" width={50} height={50} />
                     </Link>
-                    <div className="flex mt-4 gap-2">
+                    <div className="flex mt-4 gap-1">
                         <Link href="#">
                             <XIcon style={{ width: 24, height: 24 }} />
                         </Link>
