@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic';
 import { Button, Menu, MenuItem, AppBar, Box, CssBaseline, Toolbar, IconButton } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useRouter } from 'next/navigation';
-import CreateFormModal from '../Components/Landingpage/PopupAI';
-import AutoRotatingCircularProgress from '../Components/Landingpage/GradientProgress';
+import CreateFormModal from '../Components/LandingPage/PopupAI';
+import AutoRotatingCircularProgress from '../Components/LandingPage/GradientProgress';
 
 const LandingPageEditor = () => {
   const router = useRouter();
