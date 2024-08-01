@@ -98,6 +98,7 @@ const LandingPageEditor = () => {
     setAnchorEl(null);
   };
 
+
   const handleNavigate = (url) => {
     router.push(url);
   };
