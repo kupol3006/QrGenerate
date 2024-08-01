@@ -258,7 +258,7 @@ export default function PersistentDrawerLeft() {
                                 </ListItemIcon>
                                 <ListItemText>FormBuilder</ListItemText>
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigate("/LandingPage")}>
+                            <MenuItem onClick={() => handleNavigate("/Landingpage")}>
                                 <ListItemIcon>
                                     <NewspaperIcon fontSize="small" />
                                 </ListItemIcon>
