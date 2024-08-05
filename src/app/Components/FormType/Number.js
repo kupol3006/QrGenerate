@@ -1,14 +1,7 @@
 import { TextField } from '@mui/material';
-import { stringify } from 'postcss';
 import { useState } from 'react';
 
-export default function NumberField({ form }) {
-    const [value, setValue] = useState(null);
-
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
-
+export default function NumberField({ form, value, onChange, error, helperText }) {
     return (
         <div className="p-4">
             <label htmlFor="number-field" className="block text-sm font-medium text-gray-700">
@@ -18,13 +11,14 @@ export default function NumberField({ form }) {
                 id="number-field"
                 type="number"
                 value={value}
-                onChange={handleChange}
-                placeholder={`${form?.placeholder}` || ''}
+                onChange={onChange}
+                placeholder={form?.placeholder || ''}
                 fullWidth
                 variant="outlined"
                 className="mt-1"
-                helperText={form?.helperText || 'Helper text'}
+                helperText={error ? helperText : form?.helperText || 'Helper text'}
                 size='small'
+                error={!!error}
                 disabled={false}
                 required={form?.required || false}
             />

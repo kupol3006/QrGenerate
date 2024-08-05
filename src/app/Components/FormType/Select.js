@@ -1,13 +1,6 @@
-import { useState } from 'react';
 import { TextField, MenuItem } from '@mui/material';
 
-export default function SelectField({ form }) {
-    const [value, setValue] = useState('');
-
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
-
+export default function SelectField({ form, value, onChange, error, helperText }) {
     return (
         <div className="p-4">
             <label htmlFor="select-field" className="block text-sm font-medium text-gray-700">
@@ -17,13 +10,15 @@ export default function SelectField({ form }) {
                 id="select-field"
                 select
                 value={value}
-                onChange={handleChange}
+                onChange={onChange}
                 fullWidth
                 variant="outlined"
                 className="mt-1"
-                helperText={form?.helperText || 'Helper text'}
+                helperText={error ? helperText : form?.helperText || 'Helper text'}
                 size='small'
+                error={error}
                 disabled={false}
+                required={form?.required || false}
             >
                 {form?.options?.length > 0 ? (
                     form.options.map((option, index) => (

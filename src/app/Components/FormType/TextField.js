@@ -1,21 +1,26 @@
 import { TextField } from '@mui/material';
+import { useState } from 'react';
 
-export default function MyTextField({ form }) {
-
+export default function MyTextField({ form, value, onChange, error, helperText }) {
     return (
         <div className="p-4">
-            <label htmlFor="my-text-field" className="block text-sm font-medium text-gray-700">
-                {form?.label || 'My Text Field'} {form?.required === true && <span className='text-black'>*</span>}
+            <label htmlFor="text-field" className="block text-sm font-medium text-gray-700">
+                {form?.label || 'Text field'} {form?.required === true && <span className='text-black'>*</span>}
             </label>
             <TextField
-                id="my-text-field"
-                placeholder={`${form?.placeholder}` || 'Value here...'}
+                id="text-field"
+                type="text"
+                value={value}
+                onChange={onChange}
+                placeholder={form?.placeholder || ''}
                 fullWidth
                 variant="outlined"
                 className="mt-1"
-                helperText={form?.helperText || 'Helper text'}
+                helperText={error ? helperText : form?.helperText || 'Helper text'}
                 size='small'
+                error={!!error}
                 disabled={false}
+                required={form?.required || false}
             />
         </div>
     );

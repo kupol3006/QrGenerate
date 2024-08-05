@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useDispatch } from "react-redux";
-import { setIsShowElementProperties, setFormElementChosen } from "../../redux/slices/formBuilderSlice";
+import { setIsShowElementProperties, setFormElementChosen, deleteFormElement } from "../../redux/slices/formBuilderSlice";
 import { Typography, Button, TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useCallback, useRef } from "react";
@@ -46,6 +46,11 @@ const FormItem = ({ form }) => {
         setIsDragging(true);
     }, []);
 
+    const handleDeleteElement = useCallback((formId) => {
+        // event.stopPropagation();
+        dispatch(deleteFormElement(formId));
+    }, [dispatch]);
+
     return (
         <div className="w-[100%] border rounded-lg bg-gray-50"
             ref={setNodeRef}
@@ -68,7 +73,7 @@ const FormItem = ({ form }) => {
                     (
                         <div className="py-1 px-4">
                             <label htmlFor="text-area" className="block text-sm font-medium text-gray-700">
-                                {form?.label || 'Text Area'}
+                                {form?.label || 'Text Area'} {form?.required === true && <span className='text-black'>*</span>}
                             </label>
                             <TextField
                                 id="text-area"
@@ -96,7 +101,10 @@ const FormItem = ({ form }) => {
                     >
                         Click for properties or drag to move
                     </Typography>
-                    <Button className="w-[10%] h-full bg-red-500 text-white hover:bg-red-700">
+                    <Button
+                        className="w-[10%] h-full bg-red-500 text-white hover:bg-red-700"
+                        onMouseDown={() => handleDeleteElement(form.id)}
+                    >
                         <DeleteIcon />
                     </Button>
                 </div>

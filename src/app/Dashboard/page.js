@@ -12,7 +12,6 @@ import MenuDrawer from '../Components/Dashboard/Menu'; // Import the new MenuDra
 import Button from '@mui/material/Button';
 import { Link, Chip, Divider, Avatar, TextField } from '@mui/material';
 import Image from 'next/image';
-import { QRCode } from 'react-qrcode-logo';
 import { useState, useEffect } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,6 +26,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Cookies from 'js-cookie';
 import AddIcon from '@mui/icons-material/Add';
 import BusinessCard from '../Components/Dashboard/QrManages';
+import CreateForm from '../Components/FormBuidler/PopUpCreateForm';
+import CreateLP from '../Components/LandingPage/PopUpCreateLP';
 
 const drawerWidth = 240;
 
@@ -82,6 +83,8 @@ export default function PersistentDrawerLeft() {
     const [userData, setUserData] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [anchorEl1, setAnchorEl1] = useState(null);
+    const [openCreateForm, setOpenCreateForm] = useState(false);
+    const [openCreateLandingPage, setOpenCreateLandingPage] = useState(false);
 
     useEffect(() => {
         const token = Cookies.get('google_token');
@@ -129,6 +132,11 @@ export default function PersistentDrawerLeft() {
     const handleMenuClose = () => {
         setAnchorEl1(null);
     };
+
+    const handleCloseCreate = () => {
+        setOpenCreateForm(false);
+        setOpenCreateLandingPage(false);
+    }
 
     return (
         <Box sx={{ display: 'flex' }} >
@@ -252,13 +260,13 @@ export default function PersistentDrawerLeft() {
                                 'aria-labelledby': 'options-button',
                             }}
                         >
-                            <MenuItem onClick={() => handleNavigate("/CreateForm")}>
+                            <MenuItem onClick={() => { setOpenCreateForm(true) }}>
                                 <ListItemIcon>
                                     <ListAltIcon fontSize="small" />
                                 </ListItemIcon>
                                 <ListItemText>FormBuilder</ListItemText>
                             </MenuItem>
-                            <MenuItem onClick={() => handleNavigate("/Landingpage")}>
+                            <MenuItem onClick={() => { setOpenCreateLandingPage(true) }}>
                                 <ListItemIcon>
                                     <NewspaperIcon fontSize="small" />
                                 </ListItemIcon>
@@ -272,6 +280,8 @@ export default function PersistentDrawerLeft() {
                     <BusinessCard />
                 </Box>
             </Main>
+            <CreateForm open={openCreateForm} handleClose={handleCloseCreate} />
+            <CreateLP open={openCreateLandingPage} handleClose={handleCloseCreate} />
         </Box>
     );
 }

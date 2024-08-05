@@ -107,12 +107,15 @@ export const formBuilderSlice = createSlice({
                 state.formElement[index] = action.payload;
             }
         },
+        deleteFormElement: (state, action) => {
+            state.formElement = state.formElement.filter(element => element.id !== action.payload);
+        }
     },
     extraReducers: (builder) => {
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { pushFormElement, updateFormElement, setIsShowElementProperties, setFormElementChosen, updateFormChosenElement } = formBuilderSlice.actions
+export const { pushFormElement, updateFormElement, setIsShowElementProperties, setFormElementChosen, updateFormChosenElement, deleteFormElement } = formBuilderSlice.actions
 
 export default formBuilderSlice.reducer
