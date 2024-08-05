@@ -47,7 +47,6 @@ const FormItem = ({ form }) => {
     }, []);
 
     const handleDeleteElement = useCallback((formId) => {
-        // event.stopPropagation();
         dispatch(deleteFormElement(formId));
     }, [dispatch]);
 

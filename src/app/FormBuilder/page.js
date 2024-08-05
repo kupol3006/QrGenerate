@@ -37,10 +37,14 @@ const FormBuidler = () => {
         setClosePublish(!closePublish);
     };
 
+    // useEffect(() => {
+    //     setFormElements(formElements1);
+    //     // setFormElementData(formElementData1);
+    // }, [formElements1, formElementData1]);
+
     useEffect(() => {
         setFormElements(formElements1);
-        // setFormElementData(formElementData1);
-    }, [formElements1, formElementData1]);
+    }, [formElements1]);
 
     function arrayMove(array, from, to) {
         const newArray = [...array];
@@ -114,7 +118,7 @@ const FormBuidler = () => {
                     sx={{ backgroundSize: '10px 10px' }}
                 >
                     <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
-                        <Form formElements={formElements} />
+                        <Form formElements={formElements} setFormElements={setFormElements} />
                     </DndContext>
                 </Box>
                 <Box className='w-[280px]'>

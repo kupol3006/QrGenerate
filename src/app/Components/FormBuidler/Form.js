@@ -4,26 +4,15 @@ import FormItem from './FormItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsShowElementProperties, setFormElementChosen } from '../../redux/slices/formBuilderSlice';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const Form = ({ formElements }) => {
+const Form = ({ formElements, setFormElements }) => {
     const dispatch = useDispatch();
-    // const [isDragging, setIsDragging] = useState(false);
+    const formElementsState = useSelector((state) => state.formBuilder.formElement);
 
-    // const handleElementChange = (element, event) => {
-    //     if (isDragging) return;
-    //     event.stopPropagation();
-    //     dispatch(setFormElementChosen(element));
-    //     dispatch(setIsShowElementProperties(true));
-    // };
-
-    // const handleDragStart = () => {
-    //     setIsDragging(true);
-    // };
-
-    // const handleDragEnd = () => {
-    //     setIsDragging(true);
-    // };
+    useEffect(() => {
+        setFormElements(formElementsState);
+    }, [formElementsState]);
 
     return (
         <Box
@@ -35,9 +24,6 @@ const Form = ({ formElements }) => {
                     <div
                         key={item.id}
                         className='w-full relative'
-                    // onPointerDown={(e) => handleElementChange(item, e)}
-                    // onDrag={handleDragStart}
-                    // onDrop={handleDragEnd}
                     >
                         <FormItem form={item} className=' cursor-pointer ' />
                     </div>
