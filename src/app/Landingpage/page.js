@@ -11,6 +11,7 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import PublishIcon from '@mui/icons-material/Publish';
+import PopUpPublish from '../Components/LandingPage/PopUpPublish';
 
 const LandingPageEditor = () => {
   const router = useRouter();
@@ -38,6 +39,7 @@ const LandingPageEditor = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openPublish, setOpenPublish] = useState(false);
 
   useEffect(() => {
     // Conditionally import grapesjs and related plugins
@@ -1243,8 +1245,11 @@ body{
   };
 
   const handleCloseAI = () => {
-
     setOpen(!open);
+  };
+
+  const handleOpenPublish = () => {
+    setOpenPublish(!openPublish);
   };
 
   return (
@@ -1336,7 +1341,7 @@ body{
                   backgroundColor: '#2F343E',
                 },
               }}
-            // onClick={() => handleGenerate()}
+              onClick={() => handleOpenPublish()}
             >
               <PublishIcon />
             </IconButton>
@@ -1353,6 +1358,7 @@ body{
           </Box>
         )}
       </Box>
+      <PopUpPublish open={openPublish} handleOpenPublish={handleOpenPublish} />
     </Box>
   );
 };

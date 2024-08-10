@@ -12,7 +12,7 @@ export default function DateField({ form, value, onChange, error, helperText }) 
     return (
         <div className="p-4">
             <label htmlFor="date-field" className="block text-sm font-medium text-gray-700">
-                {form?.label || 'Date field'} {form?.required === true && <span className='text-black'>*</span>}
+                {form?.label || 'Date field'} {form?.required === true && <span className='text-red-600'>*</span>}
             </label>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker

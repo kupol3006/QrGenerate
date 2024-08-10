@@ -7,7 +7,7 @@ import { style } from '@mui/system';
 const initialState = {
   landingPageDatas: [
     {
-      body: `<body>
+      body: `
   <div id="i6po" class="gjs-grid-row">
     <div id="itjq" class="gjs-grid-column">
       <div id="iyd2" class="gjs-grid-row">
@@ -232,7 +232,7 @@ const initialState = {
       </div>
     </div>
   </div>
-</body>`,
+`,
       style: `* {
   box-sizing: border-box;
 }

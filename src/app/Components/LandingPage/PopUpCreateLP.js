@@ -35,7 +35,7 @@ const CreateLP = ({ open, handleClose }) => {
                     className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-8"
                     style={{ width: 440 }}
                 >
-                    <h2 className="text-2xl font-bold mb-4">Create landing page</h2>
+                    <h2 className="text-2xl font-bold mb-1">Create landing page</h2>
                     <p className="text-gray-600 mb-4">
                         Create a new landing page to start collecting responses
                     </p>
@@ -49,7 +49,7 @@ const CreateLP = ({ open, handleClose }) => {
                         value={description}
                         onChange={handleNameChange}
                         className="mb-4"
-                        size='large'
+                        size='small'
                     />
                     <div className="flex justify-end">
                         <Button variant="contained" onClick={handleSubmit} fullWidth sx={{ marginTop: '10px', backgroundColor: '#111827', '&:hover': { backgroundColor: '#111827' } }}>

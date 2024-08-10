@@ -34,6 +34,7 @@ const HomePage = () => {
         // Clean up the confetti instance when the component unmounts
         return () => myConfetti.reset();
 
+
     }, []);
 
     const handlePublishForm = () => {
@@ -67,7 +68,7 @@ const HomePage = () => {
                                         <span role="img" aria-label="party" className="text-5xl mr-2">
                                             🎊🎊
                                         </span>
-                                        <h2 className="text-4xl font-bold">Form Published</h2>
+                                        <h2 className="text-4xl font-bold">Qr Code Published</h2>
                                         <span role="img" aria-label="party" className="text-5xl ml-2">
                                             🎊🎊
                                         </span>
@@ -76,10 +77,10 @@ const HomePage = () => {
                                         className="py-[5%] px-0 border-b-[2px]  mb-4"
                                     >
                                         <Typography variant="h5" sx={{ marginBottom: 1 }}>
-                                            Share this form
+                                            Share this url
                                         </Typography>
                                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                            Anyone with the link can view and submit the form
+                                            Anyone with the link can view the link
                                         </Typography>
                                         {/* Thêm phần nhập liên kết hoặc nút sao chép liên kết tại đây */}
                                     </Box>
@@ -112,8 +113,10 @@ const HomePage = () => {
                                             {'<-'} Go back Dashboard
                                         </Link>
                                         <Link href="/FormTemp" className="text-black hover:underline">
-                                            Form details {'->'}
+                                            Details {'->'}
+
                                         </Link>
+                                        {/* Builder  LPTemp */}
                                     </div>
                                 </div>
                             </div>

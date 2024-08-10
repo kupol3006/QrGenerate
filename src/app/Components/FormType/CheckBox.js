@@ -1,4 +1,5 @@
-import { FormControlLabel, Checkbox, FormHelperText, FormControl } from '@mui/material';
+import React from 'react';
+import { FormControlLabel, Checkbox, FormHelperText, FormControl, Typography } from '@mui/material';
 
 export default function CheckBox({ form, checked, onChange, error, helperText }) {
     return (
@@ -12,10 +13,18 @@ export default function CheckBox({ form, checked, onChange, error, helperText })
                             inputProps={{ 'aria-label': 'controlled' }}
                             size='small'
                             disabled={false}
-                            required={form?.required || false}
                         />
                     }
-                    label={form?.label || 'Checkbox field'}
+                    label={
+                        <span>
+                            {form?.label || 'Checkbox field'}
+                            {form?.required && (
+                                <Typography component="span" className='ml-1 text-red-600'>
+                                    *
+                                </Typography>
+                            )}
+                        </span>
+                    }
                 />
                 <FormHelperText>{error ? helperText : form?.helperText || 'Helper text'}</FormHelperText>
             </FormControl>
