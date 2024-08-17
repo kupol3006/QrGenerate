@@ -1,22 +1,25 @@
-// ComponentDashboard/Menu.js
+// ComponentDashboard/MenuResponsive.js
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
 import {
-  ErrorOutline as ErrorOutlineOutlinedIcon,
   TextFields,
   GridView,
   CreditCard,
   ViewInAr,
+  Menu as MenuIcon,
+  KeyboardArrowDown,
+  KeyboardArrowUp,
+  CircleOutlined as CircleOutlinedIcon,
 } from '@mui/icons-material';
+import {
+  Drawer,
+  List,
+  IconButton,
+  Box,
+} from '@mui/material';
+import { useState } from 'react';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
-import { Box } from '@mui/material';
-
 import QrCode2OutlinedIcon from '@mui/icons-material/QrCode2Outlined';
 import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
 import DynamicFormOutlinedIcon from '@mui/icons-material/DynamicFormOutlined';
@@ -25,7 +28,7 @@ import SchemaOutlinedIcon from '@mui/icons-material/SchemaOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
-import  Image from 'next/image';
+import Image from 'next/image';
 
 const menuItems = [
   {
@@ -48,7 +51,7 @@ const menuItems = [
     icon: <WebOutlinedIcon />,
     subCategories: [
       { label: 'List', href: '#3/list' },
-      { label: 'Create', href: '/Landingpage' },
+      { label: 'Create', href: '#3/create' },
       { label: 'Reporting', href: '#3/reporting' },
     ],
   },
@@ -58,7 +61,7 @@ const menuItems = [
     icon: <DynamicFormOutlinedIcon />,
     subCategories: [
       { label: 'List', href: '#4/list' },
-      { label: 'Create', href: '/FormBuilder' },
+      { label: 'Create', href: '#4/create' },
       { label: 'Submitted Form', href: '#4/submitted-form' },
       { label: 'Reporting', href: '#4/reporting' },
     ],
@@ -167,7 +170,7 @@ const MenuItem = ({
               <a
                 className={`flex items-center p-2 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
                   activeSubCategory === subCategory.href
-                    ? 'bg-gradient-to-r from-custom-purple-light to-custom-purple-dark shadow-lg text-white' // Sử dụng màu của active category
+                    ? 'bg-gradient-to-r from-custom-purple-light to-custom-purple-dark shadow-lg text-white'
                     : 'text-custom-gray'
                 }`}
                 onClick={() => onSubCategoryClick(subCategory.href)}
@@ -186,9 +189,14 @@ const MenuItem = ({
   </div>
 );
 
-const Menu = ({ activeCategory, onCategoryChange }) => {
+const MenuResponsive = ({ activeCategory, onCategoryChange }) => {
+  const [open, setOpen] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
   const [activeSubCategory, setActiveSubCategory] = useState(null);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   const toggleCategory = (href) => {
     setOpenCategories((prevState) => ({
@@ -200,62 +208,84 @@ const Menu = ({ activeCategory, onCategoryChange }) => {
   const handleSubCategoryClick = (subCategoryHref) => {
     setActiveSubCategory(subCategoryHref);
     onCategoryChange(subCategoryHref); // Cập nhật activeCategory khi click subCategory
+    toggleDrawer(false); // Đóng drawer sau khi chọn
   };
 
   return (
-    <div className="w-70 h-screen bg-transparent rounded-md p-4 pl-0 custom-scrollbar  overflow-auto">
-      <div className="text-[#524E5E] text-2xl font-bold mb-6 ml-8 flex items-center">
+    <>
+      <IconButton
+        edge="start"
+        color="inherit"
+        aria-label="open drawer"
+        onClick={toggleDrawer(true)}
+        className="absolute z-50 top-3 left-6"
+      >
+        <MenuIcon />
+      </IconButton>
+      <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
+        <div
+          className="w-64 h-screen bg-[#F4F5FA] rounded-md mb-6 p-4 pl-0 custom-scrollbar  overflow-auto"
+          onClick={toggleDrawer(true)}
+          onKeyDown={toggleDrawer(true)}
+        >
+          <div className="text-[#524E5E] text-2xl font-bold mb-0 ml-8 flex items-center">
         <Image src="/logo-teca-icon.png" alt="logo" width={50} height={50} />
         TECA
       </div>
+      
 
-      <Box
+          <List>
+          <Box
         className='flex items-center p-2 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 bg-gradient-to-r from-[#006699] to-[#39B54A] shadow-lg text-white cursor-pointer'
         
       >
         <HomeOutlinedIcon className='mr-2'/>
         Dashboard
       </Box>
-
-      {menuItems.map((item, index) => {
-        if (item.type === 'divider') {
-          return (
-            <div
-              key={index}
-              className="relative text-gray-500 text-sm mt-6 mb-2 pl-6"
-            >
-              <span className="relative z-10 bg-[#F4F5FA] p-1">
-                {item.label}
-              </span>
-              <span className="absolute inset-y-[10px] left-0 w-full border-t border-gray-300"></span>
-            </div>
-          );
-        }
-
-        return (
-          <MenuItem
-            key={index}
-            href={item.href}
-            icon={item.icon}
-            active={activeCategory === item.href}
-            onClick={() => {
-              onCategoryChange(item.href);
-              if (item.subCategories) {
-                toggleCategory(item.href);
+            {menuItems.map((item, index) => {
+              if (item.type === 'divider') {
+                return (
+                  <div
+                    key={index}
+                    className="relative text-gray-500 text-sm mt-6 mb-2 pl-6"
+                  >
+                    <span className="relative z-10 bg-[#F4F5FA] p-1">
+                      {item.label}
+                    </span>
+                    <span className="absolute inset-y-[10px] left-0 w-full border-t border-gray-300"></span>
+                  </div>
+                );
               }
-            }}
-            isOpen={openCategories[item.href]}
-            toggleOpen={() => toggleCategory(item.href)}
-            subCategories={item.subCategories}
-            activeSubCategory={activeSubCategory}
-            onSubCategoryClick={handleSubCategoryClick}
-          >
-            {item.label}
-          </MenuItem>
-        );
-      })}
-    </div>
+
+              return (
+                <MenuItem
+                  key={index}
+                  href={item.href}
+                  icon={item.icon}
+                  active={activeCategory === item.href}
+                  onClick={() => {
+                    onCategoryChange(item.href);
+                    if (item.subCategories) {
+                      toggleCategory(item.href);
+                    } else {
+                      toggleDrawer(false); // Đóng drawer nếu không có subCategory
+                    }
+                  }}
+                  isOpen={openCategories[item.href]}
+                  toggleOpen={() => toggleCategory(item.href)}
+                  subCategories={item.subCategories}
+                  activeSubCategory={activeSubCategory}
+                  onSubCategoryClick={handleSubCategoryClick}
+                >
+                  {item.label}
+                </MenuItem>
+              );
+            })}
+          </List>
+        </div>
+      </Drawer>
+    </>
   );
 };
 
-export default Menu;
+export default MenuResponsive;
