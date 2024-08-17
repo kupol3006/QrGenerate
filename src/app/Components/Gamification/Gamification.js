@@ -1,63 +1,110 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Button,
-  Checkbox,
-  FormControlLabel,
   TextField,
   IconButton,
 } from "@mui/material";
 import { Edit, Save } from "@mui/icons-material";
+import ShuffleIcon from "@mui/icons-material/Shuffle";
+import SortIcon from '@mui/icons-material/Sort';
+import AddIcon from '@mui/icons-material/Add';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import ImageIcon from '@mui/icons-material/Image';
 
-const initialNames = [
-  "Ali",
-  "Beatriz",
-  "Charles",
-  "Diya",
-  "Eric",
-  "Fatima",
-  "Gabriel",
-  "Hanna",
-];
-
-export default function NameList() {
+export default function NameList({ initialNames, onNamesChange, onRemainingSpinsChange, initialRemainingSpins }) {
   const [names, setNames] = useState(initialNames);
-  const [isAdvanced, setIsAdvanced] = useState(false);
   const [newName, setNewName] = useState("");
+  const [newImage, setNewImage] = useState(null);
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState("");
+  const [editImage, setEditImage] = useState(null);
+  const fileInputRef = useRef(null);
+  const editFileInputRef = useRef(null);
+  const [remainingSpins, setRemainingSpins] = useState(initialRemainingSpins);
 
   const handleShuffle = () => {
     const shuffled = [...names].sort(() => 0.5 - Math.random());
     setNames(shuffled);
+    onNamesChange(shuffled);
   };
 
   const handleSort = () => {
-    const sorted = [...names].sort();
+    const sorted = [...names].sort((a, b) => a.option.localeCompare(b.option));
     setNames(sorted);
-  };
-
-  const handleAdvancedChange = () => {
-    setIsAdvanced(!isAdvanced);
+    onNamesChange(sorted);
   };
 
   const handleAddName = () => {
     if (newName.trim() !== "") {
-      setNames([...names, newName]);
+      const newNames = [
+        ...names,
+        {
+          option: newName,
+          image: newImage || { 
+            uri: "https://via.placeholder.com/50",
+            offsetX: 0, 
+            offsetY: 0, 
+            sizeMultiplier: 1, 
+            landscape: false 
+          },
+          style: { borderRadius: "50%" },
+          optionSize: 14,
+        },
+      ];
+      setNames(newNames);
+      onNamesChange(newNames); 
       setNewName("");
+      setNewImage(null);
     }
   };
 
   const handleEditName = (index) => {
     setEditIndex(index);
-    setEditName(names[index]);
+    setEditName(names[index].option);
+    setEditImage(null);
   };
 
   const handleSaveEdit = (index) => {
     const updatedNames = [...names];
-    updatedNames[index] = editName;
+    const imageUrl = editImage ? URL.createObjectURL(editImage) : names[index].image.uri;
+    updatedNames[index] = {
+      option: editName,
+      image: { uri: imageUrl, offsetX: names[index].image.offsetX, offsetY: names[index].image.offsetY, sizeMultiplier: names[index].image.sizeMultiplier, landscape: names[index].image.landscape },
+      style: names[index].style,
+      optionSize: names[index].optionSize,
+    };
     setNames(updatedNames);
+    onNamesChange(updatedNames);
     setEditIndex(null);
     setEditName("");
+    setEditImage(null);
+  };
+
+  const handleImageChange = (event, setImage) => {
+    const file = event.target.files[0];
+    if (file) {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 50;
+        canvas.height = 50;
+        ctx.drawImage(img, 0, 0, 50, 50);
+        const resizedImageURL = canvas.toDataURL(file.type);
+        setImage({ uri: resizedImageURL });
+      };
+      img.src = URL.createObjectURL(file);
+    }
+  };
+
+  const triggerFileInput = (fileInputRef) => {
+    fileInputRef.current.click();
+  };
+
+  const handleRemainingSpinsChange = (event) => {
+    const newSpins = parseInt(event.target.value, 10);
+    setRemainingSpins(newSpins);
+    onRemainingSpinsChange(newSpins); 
   };
 
   return (
@@ -69,14 +116,6 @@ export default function NameList() {
             {names.length}
           </span>
         </div>
-        <div className="flex items-center">
-          <FormControlLabel
-            control={
-              <Checkbox checked={isAdvanced} onChange={handleAdvancedChange} />
-            }
-            label="Hide"
-          />
-        </div>
       </div>
 
       <div className="flex space-x-4 mb-4">
@@ -86,52 +125,86 @@ export default function NameList() {
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           className="flex-grow"
+          size="small"
         />
-        <Button variant="contained" onClick={handleAddName}>
-          Add
-        </Button>
-        <Button
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={(e) => handleImageChange(e, setNewImage)}
+        />
+        <IconButton variant="contained" onClick={() => triggerFileInput(fileInputRef)} >
+          <ImageIcon />
+        </IconButton>
+        <IconButton variant="contained" onClick={handleAddName}>
+          <AddIcon />
+        </IconButton>
+        <IconButton
           variant="contained"
-          startIcon={<span className="material-icons">shuffle</span>}
           onClick={handleShuffle}
         >
-          Shuffle
-        </Button>
-        <Button
+          <ShuffleIcon />
+        </IconButton>
+        <IconButton
           variant="contained"
-          startIcon={<span className="material-icons">sort</span>}
           onClick={handleSort}
         >
-          Sort
-        </Button>
-        {/* <Button
+          <SortIcon />
+        </IconButton>
+        <TextField
+          label="Remaining Spins"
+          type="number"
+          value={remainingSpins}
+          onChange={handleRemainingSpinsChange}
           variant="outlined"
-          disabled={!isAdvanced}
-          className={isAdvanced ? "" : "opacity-50 cursor-not-allowed"}
-        >
-          Advanced
-        </Button> */}
+          size="small"
+          sx={{ width: 120 }}
+        />
       </div>
 
       <div className="p-4 border rounded-lg h-64 overflow-y-auto">
         <ul>
-          {names.map((name, index) => (
+          {names.map((item, index) => (
             <li key={index} className="mb-2 flex items-center">
-              {editIndex === index ? (
-                <TextField
-                  value={editName}
-                  onChange={(e) => setEditName(e.target.value)}
-                  variant="outlined"
-                  size="small"
+              <div style={{ transform: `scale(${item.image.sizeMultiplier || 1}) translate(${item.image.offsetX || 0}px, ${item.image.offsetY || 0}px)` }}>
+                <img
+                  src={item.image.uri}
+                  alt={item.option}
+                  className="w-10 h-10 mr-4"
+                  style={item.style}
                 />
+              </div>
+              {editIndex === index ? (
+                <>
+                  <TextField
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
+                    variant="outlined"
+                    size="small"
+                    className="flex-grow mr-2"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={editFileInputRef}
+                    style={{ display: "none" }}
+                    onChange={(e) => handleImageChange(e, setEditImage)}
+                  />
+                  <IconButton
+                    variant="contained"
+                    onClick={() => triggerFileInput(editFileInputRef)}
+                  >
+                    <AddPhotoAlternateIcon />
+                  </IconButton>
+                </>
               ) : (
-                <span>{name}</span>
+                <span style={{ fontSize: item.optionSize }}>{item.option}</span>
               )}
               {editIndex === index ? (
                 <IconButton
                   onClick={() => handleSaveEdit(index)}
                   size="small"
-                  color="primary"
                 >
                   <Save />
                 </IconButton>
@@ -139,7 +212,7 @@ export default function NameList() {
                 <IconButton
                   onClick={() => handleEditName(index)}
                   size="small"
-                  color="secondary"
+                  color="primary"
                 >
                   <Edit />
                 </IconButton>

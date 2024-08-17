@@ -1,20 +1,30 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import NameList from '../Components/Gamification/Gamification';
-
-const data = [
-  { option: '0', style: { backgroundColor: 'green', textColor: 'black' } },
-  { option: '1', style: { backgroundColor: 'white', textColor: 'black' } },
-  { option: '2', style: { backgroundColor: 'blue', textColor: 'black' } },
-];
+import { DeviceFrameset } from 'react-device-frameset'
+import 'react-device-frameset/styles/marvel-devices.min.css'
 
 const WheelLuckyDraw = () => {
+  const [names, setNames] = useState([
+    {
+      option: "Ali",
+      image: { uri: "https://via.placeholder.com/50", offsetX: 0, offsetY: 0, sizeMultiplier: 1, landscape: false },
+      style: { borderRadius: "50%"  },
+      optionSize: 14,
+    },
+    {
+      option: "Beatriz",
+      image: { uri: "https://via.placeholder.com/50", offsetX: 0, offsetY: 0, sizeMultiplier: 1, landscape: false },
+      style: { borderRadius: "50%" },
+      optionSize: 14,
+    },
+  ]);
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [Wheel, setWheel] = useState(null);
   const [open, setOpen] = useState(false);
+  const [remainingSpins, setRemainingSpins] = useState(3); 
 
   useEffect(() => {
     const loadWheel = async () => {
@@ -30,58 +40,113 @@ const WheelLuckyDraw = () => {
   }, []);
 
   const handleSpinClick = () => {
-    const newPrizeNumber = Math.floor(Math.random() * data.length);
-    setPrizeNumber(newPrizeNumber);
-    setMustSpin(true);
+    if (remainingSpins > 0) {
+      const newPrizeNumber = Math.floor(Math.random() * names.length);
+      setPrizeNumber(newPrizeNumber);
+      setMustSpin(true);
+      setRemainingSpins(remainingSpins - 1);
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
+  const updateNames = (newNames) => {
+    setNames(newNames);
+  };
+
+  const updateRemainingSpins = (newSpins) => {
+    setRemainingSpins(newSpins);
+  };
+
   return (
     <div className="h-screen flex flex-row justify-center items-center">
-      <div className='flex flex-col justify-center items-center'>
-        {Wheel ? (
-          <Wheel
-            mustStartSpinning={mustSpin}
-            prizeNumber={prizeNumber}
-            data={data}
-            backgroundColors={['#3e3e3e', '#df3428']}
-            textColors={['#ffffff']}
-            onStopSpinning={() => {
-              setMustSpin(false);
-              setOpen(true);
-            }}
-            innerRadius={10}
-            radiusLineColor={'#000000'}
-            radiusLineWidth={2}
-            fontSize={16}
-            perpendicularText={false}
-            textDistance={40}
-            primaryColor={'#3e3e3e'}
-            contrastColor={'#ffffff'}
-            pointerProps={{src: 'https://cdn2.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png'}}
-          />
-        ) : (
-          <div>Loading...</div>
-        )}
-        <Button variant="contained" color="primary" onClick={handleSpinClick} className="mt-4">
-          Spin
-        </Button>
-      </div>
-      <NameList />
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Congratulations!</DialogTitle>
-        <DialogContent>
-          You have won prize number {data[prizeNumber].option}!
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Close
+      
+      <DeviceFrameset device="iPhone X" color="black" landscape={false} zoom={0.8}>
+        <div className='w-full h-full flex flex-col justify-around items-center transform scale-75'>
+          {Wheel ? (
+            <Wheel
+              mustStartSpinning={mustSpin}
+              prizeNumber={prizeNumber}
+              data={names.map(item => ({
+                option: item.option,
+                style: item.style,
+                optionSize: item.optionSize,
+                ...(item.image.uri !== "https://via.placeholder.com/50" && { 
+                  image: {
+                    ...item.image,
+                    element: <img src={item.image.uri} alt={item.option} style={{ width: 1, height: 1}} /> 
+                  } 
+                })
+              }))}
+              backgroundColors={[
+                '#EEB211',
+                '#3369E8',
+                '#D50F25',
+                '#009925',
+                '#00A3E0',
+                '#FF6900',
+                '#A200FF',
+                '#FF0097',
+              ]}
+              textColors={['#fff']}
+              onStopSpinning={() => {
+                setMustSpin(false);
+                setOpen(true);
+              }}
+              innerRadius={0}
+              radiusLineColor={'#000000'}
+              radiusLineWidth={2}
+              fontSize={16}
+              perpendicularText={true}
+              textDistance={60}
+              primaryColor={'#3e3e3e'}
+              contrastColor={'#ffffff'}
+              duration={10000}
+              outerBorderWidth={6}
+              outerBorderColor={'#3e3e3e'}
+              pointerProps={{ style: { width: 30, height: 30, marginRight: '30px', marginTop: '40px' } }}
+            />
+          ) : (
+            <div>Loading...</div>
+          )}
+          <Button variant="contained" color="primary" onClick={handleSpinClick} className="mt-4" disabled={remainingSpins === 0} fullWidth>
+            Spin ({remainingSpins} left)
           </Button>
-        </DialogActions>
-      </Dialog>
+          
+          {/* Custom Popup */}
+          {open && (
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '80%',
+              backgroundColor: '#fff',
+              padding: '16px',
+              borderRadius: '8px',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+              textAlign: 'center',
+              zIndex: 1000
+            }}>
+              <h2>Congratulations!</h2>
+              <p>You have won prize {names[prizeNumber]?.option || 'N/A'}!</p>
+              <Button variant="contained" color="primary" onClick={handleClose}>
+                Close
+              </Button>
+            </div>
+          )}
+        </div>
+      </DeviceFrameset>
+      
+      <NameList 
+        initialNames={names} 
+        onNamesChange={updateNames} 
+        onRemainingSpinsChange={updateRemainingSpins} 
+        initialRemainingSpins={remainingSpins} 
+      />
+      
     </div>
   );
 };
