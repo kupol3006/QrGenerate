@@ -63,8 +63,13 @@ const WheelLuckyDraw = () => {
   return (
     <div className="h-screen flex flex-row justify-center items-center">
       
-      <DeviceFrameset device="iPhone X" color="black" landscape={false} zoom={0.8}>
-        <div className='w-full h-full flex flex-col justify-around items-center transform scale-75'>
+      <DeviceFrameset device="iPhone X" color="black" landscape={false} zoom={0.8} >
+      <div className='w-full h-full'
+        style={{ backgroundImage: 'url("https://img.pikbest.com/backgrounds/20200217/blue-drawing-cartoon-ocean-background_2773918.jpg!w700wp")', backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <div className='w-full h-full flex flex-col justify-around items-center transform scale-[0.87] '
+          
+        >
           {Wheel ? (
             <Wheel
               mustStartSpinning={mustSpin}
@@ -97,21 +102,21 @@ const WheelLuckyDraw = () => {
               }}
               innerRadius={0}
               radiusLineColor={'#000000'}
-              radiusLineWidth={2}
-              fontSize={16}
+              radiusLineWidth={1}
+              fontSize={18}
               perpendicularText={true}
               textDistance={60}
               primaryColor={'#3e3e3e'}
               contrastColor={'#ffffff'}
               duration={10000}
-              outerBorderWidth={6}
-              outerBorderColor={'#3e3e3e'}
+              outerBorderWidth={0}
+              // outerBorderColor={'#3e3e3e'}
               pointerProps={{ style: { width: 30, height: 30, marginRight: '30px', marginTop: '40px' } }}
             />
           ) : (
             <div>Loading...</div>
           )}
-          <Button variant="contained" color="primary" onClick={handleSpinClick} className="mt-4" disabled={remainingSpins === 0} fullWidth>
+          <Button variant="contained" size='large' color="primary" onClick={handleSpinClick} className="mt-0 hover:bg-[#FA423C]" disabled={remainingSpins === 0} fullWidth sx={{ backgroundColor: '#FA423C' }}>
             Spin ({remainingSpins} left)
           </Button>
           
@@ -137,6 +142,7 @@ const WheelLuckyDraw = () => {
               </Button>
             </div>
           )}
+        </div>
         </div>
       </DeviceFrameset>
       

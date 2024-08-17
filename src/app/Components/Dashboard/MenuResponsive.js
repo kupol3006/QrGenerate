@@ -29,6 +29,7 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import Image from 'next/image';
+import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
 
 const menuItems = [
   {
@@ -43,6 +44,16 @@ const menuItems = [
       { label: 'List', href: '#2/list' },
       { label: 'Create', href: '#2/create' },
       { label: 'Reporting', href: '#2/reporting' },
+    ],
+  },
+  {
+    label: 'Gamification',
+    href: '#11',
+    icon: <SportsEsportsOutlinedIcon />,
+    subCategories: [
+      { label: 'List', href: '#11/list' },
+      { label: 'Create', href: '/Gamification' },
+      { label: 'Reporting', href: '#11/reporting' },
     ],
   },
   {

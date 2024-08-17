@@ -118,7 +118,8 @@ export default function NameList({ initialNames, onNamesChange, onRemainingSpins
         </div>
       </div>
 
-      <div className="flex space-x-4 mb-4">
+      <div className="flex flex-col mb-4 gap-2">
+        <div>
         <TextField
           variant="outlined"
           label="Add Name"
@@ -140,6 +141,17 @@ export default function NameList({ initialNames, onNamesChange, onRemainingSpins
         <IconButton variant="contained" onClick={handleAddName}>
           <AddIcon />
         </IconButton>
+        </div>
+        <div>
+        <TextField
+          label="Remaining Spins"
+          type="number"
+          value={remainingSpins}
+          onChange={handleRemainingSpinsChange}
+          variant="outlined"
+          size="small"
+          // sx={{ width: 120 }}
+        />
         <IconButton
           variant="contained"
           onClick={handleShuffle}
@@ -152,15 +164,8 @@ export default function NameList({ initialNames, onNamesChange, onRemainingSpins
         >
           <SortIcon />
         </IconButton>
-        <TextField
-          label="Remaining Spins"
-          type="number"
-          value={remainingSpins}
-          onChange={handleRemainingSpinsChange}
-          variant="outlined"
-          size="small"
-          sx={{ width: 120 }}
-        />
+        
+        </div>
       </div>
 
       <div className="p-4 border rounded-lg h-64 overflow-y-auto">
@@ -171,7 +176,7 @@ export default function NameList({ initialNames, onNamesChange, onRemainingSpins
                 <img
                   src={item.image.uri}
                   alt={item.option}
-                  className="w-10 h-10 mr-4"
+                  className="w-8 h-8 mr-1"
                   style={item.style}
                 />
               </div>
@@ -183,6 +188,7 @@ export default function NameList({ initialNames, onNamesChange, onRemainingSpins
                     variant="outlined"
                     size="small"
                     className="flex-grow mr-2"
+                    sx={{ width: 120 }}
                   />
                   <input
                     type="file"
