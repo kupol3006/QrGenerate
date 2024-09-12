@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import 'grapesjs/dist/css/grapes.min.css';
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {

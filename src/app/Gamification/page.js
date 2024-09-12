@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Button, TextField } from '@mui/material';
 import NameList from '../Components/Gamification/Gamification';
 import { DeviceFrameset } from 'react-device-frameset'
-import 'react-device-frameset/styles/marvel-devices.min.css'
+// import 'react-device-frameset/styles/marvel-devices.min.css'
+// import { Wheel } from 'react-custom-roulette';
 
 const WheelLuckyDraw = () => {
   const [names, setNames] = useState([
@@ -63,7 +64,7 @@ const WheelLuckyDraw = () => {
   return (
     <div className="h-screen flex flex-row justify-center items-center">
       
-      <DeviceFrameset device="iPhone X" color="black" landscape={false} zoom={0.8} >
+      {/* <DeviceFrameset device="iPhone X" color="black" landscape={false} zoom={0.8} > */}
       <div className='w-full h-full'
         style={{ backgroundImage: 'url("https://img.pikbest.com/backgrounds/20200217/blue-drawing-cartoon-ocean-background_2773918.jpg!w700wp")', backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
@@ -72,7 +73,7 @@ const WheelLuckyDraw = () => {
         >
           {Wheel ? (
             <Wheel
-              mustStartSpinning={mustSpin}
+              mustStartSpinning={mustSpin}  // Correct usage to start spinning
               prizeNumber={prizeNumber}
               data={names.map(item => ({
                 option: item.option,
@@ -108,11 +109,12 @@ const WheelLuckyDraw = () => {
               textDistance={60}
               primaryColor={'#3e3e3e'}
               contrastColor={'#ffffff'}
-              duration={10000}
+              duration={100}
+              spinDuration={5000}
               outerBorderWidth={0}
-              // outerBorderColor={'#3e3e3e'}
-              pointerProps={{ style: { width: 30, height: 30, marginRight: '30px', marginTop: '40px' } }}
+              // pointerProps={{ style: { width: 30, height: 30, marginRight: '30px', marginTop: '40px' } }}
             />
+
           ) : (
             <div>Loading...</div>
           )}
@@ -144,7 +146,7 @@ const WheelLuckyDraw = () => {
           )}
         </div>
         </div>
-      </DeviceFrameset>
+      {/* </DeviceFrameset> */}
       
       <NameList 
         initialNames={names} 

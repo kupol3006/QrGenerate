@@ -2,13 +2,15 @@ import React from 'react';
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSelector } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 
 const FormPreview = ({ open, handleClose }) => {
   const data = useSelector((state) => state.formBuilder.data);
   const fbTemplateRef = useRef(null);
   const formRenderRef = useRef(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (typeof window !== 'undefined' && data) {
@@ -68,6 +70,16 @@ const FormPreview = ({ open, handleClose }) => {
 //       // Handle the user data as needed
 //     }
 //   };
+
+useEffect(() => {
+  import('bootstrap/dist/css/bootstrap.min.css');
+
+  return () => {
+    // Cleanup Bootstrap CSS
+    const bootstrapStyles = document.querySelectorAll('link[href*="bootstrap.min.css"]');
+    bootstrapStyles.forEach(style => style.remove());
+  };
+}, [pathname]);
 
   return (
     <Dialog

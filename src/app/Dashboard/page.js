@@ -5,8 +5,9 @@ import Menu from '../Components/Dashboard/Menu';
 import Header from '../Components/Dashboard/Header';
 import MenuResponsive from '../Components/Dashboard/MenuResponsive';
 import { setCookie, destroyCookie, parseCookies } from 'nookies';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 const HomePage = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -25,13 +26,13 @@ const HomePage = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // useEffect(() => {
-  //   const cookies = parseCookies();
-  //   const token = cookies.token;
-  //   if (!token || token === 'undefined') {
-  //     router.push('/Login');
-  //   }
-  // }, []);
+  useEffect(() => {
+    const cookies = parseCookies();
+    const token = cookies.token;
+    if (!token || token === 'undefined') {
+      router.push('/Login');
+    }
+  }, []);
 
   useEffect(() => {
     const url = window.location.href;
@@ -54,22 +55,30 @@ const HomePage = () => {
   };
   
   const handleSubCategoryChange = (subCategory) => {
-    
     setActiveSubCategory(subCategory);
     console.log('SubCategory changed to:', activeSubCategory);
   };
 
+  // Add this useEffect to remove Bootstrap styles when the Dashboard page is loaded
+  useEffect(() => {
+    const removeBootstrapStyles = () => {
+      const bootstrapStyles = document.querySelectorAll('link[href*="bootstrap.min.css"], style[data-href*="bootstrap.min.css"]');
+      bootstrapStyles.forEach(style => style.remove());
+    };
+    removeBootstrapStyles();
+  }, []);
+
   return (
     <div className="flex bg-[#F4F5FA] h-screen">
       {isMobile ? (
-        <MenuResponsive
-          activeCategory={activeCategory}
-          activeSubCategory={activeSubCategory}
-          onCategoryChange={handleCategoryChange}
-          onSubCategoryChange={handleSubCategoryChange}
-          setActiveCategory={setActiveCategory} // Truyền props
-          setActiveSubCategory={setActiveSubCategory} // Truyền props
-        />
+          <MenuResponsive
+            activeCategory={activeCategory}
+            activeSubCategory={activeSubCategory}
+            onCategoryChange={handleCategoryChange}
+            onSubCategoryChange={handleSubCategoryChange}
+            setActiveCategory={setActiveCategory} // Truyền props
+            setActiveSubCategory={setActiveSubCategory} // Truyền props
+          />
       ) : (
         <Menu
           activeCategory={activeCategory}

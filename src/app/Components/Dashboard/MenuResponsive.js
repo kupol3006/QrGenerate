@@ -30,6 +30,7 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import Image from 'next/image';
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const menuItems = [
   {
@@ -215,13 +216,11 @@ const MenuResponsive = ({ activeCategory, activeSubCategory, onCategoryChange, o
       [href]: !prevState[href],
     }));
     console.log('Active category:');
-    
   };
 
   useEffect(() => {
     console.log('subCategories:', activeSubCategory);
   }, [activeSubCategory]);
-    
 
   const handleSubCategoryClick = (subCategoryHref, categoryHref) => {
     setActiveSubCategory(subCategoryHref);
@@ -229,8 +228,6 @@ const MenuResponsive = ({ activeCategory, activeSubCategory, onCategoryChange, o
     onSubCategoryChange(subCategoryHref); // Notify parent component
     onCategoryChange(categoryHref); // Notify parent component
     toggleDrawer(false); // Close the drawer on mobile after selection
-    // console.log('Active sub category:', activeSubCategory);
-    
   };
 
   return (
@@ -245,59 +242,62 @@ const MenuResponsive = ({ activeCategory, activeSubCategory, onCategoryChange, o
         <MenuIcon />
       </IconButton>
       <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
+      <PerfectScrollbar>
         <div
-          className="w-64 min-h-screen max-h-[3000vh] bg-[#F4F5FA] rounded-md mb-6 p-4 pl-0 custom-scrollbar  overflow-auto"
+          className="w-64 min-h-screen max-h-[3000vh] bg-[#F4F5FA] rounded-md mb-6 p-4 pl-0 overflow-hidden overflow-auto"
           onClick={toggleDrawer(true)}
           onKeyDown={toggleDrawer(true)}
         >
           <div className="text-[#524E5E] text-2xl font-bold mb-0 ml-8 flex items-center">
             <Image src="/logo-teca.png" alt="logo" width={120} height={120} />
           </div>
+          
+            <List>
+              {menuItems.map((item, index) => {
+                if (item.type === 'divider') {
+                  return (
+                    <div
+                      key={index}
+                      className="relative text-gray-500 text-sm mt-6 mb-2 pl-6"
+                    >
+                      <span className="relative z-10 bg-[#F4F5FA] p-1">
+                        {item.label}
+                      </span>
+                      <span className="absolute inset-y-[10px] left-0 w-full border-t border-gray-300"></span>
+                    </div>
+                  );
+                }
 
-          <List>
-            {menuItems.map((item, index) => {
-              if (item.type === 'divider') {
                 return (
-                  <div
+                  <MenuItem
                     key={index}
-                    className="relative text-gray-500 text-sm mt-6 mb-2 pl-6"
-                  >
-                    <span className="relative z-10 bg-[#F4F5FA] p-1">
-                      {item.label}
-                    </span>
-                    <span className="absolute inset-y-[10px] left-0 w-full border-t border-gray-300"></span>
-                  </div>
-                );
-              }
-
-              return (
-                <MenuItem
-                  key={index}
-                  href={item.href}
-                  icon={item.icon}
-                  active={activeCategory === item.href}
-                  onClick={() => {
-                    onCategoryChange(item.href);
-                    if (item.subCategories) {
-                      toggleCategory(item.href);
+                    href={item.href}
+                    icon={item.icon}
+                    active={activeCategory === item.href}
+                    onClick={() => {
+                      onCategoryChange(item.href);
+                      if (item.subCategories) {
+                        toggleCategory(item.href);
+                      }
+                    }}
+                    isOpen={openCategories[item.href]}
+                    toggleOpen={() => toggleCategory(item.href)}
+                    subCategories={item.subCategories}
+                    activeSubCategory={activeSubCategory}
+                    onSubCategoryClick={(subCategoryHref) =>
+                      handleSubCategoryClick(subCategoryHref)
                     }
-                  }}
-                  isOpen={openCategories[item.href]}
-                  toggleOpen={() => toggleCategory(item.href)}
-                  subCategories={item.subCategories}
-                  activeSubCategory={activeSubCategory}
-                  onSubCategoryClick={(subCategoryHref) =>
-                    handleSubCategoryClick(subCategoryHref)
-                  }
-                >
-                  {item.label}
-                </MenuItem>
-
-              );
-            })}
-          </List>
+                  >
+                    {item.label}
+                  </MenuItem>
+                );
+              })}
+            </List>
+          
         </div>
+        </PerfectScrollbar>
       </Drawer>
+      
     </>
   );
 };

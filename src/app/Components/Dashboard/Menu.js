@@ -23,6 +23,7 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import  Image from 'next/image';
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
+ import PerfectScrollbar from 'react-perfect-scrollbar'
 
 const menuItems = [
   {
@@ -218,7 +219,9 @@ const Menu = ({ activeCategory, activeSubCategory, onCategoryChange, onSubCatego
   };
 
   return (
-    <div className="w-70 h-screen bg-transparent rounded-md p-4 pl-0 custom-scrollbar overflow-auto">
+    <Box className='w-70 min-h-screen max-h-[3000vh]'>
+    <PerfectScrollbar>
+    <div className="w-70 min-h-screen max-h-[3000vh] bg-transparent rounded-md p-4 pl-0 overflow-y-hidden overflow-auto">
       <div className="text-[#524E5E] text-2xl font-bold mb-8 mt-2 ml-8 flex items-center">
         <Image src="/logo-teca.png" alt="logo" width={120} height={120} />
       </div>
@@ -259,7 +262,10 @@ const Menu = ({ activeCategory, activeSubCategory, onCategoryChange, onSubCatego
         </MenuItem>
       );
     })}
+    
     </div>
+    </PerfectScrollbar>
+    </Box>
   );
 };
 

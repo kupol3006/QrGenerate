@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes fadeInUp {
+/* @keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -16,30 +16,6 @@
 
 .MuiDrawer-paper {
   overflow-y: hidden;
-}
-
-.custom-scrollbar {
-  scrollbar-width: thin !important;
-  scrollbar-color: #a0aec0 transparent !important; 
-}
-
-/* .custom-scrollbar::-webkit-scrollbar-button {
-  display: none !important; 
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 3px !important; 
-  height: 1px !important; 
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent !important; 
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #a0aec0 !important; 
-  border-radius: 510px !important; 
-  border: 2px solid transparent !important; 
-  background-clip: padding-box !important; 
 } */
+
 

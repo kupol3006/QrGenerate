@@ -12,7 +12,7 @@ const nextConfig = {
             jQuery: 'jquery',
           })
         );
-        config.cache = false; // Disable Webpack caching
+        config.cache = false;
         return config;
     },
 };

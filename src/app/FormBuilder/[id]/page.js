@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFormBuilderAsync, postFormUserDataAsyn, putScanCountAsync } from '../../redux/slices/formBuilderSlice';
+import { getFormBuilderAsync, postFormUserDataAsync, putScanCountAsync } from '../../redux/slices/formBuilderSlice';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from "jwt-decode";

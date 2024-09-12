@@ -7,7 +7,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PublishIcon from '@mui/icons-material/Publish';
 import { setData } from '../redux/slices/formBuilderSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import FormPreview from '../Components/FormBuidler/Preview';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
@@ -17,10 +16,13 @@ import { postFormBuilderAsync } from '../redux/slices/formBuilderSlice';
 import { toast, Flip } from 'react-toastify';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import { usePathname } from 'next/navigation';
 
 export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const pathname = usePathname();
 
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
@@ -62,7 +64,16 @@ export default function Home() {
     const dataRes = await dispatch(postFormBuilderAsync(formData));
     return dataRes.payload;
 };
-
+  
+  const removeBootstrapStyles = () => {
+    const bootstrapStyles = document.querySelectorAll('link[href*="bootstrap.min.css"], style[data-href*="bootstrap.min.css"]');
+    bootstrapStyles.forEach(style => style.remove());
+  };
+  
+  const handleNavigate = () => {
+    removeBootstrapStyles();
+    router.push('/Dashboard');
+  };
 
   const handleOpenPreview = () => {
     setOpen1(!open1);
@@ -199,10 +210,10 @@ export default function Home() {
       }).then(() => {
         return import('formBuilder');
       }).then(() => {
-        return import('formBuilder/dist/form-render.min.js');
+        return import('bootstrap/dist/css/bootstrap.min.css');
       }).then(() => {
         if (typeof $ === 'function') {
-          $(function() {
+          $(function () {
             console.log("jQuery is ready!");
 
             const options = {
@@ -245,16 +256,21 @@ export default function Home() {
         console.error("Error loading dependencies:", error);
       });
     }
+
+    return () => {
+      removeBootstrapStyles();
+    };
   }, []);
 
   
 
   return (
+    <>
     <div className='w-full min-h-screen max-h-[1000000000px] flex justify-center bg-gradient-to-r from-[#f2f4f4] to-[#424949] '>
       <div className='w-[1200px] flex flex-col relative'>
         <div className="w-[1200px] h-[4%] bg-transparent flex justify-between items-center px-0 py-4 fixed z-10">
           <IconButton
-            onClick={() => router.push('/Dashboard')}
+            onClick={() => handleNavigate()}
             className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 rounded-md mr-2 flex items-center border-black border-[1px]"
           >
             <ArrowBackIcon />
@@ -400,5 +416,6 @@ export default function Home() {
       </Modal>
       <PublishPopUp open={open3} handleOpenPublish={handleOpenPublish} saveFormBuilder={saveFormBuilder} />
     </div>
+    </>
   );
 }
