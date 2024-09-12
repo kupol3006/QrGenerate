@@ -43,10 +43,8 @@ const Header = () => {
     const handleLogout = () => {
         Cookies.remove('google_token');
         Cookies.remove('google_user');
-        setIsLoggedIn(false);
-        setUserData(null);
-        setAnchorEl1(null);
-        router.push('/Login');
+        Cookies.remove('token');
+        window.location.href = 'Login';
     };
 
 
@@ -146,6 +144,7 @@ const Header = () => {
               textTransform: 'none', // Không viết hoa chữ
               fontWeight: '500', // Độ dày chữ
             }}
+            onClick={handleLogout}
           >
             Logout
           </Button>

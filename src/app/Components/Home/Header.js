@@ -3,7 +3,7 @@ import {
     AppBar, Toolbar, styled, Typography, Avatar, Menu, MenuItem,
     ListItemIcon,
     ListItemText,
-    Divider
+    Divider, Button
 } from '@mui/material';
 import Link from "next/link";
 import { color, width } from '@mui/system';
@@ -42,52 +42,20 @@ const Header = () => {
                 {/* <Link href="/" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold', }} className='text-[12px] sm:text-[15px]'>
                     Tạo QR Code
                 </Link> */}
-                <Link href="/Scan" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
-                    Quét QR Code
-                </Link>
-                {/* <Link href="/SignUp" color="#000000" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
+                <Button style={{ color: '#000', fontWeight: 'bold', textTransform: 'none', border: '2px solid black', borderRadius: '10px' }} className='hover:shadow-lg px-3 py-[6px] mr-2'>
+                    <Link href="/Scan" style={{ fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
+                        Quét QR
+                    </Link>
+                </Button>
+                {/* <Link href="/SignUp" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                     Đăng ký
                 </Link> */}
-                {/* <Link href="/Login" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
-                    Đăng nhập
-                </Link> */}
-                <Avatar
-                    // src={userData?.picture}
-                    // alt={userData?.name}
-                    onClick={handleAvatarClick}
-                    style={{ cursor: 'pointer' }}
-                />
-                <Menu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={handleMenuClose}
-                >
-                    <MenuItem>
-                        <ListItemText>
-                            <Link href="/SignUp" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
-                                Đăng ký
-                            </Link>
-                            {/* <Typography variant="body2">{userData?.email}</Typography> */}
-                        </ListItemText>
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem>
-                        {/* <ListItemIcon>
-                            <SettingsIcon />
-                        </ListItemIcon> */}
-                        <ListItemText>
-                            <Link href="/Login" color="#000000" underline="hover" style={{ color: '#000000', fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
-                                Đăng nhập
-                            </Link>
-                        </ListItemText>
-                    </MenuItem>
-                    {/* <MenuItem onClick={handleLogout}>
-                        <ListItemIcon>
-                            <LogoutIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Sign out" />
-                    </MenuItem> */}
-                </Menu>
+                <Button style={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#48A9A6', textTransform: 'none' }} className='hover:bg-[#3E9390] hover:shadow-lg px-3 py-2'>
+                    <Link href="/Login"  className='text-[12px] sm:text-[15px]'>
+                        Đăng nhập
+                    </Link>
+                </Button>
+
             </Toolbar>
         </StyledAppBar>
     );

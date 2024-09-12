@@ -1,7 +1,7 @@
 // ComponentDashboard/Menu.js
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ErrorOutline as ErrorOutlineOutlinedIcon,
   TextFields,
@@ -9,10 +9,6 @@ import {
   CreditCard,
   ViewInAr,
 } from '@mui/icons-material';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import { Box } from '@mui/material';
@@ -149,9 +145,9 @@ const MenuItem = ({
 }) => (
   <div>
     <div
-      className={`flex items-center p-2 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
+      className={`flex items-center p-[8px] rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#E5E5EB] cursor-pointer ${
         active
-          ? 'bg-gradient-to-r from-custom-purple-light to-custom-purple-dark shadow-lg text-white'
+          ? 'bg-[#E5E5EB] text-custom-gray' // Sử dụng màu của active category
           : 'text-custom-gray'
       }`}
       onClick={onClick}
@@ -160,25 +156,25 @@ const MenuItem = ({
       <span className="ml-2">{children}</span>
       {subCategories && (
         <KeyboardArrowDown
-          className={`ml-auto transform transition-transform duration-1000 ease-in-out ${
-            isOpen ? 'rotate-0' : 'rotate-180'
+          className={`ml-auto transform transition-transform duration-300 ease-in-out ${
+            isOpen ? 'rotate-0' : 'rotate-[-90deg]'
           }`}
         />
       )}
     </div>
     {subCategories && (
       <ul
-        className={`transition-[max-height,opacity,transform] duration-[2000ms] ease-in-out overflow-hidden ${
-          isOpen ? 'max-h-[1000px] opacity-100 transform translate-y-0' : 'max-h-0 opacity-0 transform -translate-y-2'
+        className={`transition-[max-height,opacity,transform] duration-[750ms] ease-in-out overflow-hidden ${
+          isOpen ? 'max-h-[1000px] opacity-100 transform' : 'max-h-0 opacity-100 transform'
         }`}
       >
         {subCategories.map((subCategory, subIndex) => (
           <li key={subIndex}>
             <Link href={subCategory.href} legacyBehavior>
               <a
-                className={`flex items-center p-2 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
+                className={`flex items-center p-1 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
                   activeSubCategory === subCategory.href
-                    ? 'bg-gradient-to-r from-custom-purple-light to-custom-purple-dark shadow-lg text-white' // Sử dụng màu của active category
+                    ? 'bg-gradient-to-r from-[#006699] to-[#39B54A] shadow-lg text-white' // Sử dụng màu của active category
                     : 'text-custom-gray'
                 }`}
                 onClick={() => onSubCategoryClick(subCategory.href)}
@@ -197,74 +193,72 @@ const MenuItem = ({
   </div>
 );
 
-const Menu = ({ activeCategory, onCategoryChange }) => {
+const Menu = ({ activeCategory, activeSubCategory, onCategoryChange, onSubCategoryChange, setActiveCategory, setActiveSubCategory }) => {
   const [openCategories, setOpenCategories] = useState({});
-  const [activeSubCategory, setActiveSubCategory] = useState(null);
 
   const toggleCategory = (href) => {
     setOpenCategories((prevState) => ({
       ...prevState,
       [href]: !prevState[href],
     }));
+    console.log('Active category:', activeCategory);
   };
 
+  // Inside your component
+  useEffect(() => {
+    console.log('Active sub category updated:', activeSubCategory);
+  }, [activeSubCategory]);
+    
+
   const handleSubCategoryClick = (subCategoryHref) => {
-    setActiveSubCategory(subCategoryHref);
-    onCategoryChange(subCategoryHref); // Cập nhật activeCategory khi click subCategory
+    setActiveSubCategory(subCategoryHref); // Cập nhật activeSubCategory khi click subCategory
+    onSubCategoryChange(subCategoryHref);
+    console.log('Active sub category:', activeSubCategory);
+    
   };
 
   return (
-    <div className="w-70 h-screen bg-transparent rounded-md p-4 pl-0 custom-scrollbar  overflow-auto">
-      <div className="text-[#524E5E] text-2xl font-bold mb-6 ml-8 flex items-center">
-        <Image src="/logo-teca-icon.png" alt="logo" width={50} height={50} />
-        TECA
+    <div className="w-70 h-screen bg-transparent rounded-md p-4 pl-0 custom-scrollbar overflow-auto">
+      <div className="text-[#524E5E] text-2xl font-bold mb-8 mt-2 ml-8 flex items-center">
+        <Image src="/logo-teca.png" alt="logo" width={120} height={120} />
       </div>
 
-      <Box
-        className='flex items-center p-2 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 bg-gradient-to-r from-[#006699] to-[#39B54A] shadow-lg text-white cursor-pointer'
-        
-      >
-        <HomeOutlinedIcon className='mr-2'/>
-        Dashboard
-      </Box>
-
       {menuItems.map((item, index) => {
-        if (item.type === 'divider') {
-          return (
-            <div
-              key={index}
-              className="relative text-gray-500 text-sm mt-6 mb-2 pl-6"
-            >
-              <span className="relative z-10 bg-[#F4F5FA] p-1">
-                {item.label}
-              </span>
-              <span className="absolute inset-y-[10px] left-0 w-full border-t border-gray-300"></span>
-            </div>
-          );
-        }
+  if (item.type === 'divider') {
+    return (
+      <div key={index} className="relative text-gray-500 text-sm mt-6 mb-2 pl-6">
+        <span className="relative z-10 bg-[#F4F5FA] p-1">{item.label}</span>
+        <span className="absolute inset-y-[10px] left-0 w-full border-t border-gray-300"></span>
+      </div>
+    );
+  }
 
-        return (
-          <MenuItem
-            key={index}
-            href={item.href}
-            icon={item.icon}
-            active={activeCategory === item.href}
-            onClick={() => {
-              onCategoryChange(item.href);
-              if (item.subCategories) {
-                toggleCategory(item.href);
-              }
-            }}
-            isOpen={openCategories[item.href]}
-            toggleOpen={() => toggleCategory(item.href)}
-            subCategories={item.subCategories}
-            activeSubCategory={activeSubCategory}
-            onSubCategoryClick={handleSubCategoryClick}
-          >
-            {item.label}
-          </MenuItem>
-        );
-      })}
+  return (
+        <MenuItem
+          key={index}
+          href={item.href}
+          icon={item.icon}
+          active={activeCategory === item.href}
+          onClick={() => {
+            onCategoryChange(item.href);
+            if (item.subCategories) {
+              toggleCategory(item.href);
+            }
+          }}
+          isOpen={openCategories[item.href]}
+          toggleOpen={() => toggleCategory(item.href)}
+          subCategories={item.subCategories}
+          activeSubCategory={activeSubCategory}
+          // onSubCategoryClick={(subCategoryHref) => {
+          //   handleSubCategoryClick(subCategoryHref);
+          //   onCategoryChange(item.href);
+          // }}
+          onSubCategoryClick={(subCategoryHref) => handleSubCategoryClick(subCategoryHref)}
+        >
+          {item.label}
+        </MenuItem>
+      );
+    })}
     </div>
   );
 };

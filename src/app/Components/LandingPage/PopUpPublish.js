@@ -2,15 +2,35 @@ import { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast, Flip } from 'react-toastify';
 
-const PopUpPublish = ({ open, handleOpenPublish }) => {
+const PopUpPublish = ({ open, handleOpenPublish, saveLandingPage }) => {
     const router = useRouter();
     const dispatch = useDispatch();
 
-    const handlePublishForm = () => {
-        router.push('/Builder');
-    }
-
+    const handlePublishForm = async () => {
+        const data = await saveLandingPage();
+            if(data?.message === 'You have reached the maximum number of landing pages') {
+                toast.error('You have reached the maximum number of landing pages', {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    transition: Flip,
+                });
+                handleOpenPublish();
+            }
+            else if (data?.message === "Failed to create landing page") {
+                toast.error("Failed to create landing page", {
+                    position: 'top-right',
+                    autoClose: 3000,
+                    transition: Flip,
+                });
+                handleOpenPublish();
+            }
+            else{
+                handleOpenPublish();
+                router.push(`/Builder`);
+            }
+    };
 
     return (
         <div>

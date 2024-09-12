@@ -1,121 +1,138 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
-import { customAlphabet } from 'nanoid';
+import { setCookie, destroyCookie, parseCookies } from 'nookies';
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_KEY;
+
+export const postFormBuilderAsync = createAsyncThunk(
+    'formBuilder/postFormBuilder',
+    async (formData) => {
+        try {
+            const token = parseCookies()['token'];
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            const response = await axios.post(`${API_BASE_URL}FormBuilder/create`, formData);
+
+            if (response.status === 200) {
+                console.log('Form created successfully');
+            } else {
+                console.log('Form creation failed: ', response.statusText);
+            }
+
+            return response.data;
+        } catch (error) {
+            return error;
+        }
+    },
+);
+
+export const postFormUserDataAsync = createAsyncThunk(
+    'formBuilder/postFormUserData',
+    async (formData) => {
+        try {
+            const token = parseCookies()['tokenEndUser'];
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            const response = await axios.post(`${API_BASE_URL}FormSubmission/submit`, formData);
+
+            if (response.status === 200) {
+                console.log('Form created successfully');
+            } else {
+                console.log('Form creation failed: ', response.statusText);
+            }
+
+            return response.data;
+        } catch (error) {
+            return error;
+        }
+    },
+);
+
+export const putScanCountAsync = createAsyncThunk(
+    'formBuilder/putScanCount',
+    async (id) => {
+      try {
+        const token = parseCookies()['token'];
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        const response = await axios.put(`${API_BASE_URL}FormBuilder/${id}/increment-scan`);
+        return response.data;
+      } catch (error) {
+        console.error('Error incrementing scan count:', error);
+        throw error;
+      }
+    }
+  );
+
+export const getFormBuilderAsync = createAsyncThunk(
+    'formBuilder/getFormBuilder',
+    async (id, { rejectWithValue }) => {
+      try {
+        const token = parseCookies()['tokenEndUser'];
+        const response = await axios.get(`${API_BASE_URL}FormBuilder/${id}/file`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        return response.data; // assuming you need to return the data
+      } catch (error) {
+        return rejectWithValue(error.response?.data || error.message);
+      }
+    }
+  );
+
 
 const initialState = {
-    formElementData: [
-        {
-            // id: 1787879878,
-            icon: 'TextField',
-            title: 'Text Field',
-            required: false,
-            placeholder: 'Enter your text here',
-            label: 'Text Field',
-            name: 'text',
-            type: 'text',
-            value: '',
-            helpertext: 'Helper text'
-        },
-        {
-            // id: 22312313,
-            icon: 'NumberField',
-            title: 'Number Field',
-            required: false,
-            placeholder: '0',
-            label: 'Number Field',
-            name: 'number',
-            type: 'number',
-            value: '',
-            helpertext: 'Helper text'
-        },
-        {
-            // id: 3123123,
-            icon: 'TextAreaField',
-            title: 'TextArea Field',
-            required: false,
-            placeholder: 'Enter your text here',
-            label: 'TextArea Field',
-            name: 'textarea',
-            type: 'textarea',
-            value: '',
-            helpertext: 'Helper text'
-        },
-        {
-            // id: 4,
-            icon: 'DateField',
-            title: 'Date Field',
-            required: false,
-            label: 'Date Field',
-            name: 'date',
-            type: 'date',
-            value: '',
-            helpertext: 'Pick a date'
-        },
-        {
-            // id: 5,
-            icon: 'SelectField',
-            title: 'Select Field',
-            required: false,
-            placeholder: 'Value here...',
-            label: 'Select Field',
-            name: 'select',
-            type: 'select',
-            value: '',
-            option: [],
-            helpertext: 'Helper text'
-        },
-        {
-            // id: 6,
-            icon: 'CheckBoxField',
-            title: 'CheckBox Field',
-            required: false,
-            placeholder: 'Select your option',
-            label: 'CheckBox Field',
-            name: 'checkbox',
-            type: 'checkbox',
-            checked: false,
-            helpertext: 'Helper text'
-        },
-    ],
-    formElement: [],
-    isShowElementProperties: false,
-    formElementChosen: {}
-}
+    token: null,
+    isLoading: false,
+    data: [],
+    dataCreate: [],
+    dataForm: [],
+    dataScanCount: [],
+};
 
 export const formBuilderSlice = createSlice({
     name: 'formBuilder',
     initialState,
     reducers: {
-        pushFormElement: (state, action) => {
-            const nanoid = customAlphabet('0123456789', 10);
-            const newElement = { ...action.payload, id: Number(nanoid()) };
-            state.formElement.push(newElement);
-        },
-        updateFormElement: (state, action) => {
-            state.formElement = action.payload;
-        },
-        setIsShowElementProperties: (state, action) => {
-            state.isShowElementProperties = action.payload;
-        },
-        setFormElementChosen: (state, action) => {
-            state.formElementChosen = action.payload;
-        },
-        updateFormChosenElement: (state, action) => {
-            const index = state.formElement.findIndex(element => element.id === state.formElementChosen.id);
-            if (index !== -1) {
-                state.formElement[index] = action.payload;
-            }
-        },
-        deleteFormElement: (state, action) => {
-            state.formElement = state.formElement.filter(element => element.id !== action.payload);
+        setData(state, action) {
+            state.data = action.payload;
         }
     },
     extraReducers: (builder) => {
+        builder
+            .addCase(postFormBuilderAsync.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(postFormBuilderAsync.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.dataCreate = action.payload;
+            })
+            .addCase(postFormBuilderAsync.rejected, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(getFormBuilderAsync.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getFormBuilderAsync.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.dataForm = action.payload;
+            })
+            .addCase(getFormBuilderAsync.rejected, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(putScanCountAsync.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(putScanCountAsync.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.dataScanCount = action.payload;
+            })
+            .addCase(putScanCountAsync.rejected, (state) => {
+                state.isLoading = false;
+            })
     },
-})
+});
 
-// Action creators are generated for each case reducer function
-export const { pushFormElement, updateFormElement, setIsShowElementProperties, setFormElementChosen, updateFormChosenElement, deleteFormElement } = formBuilderSlice.actions
+export const { setData } = formBuilderSlice.actions;
 
-export default formBuilderSlice.reducer
+export default formBuilderSlice.reducer;

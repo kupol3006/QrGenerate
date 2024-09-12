@@ -13,11 +13,13 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import confetti from 'canvas-confetti';
 import { QRCode } from 'react-qrcode-logo';
 import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
 
 const HomePage = () => {
-    const [formPublished, setFormPublished] = useState(false);
     const confettiCanvas = useRef(null);
     const [isCanvasMounted, setIsCanvasMounted] = useState(true);
+    const dataCreate = useSelector((state) => state.landingPage.dataCreate);
+    const dataCreateForm = useSelector((state) => state.formBuilder.dataCreate);
 
     useEffect(() => {
         const myConfetti = confetti.create(confettiCanvas.current, {
@@ -33,18 +35,12 @@ const HomePage = () => {
         setTimeout(() => setIsCanvasMounted(false), 3000);
         // Clean up the confetti instance when the component unmounts
         return () => myConfetti.reset();
-
+        
 
     }, []);
 
-    const handlePublishForm = () => {
-        // Logic to publish your form, e.g., make an API call.
-        // For this example, we'll just toggle the state.
-        setFormPublished(true);
-    };
-
     const [copied, setCopied] = useState(false);
-    const formUrl = 'https://example.com/form-url';
+    const formUrl = `http://localhost:8000/${dataCreate?.htmlFilePath?"Landingpage":"FormBuilder"}/${dataCreate?.htmlFilePath ? dataCreate?.id : dataCreateForm?.id}`;
 
     const handleCopy = () => {
         setCopied(true);
@@ -65,11 +61,11 @@ const HomePage = () => {
                             <div className="flex flex-col items-center justify-center min-h-screen bg-white">
                                 <div className=" rounded-lg shadow-md p-8 text-center">
                                     <div className="flex items-center justify-center mb-0 py-4 border-b-[2px]">
-                                        <span role="img" aria-label="party" className="text-5xl mr-2">
+                                        <span role="img" aria-label="party" className="text-3xl mr-2">
                                             🎊🎊
                                         </span>
-                                        <h2 className="text-4xl font-bold">Qr Code Published</h2>
-                                        <span role="img" aria-label="party" className="text-5xl ml-2">
+                                        <h2 className="text-2xl font-bold">Qr Code Published</h2>
+                                        <span role="img" aria-label="party" className="text-3xl ml-2">
                                             🎊🎊
                                         </span>
                                     </div>
@@ -101,39 +97,23 @@ const HomePage = () => {
                                     </div>
                                     <CopyToClipboard text={formUrl} onCopy={handleCopy}>
                                         <button
-                                            className={`w-full bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 ease-in-out ${copied ? 'bg-green-600' : ''
+                                            className={`w-full bg-gray-900 hover:${copied?'bg-green-600':'bg-gray-700'} text-white font-bold py-2 px-4 rounded-lg transition duration-200 ease-in-out ${copied ? 'bg-green-600' : ''
                                                 }`}
                                         >
                                             {copied ? 'Copied!' : 'Copy link'}
                                         </button>
                                     </CopyToClipboard>
 
-                                    <div className="flex items-center justify-between mt-8">
+                                    <div className="flex items-center justify-center mt-8">
                                         <Link href="/Dashboard" className="text-black hover:underline">
-                                            {'<-'} Go back Dashboard
+                                            Go back Dashboard
                                         </Link>
-                                        <Link href="/FormTemp" className="text-black hover:underline">
-                                            Details {'->'}
-
-                                        </Link>
-                                        {/* Builder  LPTemp */}
                                     </div>
                                 </div>
                             </div>
                         </>
                     ) : (
                         <div>
-                            {/* <Typography variant="h3" gutterBottom>
-                            Create Your Form
-                        </Typography> */}
-                            {/* ... your form creation UI here ... */}
-                            {/* <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handlePublishForm}
-                        >
-                            Publish Form
-                        </Button> */}
                         </div>
                     )}
                 </Box>

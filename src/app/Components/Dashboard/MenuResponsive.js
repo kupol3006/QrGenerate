@@ -17,7 +17,7 @@ import {
   IconButton,
   Box,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import QrCode2OutlinedIcon from '@mui/icons-material/QrCode2Outlined';
@@ -152,9 +152,9 @@ const MenuItem = ({
 }) => (
   <div>
     <div
-      className={`flex items-center p-2 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
+      className={`flex items-center p-[8px] rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#E5E5EB] cursor-pointer ${
         active
-          ? 'bg-gradient-to-r from-custom-purple-light to-custom-purple-dark shadow-lg text-white'
+          ? 'bg-[#E5E5EB] text-custom-gray' // Sử dụng màu của active category
           : 'text-custom-gray'
       }`}
       onClick={onClick}
@@ -163,35 +163,36 @@ const MenuItem = ({
       <span className="ml-2">{children}</span>
       {subCategories && (
         <KeyboardArrowDown
-          className={`ml-auto transform transition-transform duration-1000 ease-in-out ${
-            isOpen ? 'rotate-0' : 'rotate-180'
+          className={`ml-auto transform transition-transform duration-300 ease-in-out ${
+            isOpen ? 'rotate-0' : 'rotate-[-90deg]'
           }`}
         />
       )}
     </div>
     {subCategories && (
       <ul
-        className={`transition-[max-height,opacity,transform] duration-[2000ms] ease-in-out overflow-hidden ${
-          isOpen ? 'max-h-[1000px] opacity-100 transform translate-y-0' : 'max-h-0 opacity-0 transform -translate-y-2'
+        className={`transition-[max-height,opacity,transform] duration-[750ms] ease-in-out overflow-hidden ${
+          isOpen ? 'max-h-[1000px] opacity-100 transform' : 'max-h-0 opacity-100 transform'
         }`}
       >
         {subCategories.map((subCategory, subIndex) => (
           <li key={subIndex}>
             <Link href={subCategory.href} legacyBehavior>
-              <a
-                className={`flex items-center p-2 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
-                  activeSubCategory === subCategory.href
-                    ? 'bg-gradient-to-r from-custom-purple-light to-custom-purple-dark shadow-lg text-white'
-                    : 'text-custom-gray'
-                }`}
-                onClick={() => onSubCategoryClick(subCategory.href)}
-              >
-                <CircleOutlinedIcon
-                  sx={{ fontSize: 12 }}
-                  className="mr-2 ml-1"
-                />
-                {subCategory.label}
-              </a>
+            <a
+              className={`flex items-center p-1 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
+                activeSubCategory === subCategory.href
+                  ? 'bg-gradient-to-r from-[#006699] to-[#39B54A] shadow-lg text-white'
+                  : 'text-custom-gray'
+              }`}
+              onClick={() => onSubCategoryClick(subCategory.href)}  // Pass both subCategory.href and the parent href
+            >
+              <CircleOutlinedIcon
+                sx={{ fontSize: 12 }}
+                className="mr-2 ml-1"
+              />
+              {subCategory.label}
+            </a>
+
             </Link>
           </li>
         ))}
@@ -200,10 +201,9 @@ const MenuItem = ({
   </div>
 );
 
-const MenuResponsive = ({ activeCategory, onCategoryChange }) => {
+const MenuResponsive = ({ activeCategory, activeSubCategory, onCategoryChange, onSubCategoryChange, setActiveCategory, setActiveSubCategory }) => {
   const [open, setOpen] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
-  const [activeSubCategory, setActiveSubCategory] = useState(null);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -214,12 +214,23 @@ const MenuResponsive = ({ activeCategory, onCategoryChange }) => {
       ...prevState,
       [href]: !prevState[href],
     }));
+    console.log('Active category:');
+    
   };
 
-  const handleSubCategoryClick = (subCategoryHref) => {
+  useEffect(() => {
+    console.log('subCategories:', activeSubCategory);
+  }, [activeSubCategory]);
+    
+
+  const handleSubCategoryClick = (subCategoryHref, categoryHref) => {
     setActiveSubCategory(subCategoryHref);
-    onCategoryChange(subCategoryHref); // Cập nhật activeCategory khi click subCategory
-    toggleDrawer(false); // Đóng drawer sau khi chọn
+    setActiveCategory(categoryHref); // Update category along with subcategory
+    onSubCategoryChange(subCategoryHref); // Notify parent component
+    onCategoryChange(categoryHref); // Notify parent component
+    toggleDrawer(false); // Close the drawer on mobile after selection
+    // console.log('Active sub category:', activeSubCategory);
+    
   };
 
   return (
@@ -235,24 +246,15 @@ const MenuResponsive = ({ activeCategory, onCategoryChange }) => {
       </IconButton>
       <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
         <div
-          className="w-64 h-screen bg-[#F4F5FA] rounded-md mb-6 p-4 pl-0 custom-scrollbar  overflow-auto"
+          className="w-64 min-h-screen max-h-[3000vh] bg-[#F4F5FA] rounded-md mb-6 p-4 pl-0 custom-scrollbar  overflow-auto"
           onClick={toggleDrawer(true)}
           onKeyDown={toggleDrawer(true)}
         >
           <div className="text-[#524E5E] text-2xl font-bold mb-0 ml-8 flex items-center">
-        <Image src="/logo-teca-icon.png" alt="logo" width={50} height={50} />
-        TECA
-      </div>
-      
+            <Image src="/logo-teca.png" alt="logo" width={120} height={120} />
+          </div>
 
           <List>
-          <Box
-        className='flex items-center p-2 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 bg-gradient-to-r from-[#006699] to-[#39B54A] shadow-lg text-white cursor-pointer'
-        
-      >
-        <HomeOutlinedIcon className='mr-2'/>
-        Dashboard
-      </Box>
             {menuItems.map((item, index) => {
               if (item.type === 'divider') {
                 return (
@@ -278,18 +280,19 @@ const MenuResponsive = ({ activeCategory, onCategoryChange }) => {
                     onCategoryChange(item.href);
                     if (item.subCategories) {
                       toggleCategory(item.href);
-                    } else {
-                      toggleDrawer(false); // Đóng drawer nếu không có subCategory
                     }
                   }}
                   isOpen={openCategories[item.href]}
                   toggleOpen={() => toggleCategory(item.href)}
                   subCategories={item.subCategories}
                   activeSubCategory={activeSubCategory}
-                  onSubCategoryClick={handleSubCategoryClick}
+                  onSubCategoryClick={(subCategoryHref) =>
+                    handleSubCategoryClick(subCategoryHref)
+                  }
                 >
                   {item.label}
                 </MenuItem>
+
               );
             })}
           </List>

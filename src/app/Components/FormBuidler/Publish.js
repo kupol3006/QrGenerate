@@ -1,23 +1,34 @@
 import { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast, Flip } from 'react-toastify';
 
-const PopUpPublish = ({ open, handleClose }) => {
+const PublishPopUp = ({ open, handleOpenPublish, saveFormBuilder }) => {
     const router = useRouter();
-    const handlePublishForm = () => {
-        router.push('/Builder');
-    }
+    const dispatch = useDispatch();
 
+    const handlePublishForm = async () => {
+        const data = await saveFormBuilder();
+        if (data?.message) {
+            toast.error(data.message, {
+                position: 'top-right',
+                autoClose: 3000,
+                transition: Flip,
+            });
+            handleOpenPublish();
+        } else {
+            handleOpenPublish();
+            router.push(`/Builder`);
+        }
+        console.log(data);
+    };
 
     return (
         <div>
-            {/* <Button variant="contained" onClick={handleClickOpen}>
-                Publish
-            </Button> */}
-
             <Dialog
                 open={open}
-                onClose={handleClose}
+                onClose={handleOpenPublish}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
@@ -32,7 +43,7 @@ const PopUpPublish = ({ open, handleClose }) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} className="bg-white hover:bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded">
+                    <Button onClick={handleOpenPublish} className="bg-white hover:bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded">
                         Cancel
                     </Button>
                     <Button onClick={handlePublishForm} className="bg-[#111827] hover:bg-[#1f2937] text-white font-medium py-2 px-4 rounded">
@@ -44,4 +55,4 @@ const PopUpPublish = ({ open, handleClose }) => {
     );
 };
 
-export default PopUpPublish;
+export default PublishPopUp;

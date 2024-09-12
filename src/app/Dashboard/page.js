@@ -4,10 +4,15 @@ import React, { useState, useEffect } from 'react';
 import Menu from '../Components/Dashboard/Menu';
 import Header from '../Components/Dashboard/Header';
 import MenuResponsive from '../Components/Dashboard/MenuResponsive';
+import { setCookie, destroyCookie, parseCookies } from 'nookies';
+import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
 
 const HomePage = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const [activeCategory, setActiveCategory] = useState('#1'); // Mặc định chọn Dashboard
+  const [activeCategory, setActiveCategory] = useState('#1');
+  const [activeSubCategory, setActiveSubCategory] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
@@ -15,22 +20,64 @@ const HomePage = () => {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Kiểm tra kích thước màn hình ban đầu
+    handleResize(); // Check initial screen size
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // useEffect(() => {
+  //   const cookies = parseCookies();
+  //   const token = cookies.token;
+  //   if (!token || token === 'undefined') {
+  //     router.push('/Login');
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const url = window.location.href;
+    const dashboardIndex = url.indexOf('Dashboard');
+    
+    if (dashboardIndex !== -1) {
+      const afterDashboard = url.substring(dashboardIndex + 9); // Lấy các ký tự sau 'Dashboard'
+      const slashIndex = afterDashboard.indexOf('/');
+      
+      if (slashIndex !== -1) {
+        setActiveCategory(afterDashboard.substring(0, slashIndex)); // Lấy ký tự từ đầu đến trước dấu '/'
+        setActiveSubCategory(afterDashboard); // Lấy toàn bộ phần sau 'Dashboard'
+      }
+    }
+  }, []);
+
+  const handleCategoryChange = (category) => {
+    console.log('Category changed to:', category);
+    setActiveCategory(category);
+  };
+  
+  const handleSubCategoryChange = (subCategory) => {
+    
+    setActiveSubCategory(subCategory);
+    console.log('SubCategory changed to:', activeSubCategory);
+  };
 
   return (
     <div className="flex bg-[#F4F5FA] h-screen">
       {isMobile ? (
         <MenuResponsive
           activeCategory={activeCategory}
-          onCategoryChange={setActiveCategory}
+          activeSubCategory={activeSubCategory}
+          onCategoryChange={handleCategoryChange}
+          onSubCategoryChange={handleSubCategoryChange}
+          setActiveCategory={setActiveCategory} // Truyền props
+          setActiveSubCategory={setActiveSubCategory} // Truyền props
         />
       ) : (
         <Menu
           activeCategory={activeCategory}
-          onCategoryChange={setActiveCategory}
+          activeSubCategory={activeSubCategory}
+          onCategoryChange={handleCategoryChange}
+          onSubCategoryChange={handleSubCategoryChange}
+          setActiveCategory={setActiveCategory}
+          setActiveSubCategory={setActiveSubCategory}
         />
       )}
       <div
@@ -40,7 +87,7 @@ const HomePage = () => {
       >
         <Header />
         <main className="p-4">
-          {/* Nội dung của trang sẽ được hiển thị ở đây */}
+          {/* Page content will be displayed here */}
         </main>
       </div>
     </div>

@@ -59,7 +59,7 @@ export const qrCodeSlice = createSlice({
         },
         setUserBank: (state, action) => {
             state.userBank = action.payload
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
