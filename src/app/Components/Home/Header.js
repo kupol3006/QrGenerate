@@ -42,7 +42,7 @@ const Header = () => {
                 {/* <Link href="/" underline="hover" style={{ marginRight: 20, color: '#000000', fontWeight: 'bold', }} className='text-[12px] sm:text-[15px]'>
                     Tạo QR Code
                 </Link> */}
-                <Button style={{ color: '#000', fontWeight: 'bold', textTransform: 'none', border: '2px solid black', borderRadius: '10px' }} className='hover:shadow-lg px-3 py-[6px] mr-2'>
+                <Button style={{ color: '#000', fontWeight: 'bold', textTransform: 'none', border: '2px solid black', borderRadius: '5px' }} className='hover:shadow-lg px-3 py-[6px] mr-2'>
                     <Link href="/Scan" style={{ fontWeight: 'bold' }} className='text-[12px] sm:text-[15px]'>
                         Quét QR
                     </Link>

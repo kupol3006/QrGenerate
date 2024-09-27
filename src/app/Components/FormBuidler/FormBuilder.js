@@ -1,25 +1,24 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { IconButton, Modal, Box, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PublishIcon from '@mui/icons-material/Publish';
-import { setData } from '../redux/slices/formBuilderSlice';
+import { setData, postFormBuilderAsync } from '@/app/redux/slices/formBuilderSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import FormPreview from '../Components/FormBuidler/Preview';
+import FormPreview from './Preview';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
-import AutoRotatingCircularProgress from '../Components/LandingPage/GradientProgress';
-import  PublishPopUp  from '../Components/FormBuidler/Publish';
-import { postFormBuilderAsync } from '../redux/slices/formBuilderSlice';
+import AutoRotatingCircularProgress from '../LandingPage/GradientProgress';
+import PublishPopUp from './Publish';
 import { toast, Flip } from 'react-toastify';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import { usePathname } from 'next/navigation';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
-export default function Home() {
+export default function FormBuidler({onBack}) {
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
@@ -65,18 +64,9 @@ export default function Home() {
     return dataRes.payload;
 };
   
-  const reloadPage = () => {
-    window.location.reload();
-  };
-  const removeBootstrapStyles = () => {
-    const bootstrapStyles = document.querySelectorAll('link[href*="bootstrap.min.css"], style[data-href*="bootstrap.min.css"]');
-    bootstrapStyles.forEach(style => style.remove());
-  };
   
   const handleNavigate = () => {
-    removeBootstrapStyles();
-    // reloadPage();
-    router.push('/Dashboard');
+    onBack();
   };
 
   const handleOpenPreview = () => {
@@ -223,14 +213,14 @@ export default function Home() {
             const options = {
               showActionButtons: false,
               controlPosition: 'right',
-              // fieldRemoveWarn: true,
+              fieldRemoveWarn: true,
               scrollToFieldOnAdd: true,
-              sortableControls: true,
+            //   sortableControls: true,
               stickyControls: {
                 enable: true,
                 offset: {
                   top: 0,
-                  right: 20,
+                  right: 0,
                   left: 'auto'
                 }
               },
@@ -239,12 +229,6 @@ export default function Home() {
             const formBuilder = $('#fb-editor').formBuilder(options);
             console.log("formBuilder initialized:", formBuilder);
             formBuilder.actions.setLang('en');
-
-            // document.getElementById('getXML').addEventListener('click', function() {
-            //   const dataXml = dispatch(setData(formBuilder.actions.getData('xml')));
-            //   console.log('Data XML:', dataXml.payload);
-            //   handleOpenPreview();
-            // });
 
             // Add field button functionality
             const buttons = document.getElementsByClassName('addFieldBtn');
@@ -261,21 +245,18 @@ export default function Home() {
       });
     }
 
-    return () => {
-      removeBootstrapStyles();
-    };
   }, []);
 
   
 
   return (
     <>
-    <div className='w-full min-h-screen max-h-[1000000000px] flex justify-center bg-gradient-to-r from-[#f2f4f4] to-[#424949] '>
-      <div className='w-[1200px] flex flex-col relative'>
-        <div className="w-[1200px] h-[4%] bg-transparent flex justify-between items-center px-0 py-4 fixed z-10">
+    <div className='w-full 2xl:w-[86%] flex justify-center h-[calc(100vh-56px)]'>
+      <div className='w-full flex flex-col relative'>
+        <div className="mb-2 bg-transparent flex justify-between items-center px-0 py-1 rounded-lg">
           <IconButton
             onClick={() => handleNavigate()}
-            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 rounded-md mr-2 flex items-center border-black border-[1px]"
+            className="text-gray-800 font-semibold py-1 px-2 rounded-md mr-2 flex items-center border-black border-[1px]"
           >
             <ArrowBackIcon />
           </IconButton>
@@ -331,7 +312,9 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <div id="fb-editor" className='w-[1200px] mt-14 pb-10'></div>
+        <PerfectScrollbar>
+            <div id="fb-editor" className='w-full px-3 py-3 rounded-lg bg-white'></div>
+        </PerfectScrollbar>
       </div>
 
       <Modal open={open} onClose={handleCloseModal}>

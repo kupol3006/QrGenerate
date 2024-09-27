@@ -15,6 +15,14 @@ const nextConfig = {
         config.cache = false;
         return config;
     },
+    async rewrites() {
+      return [
+          {
+              source: '/Dashboard/:path*',
+              destination: '/Dashboard', // Chuyển hướng tất cả các URL bắt đầu bằng /Dashboard đến trang Dashboard
+          },
+      ];
+    },
 };
 
 export default nextConfig;

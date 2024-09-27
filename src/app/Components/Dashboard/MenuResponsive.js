@@ -34,107 +34,44 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const menuItems = [
   {
-    label: 'QR Code Manager', 
-    type: 'divider',
-  },
-  {
     label: 'QR Code Manager',
-    href: '#2',
+    href: 'QrCodeManager',
     icon: <QrCode2OutlinedIcon />,
     subCategories: [
-      { label: 'List', href: '#2/list' },
-      { label: 'Create', href: '#2/create' },
-      { label: 'Reporting', href: '#2/reporting' },
+      { label: 'List', href: '/QrCodeManager/list' },
+      { label: 'Create', href: '/QrCodeManager/create' },
+      { label: 'Reporting', href: '/QrCodeManager/reporting' },
     ],
   },
   {
     label: 'Gamification',
-    href: '#11',
+    href: 'Gamification',
     icon: <SportsEsportsOutlinedIcon />,
     subCategories: [
-      { label: 'List', href: '#11/list' },
+      { label: 'List', href: '/Gamification/list' },
       { label: 'Create', href: '/Gamification' },
-      { label: 'Reporting', href: '#11/reporting' },
+      { label: 'Reporting', href: '/Gamification/reporting' },
     ],
   },
   {
     label: 'Landing Page',
-    href: '#3',
+    href: 'Landingpage',
     icon: <WebOutlinedIcon />,
     subCategories: [
-      { label: 'List', href: '#3/list' },
-      { label: 'Create', href: '#3/create' },
-      { label: 'Reporting', href: '#3/reporting' },
+      { label: 'List', href: '/Landingpage/list' },
+      { label: 'Create', href: '/Landingpage' },
+      { label: 'Reporting', href: '/Landingpage/reporting' },
     ],
   },
   {
     label: 'Form Builder',
-    href: '#4',
+    href: 'FormBuilder',
     icon: <DynamicFormOutlinedIcon />,
     subCategories: [
-      { label: 'List', href: '#4/list' },
-      { label: 'Create', href: '#4/create' },
-      { label: 'Submitted Form', href: '#4/submitted-form' },
-      { label: 'Reporting', href: '#4/reporting' },
-    ],
-  },
-  {
-    label: 'Form Template',
-    href: '#5',
-    icon: <FormatAlignJustifyOutlinedIcon />,
-    subCategories: [
-      { label: 'List', href: '#5/list' },
-      { label: 'Create', href: '#5/create' },
-    ],
-  },
-  {
-    label: 'Workflow',
-    type: 'divider',
-  },
-  {
-    label: 'Workflow',
-    href: '#6',
-    icon: <SchemaOutlinedIcon />,
-    subCategories: [
-      { label: 'List', href: '#6/list' },
-      { label: 'Create', href: '#6/create' },
-      { label: 'Reporting', href: '#6/reporting' },
-    ],
-  },
-  {
-    label: 'User Manager',
-    type: 'divider',
-  },
-  {
-    label: 'Role Manager',
-    href: '#7',
-    icon: <ManageAccountsOutlinedIcon />,
-    subCategories: [
-      { label: 'List', href: '#7/list' },
-      { label: 'Create', href: '#7/create' },
-    ],
-  },
-  {
-    label: 'User manager',
-    href: '#8',
-    icon: <PersonOutlineOutlinedIcon />,
-    subCategories: [
-      { label: 'List', href: '#8/list' },
-      { label: 'Create', href: '#8/create' },
-    ],
-  },
-  {
-    label: 'Account Setting',
-    href: '#9',
-    icon: <AccountBoxOutlinedIcon />,
-    subCategories: [
-      { label: 'Email Setting', href: '#9/email-setting' },
-      { label: 'SMS Setting', href: '#9/sms-setting' },
-      { label: 'Zalo OA/ZNS Setting', href: '#9/zalo-setting' },
-      { label: 'Payment Setting', href: '#9/payment-setting' },
-      { label: 'Captcha Setting', href: '#9/captcha-setting' },
-      { label: 'Google Calendar Setting', href: '#9/google-calendar-setting' },
-      { label: 'Google Map Setting', href: '#9/google-map-setting' },
+      { label: 'List', href: '/FormBuilder/list' },
+      { label: 'Create', href: '/FormBuilder/Create' },
+      { label: 'Submitted Form', href: '/FormBuilder/submitted-form' },
+      { label: 'Reporting', href: '/FormBuilder/reporting' },
     ],
   },
 ];
@@ -155,7 +92,7 @@ const MenuItem = ({
     <div
       className={`flex items-center p-[8px] rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#E5E5EB] cursor-pointer ${
         active
-          ? 'bg-[#E5E5EB] text-custom-gray' // Sử dụng màu của active category
+          ? 'bg-[#E5E5EB] text-custom-gray'
           : 'text-custom-gray'
       }`}
       onClick={onClick}
@@ -178,23 +115,22 @@ const MenuItem = ({
       >
         {subCategories.map((subCategory, subIndex) => (
           <li key={subIndex}>
-            <Link href={subCategory.href} legacyBehavior>
-            <a
-              className={`flex items-center p-1 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
-                activeSubCategory === subCategory.href
-                  ? 'bg-gradient-to-r from-[#006699] to-[#39B54A] shadow-lg text-white'
-                  : 'text-custom-gray'
-              }`}
-              onClick={() => onSubCategoryClick(subCategory.href)}  // Pass both subCategory.href and the parent href
-            >
-              <CircleOutlinedIcon
-                sx={{ fontSize: 12 }}
-                className="mr-2 ml-1"
-              />
-              {subCategory.label}
-            </a>
-
-            </Link>
+            {/* <Link href={subCategory.href} legacyBehavior> */}
+              <a
+                className={`flex items-center p-1 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
+                  activeSubCategory === subCategory.href
+                    ? 'bg-gradient-to-r from-[#006699] to-[#39B54A] shadow-lg text-white'
+                    : 'text-custom-gray'
+                }`}
+                onClick={(event) => onSubCategoryClick(subCategory.href, href, event)}
+              >
+                <CircleOutlinedIcon
+                  sx={{ fontSize: 12 }}
+                  className="mr-2 ml-1"
+                />
+                {subCategory.label}
+              </a>
+            {/* </Link> */}
           </li>
         ))}
       </ul>
@@ -202,7 +138,7 @@ const MenuItem = ({
   </div>
 );
 
-const MenuResponsive = ({ activeCategory, activeSubCategory, onCategoryChange, onSubCategoryChange, setActiveCategory, setActiveSubCategory }) => {
+const MenuResponsive = ({ activeCategory, activeSubCategory, onCategoryChange, onSubCategoryChange, setActiveCategory, setActiveSubCategory, onCreateClick }) => {
   const [open, setOpen] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
 
@@ -215,19 +151,29 @@ const MenuResponsive = ({ activeCategory, activeSubCategory, onCategoryChange, o
       ...prevState,
       [href]: !prevState[href],
     }));
-    console.log('Active category:');
+    console.log('Active category:', href);
   };
 
   useEffect(() => {
     console.log('subCategories:', activeSubCategory);
   }, [activeSubCategory]);
 
-  const handleSubCategoryClick = (subCategoryHref, categoryHref) => {
+  const handleSubCategoryClick = (subCategoryHref, categoryHref, event) => {
+    // event.preventDefault();
+    const newUrl = `/Dashboard${subCategoryHref}`;
+    window.history.pushState(null, '', newUrl); // Cập nhật URL mà không chuyển trang
+  
+    if (subCategoryHref === '/FormBuilder/Create') {
+      onCreateClick();
+    }
+  
     setActiveSubCategory(subCategoryHref);
-    setActiveCategory(categoryHref); // Update category along with subcategory
-    onSubCategoryChange(subCategoryHref); // Notify parent component
-    onCategoryChange(categoryHref); // Notify parent component
-    toggleDrawer(false); // Close the drawer on mobile after selection
+    onSubCategoryChange(subCategoryHref);
+  
+    console.log('Active SubCategory:', subCategoryHref);
+    console.log('Active Category:', categoryHref);
+  
+    toggleDrawer(false)();
   };
 
   return (
@@ -242,16 +188,15 @@ const MenuResponsive = ({ activeCategory, activeSubCategory, onCategoryChange, o
         <MenuIcon />
       </IconButton>
       <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
-      <PerfectScrollbar>
-        <div
-          className="w-64 min-h-screen max-h-[3000vh] bg-[#F4F5FA] rounded-md mb-6 p-4 pl-0 overflow-hidden overflow-auto"
-          onClick={toggleDrawer(true)}
-          onKeyDown={toggleDrawer(true)}
-        >
-          <div className="text-[#524E5E] text-2xl font-bold mb-0 ml-8 flex items-center">
-            <Image src="/logo-teca.png" alt="logo" width={120} height={120} />
-          </div>
-          
+        <PerfectScrollbar>
+          <div
+            className="w-64 min-h-screen max-h-[3000vh] bg-[#F4F5FA] rounded-md mb-6 p-4  pl-0 overflow-hidden overflow-auto"
+            onClick={toggleDrawer(true)}
+            onKeyDown={toggleDrawer(true)}
+          >
+            <div className="text-[#524E5E] text-2xl font-bold mb-0 ml-8 flex items-center">
+              <Image src="/logo-teca.png" alt="logo" width={120} height={120} />
+            </div>
             <List>
               {menuItems.map((item, index) => {
                 if (item.type === 'divider') {
@@ -284,8 +229,8 @@ const MenuResponsive = ({ activeCategory, activeSubCategory, onCategoryChange, o
                     toggleOpen={() => toggleCategory(item.href)}
                     subCategories={item.subCategories}
                     activeSubCategory={activeSubCategory}
-                    onSubCategoryClick={(subCategoryHref) =>
-                      handleSubCategoryClick(subCategoryHref)
+                    onSubCategoryClick={(subCategoryHref, event) =>
+                      handleSubCategoryClick(subCategoryHref, item.href, event)
                     }
                   >
                     {item.label}
@@ -293,11 +238,9 @@ const MenuResponsive = ({ activeCategory, activeSubCategory, onCategoryChange, o
                 );
               })}
             </List>
-          
-        </div>
+          </div>
         </PerfectScrollbar>
       </Drawer>
-      
     </>
   );
 };

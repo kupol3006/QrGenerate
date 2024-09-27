@@ -32,26 +32,26 @@ const FormPreview = ({ open, handleClose }) => {
             });
 
             // Add Bootstrap classes to form elements
-            $('#rendered-form').addClass('formbuilder-embedded-bootstrap');
-            $('#rendered-form .form-control').addClass('mb-3');
-            $('#rendered-form .btn').addClass('btn-default');
-            $('#rendered-form .form-group').addClass('mb-3');
-            $('#rendered-form .form-check-input').addClass('mb-3');
-            $('#rendered-form .form-check-label').addClass('form-check-label');
-            $('#rendered-form .form-select').addClass('mb-3');
-            $('#rendered-form .form-label').addClass('mb-3');
-            $('#rendered-form .input-group').addClass('mb-3');
-            $('#rendered-form .input-group-text').addClass('mb-3');
-            $('#rendered-form .form-floating').addClass('mb-3');
-            $('#rendered-form .form-range').addClass('mb-3');
-            $('#rendered-form .form-switch').addClass('mb-3');
-            $('#rendered-form .form-text').addClass('mb-3');
-            $('#rendered-form .form-file').addClass('mb-3');
-            $('#rendered-form .form-control-plaintext').addClass('mb-3');
-            $('#rendered-form .form-control-sm').addClass('mb-3');
-            $('#rendered-form .form-control-lg').addClass('mb-3');
-            $('#rendered-form textarea').addClass('form-control mb-3');
-            $('#rendered-form label').addClass('form-label');
+            // $('#rendered-form').addClass('formbuilder-embedded-bootstrap');
+            // $('#rendered-form .form-control').addClass('mb-3');
+            // $('#rendered-form .btn').addClass('btn-default');
+            // $('#rendered-form .form-group').addClass('mb-3');
+            // $('#rendered-form .form-check-input').addClass('mb-3');
+            // $('#rendered-form .form-check-label').addClass('form-check-label');
+            // $('#rendered-form .form-select').addClass('mb-3');
+            // $('#rendered-form .form-label').addClass('mb-3');
+            // $('#rendered-form .input-group').addClass('mb-3');
+            // $('#rendered-form .input-group-text').addClass('mb-3');
+            // $('#rendered-form .form-floating').addClass('mb-3');
+            // $('#rendered-form .form-range').addClass('mb-3');
+            // $('#rendered-form .form-switch').addClass('mb-3');
+            // $('#rendered-form .form-text').addClass('mb-3');
+            // $('#rendered-form .form-file').addClass('mb-3');
+            // $('#rendered-form .form-control-plaintext').addClass('mb-3');
+            // $('#rendered-form .form-control-sm').addClass('mb-3');
+            // $('#rendered-form .form-control-lg').addClass('mb-3');
+            // $('#rendered-form textarea').addClass('form-control mb-3');
+            // $('#rendered-form label').addClass('form-label');
           });
         } else {
           console.error("jQuery is not loaded properly.");
@@ -71,15 +71,6 @@ const FormPreview = ({ open, handleClose }) => {
 //     }
 //   };
 
-useEffect(() => {
-  import('bootstrap/dist/css/bootstrap.min.css');
-
-  return () => {
-    // Cleanup Bootstrap CSS
-    const bootstrapStyles = document.querySelectorAll('link[href*="bootstrap.min.css"]');
-    bootstrapStyles.forEach(style => style.remove());
-  };
-}, [pathname]);
 
   return (
     <Dialog

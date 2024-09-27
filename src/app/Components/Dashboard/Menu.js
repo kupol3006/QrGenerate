@@ -21,115 +21,115 @@ import SchemaOutlinedIcon from '@mui/icons-material/SchemaOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
-import  Image from 'next/image';
+import Image from 'next/image';
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined';
- import PerfectScrollbar from 'react-perfect-scrollbar'
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const menuItems = [
-  {
-    label: 'QR Code Manager', 
-    type: 'divider',
-  },
+  // {
+  //   label: 'QR Code Manager', 
+  //   type: 'divider',
+  // },
   {
     label: 'QR Code Manager',
-    href: '#2',
+    href: 'QrCodeManager',
     icon: <QrCode2OutlinedIcon />,
     subCategories: [
-      { label: 'List', href: '#2/list' },
-      { label: 'Create', href: '#2/create' },
-      { label: 'Reporting', href: '#2/reporting' },
+      { label: 'List', href: '/QrCodeManager/list' },
+      { label: 'Create', href: '/QrCodeManager/create' },
+      { label: 'Reporting', href: '/QrCodeManager/reporting' },
     ],
   },
   {
     label: 'Gamification',
-    href: '#11',
+    href: 'Gamification',
     icon: <SportsEsportsOutlinedIcon />,
     subCategories: [
-      { label: 'List', href: '#11/list' },
+      { label: 'List', href: '/Gamification/list' },
       { label: 'Create', href: '/Gamification' },
-      { label: 'Reporting', href: '#11/reporting' },
+      { label: 'Reporting', href: '/Gamification/reporting' },
     ],
   },
   {
     label: 'Landing Page',
-    href: '#3',
+    href: 'Landingpage',
     icon: <WebOutlinedIcon />,
     subCategories: [
-      { label: 'List', href: '#3/list' },
+      { label: 'List', href: '/Landingpage/list' },
       { label: 'Create', href: '/Landingpage' },
-      { label: 'Reporting', href: '#3/reporting' },
+      { label: 'Reporting', href: '/Landingpage/reporting' },
     ],
   },
   {
     label: 'Form Builder',
-    href: '#4',
+    href: 'FormBuilder',
     icon: <DynamicFormOutlinedIcon />,
     subCategories: [
-      { label: 'List', href: '#4/list' },
-      { label: 'Create', href: '/FormBuilder' },
-      { label: 'Submitted Form', href: '#4/submitted-form' },
-      { label: 'Reporting', href: '#4/reporting' },
+      { label: 'List', href: '/FormBuilder/list' },
+      { label: 'Create', href: '/FormBuilder/Create' },
+      { label: 'Submitted Form', href: '/FormBuilder/submitted-form' },
+      { label: 'Reporting', href: '/FormBuilder/reporting' },
     ],
   },
-  {
-    label: 'Form Template',
-    href: '#5',
-    icon: <FormatAlignJustifyOutlinedIcon />,
-    subCategories: [
-      { label: 'List', href: '#5/list' },
-      { label: 'Create', href: '#5/create' },
-    ],
-  },
-  {
-    label: 'Workflow',
-    type: 'divider',
-  },
-  {
-    label: 'Workflow',
-    href: '#6',
-    icon: <SchemaOutlinedIcon />,
-    subCategories: [
-      { label: 'List', href: '#6/list' },
-      { label: 'Create', href: '#6/create' },
-      { label: 'Reporting', href: '#6/reporting' },
-    ],
-  },
-  {
-    label: 'User Manager',
-    type: 'divider',
-  },
-  {
-    label: 'Role Manager',
-    href: '#7',
-    icon: <ManageAccountsOutlinedIcon />,
-    subCategories: [
-      { label: 'List', href: '#7/list' },
-      { label: 'Create', href: '#7/create' },
-    ],
-  },
-  {
-    label: 'User manager',
-    href: '#8',
-    icon: <PersonOutlineOutlinedIcon />,
-    subCategories: [
-      { label: 'List', href: '#8/list' },
-      { label: 'Create', href: '#8/create' },
-    ],
-  },
-  {
-    label: 'Account Setting',
-    href: '#9',
-    icon: <AccountBoxOutlinedIcon />,
-    subCategories: [
-      { label: 'Email Setting', href: '#9/email-setting' },
-      { label: 'SMS Setting', href: '#9/sms-setting' },
-      { label: 'Zalo OA/ZNS Setting', href: '#9/zalo-setting' },
-      { label: 'Payment Setting', href: '#9/payment-setting' },
-      { label: 'Captcha Setting', href: '#9/captcha-setting' },
-      { label: 'Google Calendar Setting', href: '#9/google-calendar-setting' },
-      { label: 'Google Map Setting', href: '#9/google-map-setting' },
-    ],
-  },
+  // {
+  //   label: 'Form Template',
+  //   href: '#5',
+  //   icon: <FormatAlignJustifyOutlinedIcon />,
+  //   subCategories: [
+  //     { label: 'List', href: '#5/list' },
+  //     { label: 'Create', href: '#5/create' },
+  //   ],
+  // },
+  // {
+  //   label: 'Workflow',
+  //   type: 'divider',
+  // },
+  // {
+  //   label: 'Workflow',
+  //   href: '#6',
+  //   icon: <SchemaOutlinedIcon />,
+  //   subCategories: [
+  //     { label: 'List', href: '#6/list' },
+  //     { label: 'Create', href: '#6/create' },
+  //     { label: 'Reporting', href: '#6/reporting' },
+  //   ],
+  // },
+  // {
+  //   label: 'User Manager',
+  //   type: 'divider',
+  // },
+  // {
+  //   label: 'Role Manager',
+  //   href: '#7',
+  //   icon: <ManageAccountsOutlinedIcon />,
+  //   subCategories: [
+  //     { label: 'List', href: '#7/list' },
+  //     { label: 'Create', href: '#7/create' },
+  //   ],
+  // },
+  // {
+  //   label: 'User manager',
+  //   href: '#8',
+  //   icon: <PersonOutlineOutlinedIcon />,
+  //   subCategories: [
+  //     { label: 'List', href: '#8/list' },
+  //     { label: 'Create', href: '#8/create' },
+  //   ],
+  // },
+  // {
+  //   label: 'Account Setting',
+  //   href: '#9',
+  //   icon: <AccountBoxOutlinedIcon />,
+  //   subCategories: [
+  //     { label: 'Email Setting', href: '#9/email-setting' },
+  //     { label: 'SMS Setting', href: '#9/sms-setting' },
+  //     { label: 'Zalo OA/ZNS Setting', href: '#9/zalo-setting' },
+  //     { label: 'Payment Setting', href: '#9/payment-setting' },
+  //     { label: 'Captcha Setting', href: '#9/captcha-setting' },
+  //     { label: 'Google Calendar Setting', href: '#9/google-calendar-setting' },
+  //     { label: 'Google Map Setting', href: '#9/google-map-setting' },
+  //   ],
+  // },
 ];
 
 const MenuItem = ({
@@ -165,25 +165,22 @@ const MenuItem = ({
     </div>
     {subCategories && (
       <ul
-        className={`transition-[max-height,opacity,transform] duration-[750ms] ease-in-out overflow-hidden ${
+        className={`transition-[max-height,opacity,transform] duration-[500ms] ease-in-out overflow-hidden ${
           isOpen ? 'max-h-[1000px] opacity-100 transform' : 'max-h-0 opacity-100 transform'
         }`}
       >
         {subCategories.map((subCategory, subIndex) => (
           <li key={subIndex}>
             <Link href={subCategory.href} legacyBehavior>
-              <a
-                className={`flex items-center p-1 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
-                  activeSubCategory === subCategory.href
-                    ? 'bg-gradient-to-r from-[#006699] to-[#39B54A] shadow-lg text-white' // Sử dụng màu của active category
-                    : 'text-custom-gray'
-                }`}
-                onClick={() => onSubCategoryClick(subCategory.href)}
-              >
-                <CircleOutlinedIcon
-                  sx={{ fontSize: 12 }}
-                  className="mr-2 ml-1"
-                />
+            <a
+  className={`flex items-center p-1 rounded-tr-[20px] rounded-br-[20px] pl-6 mt-1 mb-1 hover:bg-[#ECEDF3] cursor-pointer ${
+    activeSubCategory === subCategory.href
+      ? 'bg-gradient-to-r from-[#006699] to-[#39B54A] shadow-lg text-white'
+      : 'text-custom-gray'
+  }`}
+  onClick={(event) => onSubCategoryClick(subCategory.href, event)}
+>
+                <CircleOutlinedIcon sx={{ fontSize: 12 }} className="mr-2 ml-1" />
                 {subCategory.label}
               </a>
             </Link>
@@ -194,7 +191,7 @@ const MenuItem = ({
   </div>
 );
 
-const Menu = ({ activeCategory, activeSubCategory, onCategoryChange, onSubCategoryChange, setActiveCategory, setActiveSubCategory }) => {
+const Menu = ({ activeCategory, activeSubCategory, onCategoryChange, onSubCategoryChange, setActiveCategory, setActiveSubCategory, onCreateClick }) => {
   const [openCategories, setOpenCategories] = useState({});
 
   const toggleCategory = (href) => {
@@ -211,15 +208,21 @@ const Menu = ({ activeCategory, activeSubCategory, onCategoryChange, onSubCatego
   }, [activeSubCategory]);
     
 
-  const handleSubCategoryClick = (subCategoryHref) => {
-    setActiveSubCategory(subCategoryHref); // Cập nhật activeSubCategory khi click subCategory
+  const handleSubCategoryClick = (subCategoryHref, event) => {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+    const newUrl = `/Dashboard${subCategoryHref}`;
+    window.history.pushState(null, '', newUrl); // Cập nhật URL mà không chuyển trang
+  
+    if (subCategoryHref === '/FormBuilder/Create') {
+      onCreateClick();
+    }
+  
+    setActiveSubCategory(subCategoryHref);
     onSubCategoryChange(subCategoryHref);
-    console.log('Active sub category:', activeSubCategory);
-    
   };
 
   return (
-    <Box className='w-70 min-h-screen max-h-[3000vh]'>
+    <Box className='w-[270px] 2xl:w-[290px] min-h-screen max-h-[3000vh]'>
     <PerfectScrollbar>
     <div className="w-70 min-h-screen max-h-[3000vh] bg-transparent rounded-md p-4 pl-0 overflow-y-hidden overflow-auto">
       <div className="text-[#524E5E] text-2xl font-bold mb-8 mt-2 ml-8 flex items-center">
@@ -237,29 +240,25 @@ const Menu = ({ activeCategory, activeSubCategory, onCategoryChange, onSubCatego
   }
 
   return (
-        <MenuItem
-          key={index}
-          href={item.href}
-          icon={item.icon}
-          active={activeCategory === item.href}
-          onClick={() => {
-            onCategoryChange(item.href);
-            if (item.subCategories) {
-              toggleCategory(item.href);
-            }
-          }}
-          isOpen={openCategories[item.href]}
-          toggleOpen={() => toggleCategory(item.href)}
-          subCategories={item.subCategories}
-          activeSubCategory={activeSubCategory}
-          // onSubCategoryClick={(subCategoryHref) => {
-          //   handleSubCategoryClick(subCategoryHref);
-          //   onCategoryChange(item.href);
-          // }}
-          onSubCategoryClick={(subCategoryHref) => handleSubCategoryClick(subCategoryHref)}
-        >
-          {item.label}
-        </MenuItem>
+    <MenuItem
+      key={index}
+      href={item.href}
+      icon={item.icon}
+      active={activeCategory === item.href}
+      onClick={() => {
+        onCategoryChange(item.href);
+        if (item.subCategories) {
+          toggleCategory(item.href);
+        }
+      }}
+      isOpen={openCategories[item.href]}
+      toggleOpen={() => toggleCategory(item.href)}
+      subCategories={item.subCategories}
+      activeSubCategory={activeSubCategory}
+      onSubCategoryClick={(subCategoryHref, event) => handleSubCategoryClick(subCategoryHref, event)}
+    >
+      {item.label}
+    </MenuItem>
       );
     })}
     
