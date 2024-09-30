@@ -27,7 +27,7 @@ export default function AIChatPopup() {
 
     const fetchData = async () => {
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${cookies.get('jwt')}`
+            axios.defaults.headers.common['Authorization'] = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNzI3NjAwMjk4LCJleHAiOjE3MzAxOTIyOTh9.27RjqgviqPSYFf1mFXm8ThMLh3rQpM68uenzF35JIwM`
             const response = await axios.get('https://data.thaimau.vn/api/ai-data-texts')
             const data1 = response.data.data.map((item) => ({ id: item.id, text: item.content, topic: item.topic }))
             const concatenatedData = data1.map((item) => item.text).join(' ], [')
