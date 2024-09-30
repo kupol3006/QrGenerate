@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import 'grapesjs/dist/css/grapes.min.css';
-
+import AIChatPopup from "./Components/Home/PopUpAI";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
             {/* <Header /> */}
             {children}
             <ToastContainer toastStyle={{}} />
+            <AIChatPopup />
           </body>
         </Provider>
       </GoogleOAuthProvider>
