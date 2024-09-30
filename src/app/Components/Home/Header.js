@@ -34,7 +34,7 @@ const Header = () => {
         <StyledAppBar position="fixed" className='w-full flex justify-between items-center'>
             <Toolbar className='2xl:w-[1280px] w-[100%] '>
                 <Link href="/" underline="hover" style={{ marginRight: 20, display: 'flex', alignItems: 'center', color: '#000000', fontWeight: 'bold', flexGrow: 1 }}>
-                    <Image src="/logo-teca.png" alt="logo" width={90} height={90} className='w-auto sm:w-auto' />
+                    <Image src="/logo-dondon-header.png" alt="logo" width={100} height={90} className='w-auto sm:w-auto' />
                     <Typography variant="h6" style={{ display: 'inline-block', marginLeft: 10, fontWeight: 'bold', color: '#692873' }} className='text-[12px] sm:text-[15px]'>
                         QR Code Generator
                     </Typography>
@@ -51,7 +51,7 @@ const Header = () => {
                     Đăng ký
                 </Link> */}
                 <Button style={{ color: '#fff', fontWeight: 'bold', backgroundColor: '#48A9A6', textTransform: 'none' }} className='hover:bg-[#3E9390] hover:shadow-lg px-3 py-2'>
-                    <Link href="/Login"  className='text-[12px] sm:text-[15px]'>
+                    <Link href="/Login" className='text-[12px] sm:text-[15px]'>
                         Đăng nhập
                     </Link>
                 </Button>

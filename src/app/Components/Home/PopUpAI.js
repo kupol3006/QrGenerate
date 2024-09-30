@@ -9,6 +9,7 @@ import { toast, Flip } from 'react-toastify'
 import cookies from 'js-cookie'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
+import Image from 'next/image'
 
 export default function AIChatPopup() {
     const [isOpen, setIsOpen] = useState(false)
@@ -104,10 +105,10 @@ export default function AIChatPopup() {
     return (
         <>
             <IconButton
-                style={{ position: 'fixed', bottom: '16px', right: '16px', padding: '16px', borderRadius: '50%', backgroundColor: '#1976d2', color: '#fff', boxShadow: '0px 0px 10px rgba(0,0,0,0.1)' }}
+                style={{ position: 'fixed', bottom: '16px', right: '16px', padding: '16px', borderRadius: '50%', backgroundColor: '#B1D3D2', boxShadow: '0px 0px 10px 1px' }}
                 onClick={() => setIsOpen(true)}
             >
-                <Bot className="h-6 w-6" />
+                <Image src="/logo-dondon-footer.png" alt="logo" width={50} height={50} />
             </IconButton>
 
             {isOpen && (
@@ -117,7 +118,7 @@ export default function AIChatPopup() {
                     <Box
                         style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', borderBottom: '1px solid #ddd', backgroundColor: '#B1D3D2', borderTopLeftRadius: '8px', borderTopRightRadius: '8px' }}
                     >
-                        <Typography variant="h6">Chat with AI</Typography>
+                        <Typography variant="h6">Chat với DONDON AI</Typography>
                         <IconButton onClick={() => setIsOpen(false)}>
                             <X className="h-4 w-4" />
                         </IconButton>

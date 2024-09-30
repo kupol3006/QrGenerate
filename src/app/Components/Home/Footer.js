@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="2xl:w-[63%] container mx-auto px-4 flex flex-col md:flex-row justify-between items-start md:items-center sm:w-[100%]">
                 <div className="flex flex-col items-start mb-4 md:mb-0">
                     <Link href="/">
-                        <Image src="/logo-teca-icon.png" alt="logo" width={50} height={50} />
+                        <Image src="/logo-dondon-footer.png" alt="logo" width={50} height={50} />
                     </Link>
                     <div className="flex mt-4 gap-1">
                         <Link href="#">
